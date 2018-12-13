@@ -1,0 +1,26 @@
+{
+  "name": "pm-tool",
+  "productName": "Projektmanagement Tool",
+  "version": "1.0.0",
+  "description": "Electron application for a scrumorienented planning tool",
+  "main": "main.js",
+  "repository": "",
+  "author": "Jan Schönfeld",
+  "license": "MIT",
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron .",
+    "start-mac": "/Applications/Electron.app/Contents/MacOS/Electron ."
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.3",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.9",
+    "tether": "^1.4.0"
+  },
+  "standard": {
+    "globals": [
+      "$"
+    ]
+  }
+}
