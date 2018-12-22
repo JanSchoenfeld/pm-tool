@@ -3,15 +3,18 @@ const Project = require('./app/Models/project');
 const Roles = require('./app/Models/roles');
 const User = require('./app/Models/user');
 const Sprint = require('./app/Models/sprint');
+const Status = require('./app/Models/status');
 
 
-var task = new Task("Scrumboard", "Scrumboard erstellen und füllen", 5);
-var task2 = new Task("Backend", "Backend programmieren", 5);
-var user2 = new User("Kerstin", "Owner");
-var user3 = new User("Jan", "BOSS");
+let testTask = new Task("Scrumboard", "Scrumboard erstellen und füllen", 5);
+let testTask2 = new Task("Backend", "Backend programmieren", 5);
+let testUser = new User("Kerstin", "Owner");
+let testUser2 = new User("Jan", "Developer");
 
-task.assignedTo = user2;
-task2.assignedTo = user3;
+let testStatus = new Status("TO DO    ");
 
-console.log(task);
-console.log(task2);
+testTask.assignedTo = testUser;
+
+console.log(testStatus);
+console.log(testUser2);
+//console.log(testTask);

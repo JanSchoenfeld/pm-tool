@@ -1,5 +1,4 @@
-
-
+const BacklogItem = require('./backlog-item');
 
 let projectId = 1;
 

@@ -1,4 +1,5 @@
 const Project = require('./project');
+const BacklogItem = require('./backlog-item');
 
 let sprintId = 1;
 
@@ -13,7 +14,7 @@ class Sprint {
         this.enddate = enddate;
         this.backlogs = backlogs;
         //wie project handlen?
-        this.project = Project;
+        this.project = project;
     }
 }
 

@@ -4,15 +4,14 @@ class Status {
         this.to_do = false;
         this.in_progress = false;
         this.done = false;
-        this.status = status.replace(/\s+/g, '').toLowerCase();
 
-        if(this.status == "todo"){
+        if(status.replace(/\s+/g, '').toLowerCase() == "todo"){
             this.to_do = true;
         }
-        else if(this.status == "inprogress"){
+        else if(status.replace(/\s+/g, '').toLowerCase() == "inprogress"){
             this.in_progress = true;
         }
-        else if(this.status == "done"){
+        else if(status.replace(/\s+/g, '').toLowerCase() == "done"){
             this.done = true;
         }
 
