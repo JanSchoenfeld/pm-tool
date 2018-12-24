@@ -4,7 +4,7 @@ const BacklogItem = require('./backlog-item');
 let sprintId = 1;
 
 class Sprint {
-    constructor(name, startdate, enddate, backlogs, project) {
+    constructor(name, startdate, enddate, project) {
 
         this.sprintId = sprintId++;
         this.createdAt = Date.now();
@@ -12,7 +12,7 @@ class Sprint {
         //wie date bei sprintanlegung feststellen?
         this.startdate = startdate;
         this.enddate = enddate;
-        this.backlogs = backlogs;
+        this.backlogs = null;
         //wie project handlen?
         this.project = project;
     }

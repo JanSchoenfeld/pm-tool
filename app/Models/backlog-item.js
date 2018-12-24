@@ -11,7 +11,7 @@ let backlogId = 1;
 class BacklogItem {
 
     constructor(title, description, backlog_status, backlog_item_priority, 
-        estimation, sprint, tasks, estimated, project) {
+        estimation, tasks, estimated, project) {
             this.backlogId = backlogId++;
             this.createdAt = Date.now();
             this.title = title;
@@ -20,7 +20,6 @@ class BacklogItem {
             this.priority = new Priority(backlog_item_priority);
             this.estimation = estimation;
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
-            this.sprint = sprint;
             this.tasks = tasks;
             this.estimated = estimated;
             this.project = project;

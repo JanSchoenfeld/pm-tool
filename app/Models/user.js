@@ -6,11 +6,12 @@ let userId = 1;
 
 class User {
 
-    constructor(name, role) {
+    constructor(name, role, project) {
         this.userId = userId++;
         this.name = name;
         //role später als dropdown im formular
         this.role = new Roles(role);
+        this.project = project;
     }
 }
 

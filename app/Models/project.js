@@ -9,6 +9,7 @@ class Project {
         this.title = title;
         this.content = content;
         this.backlogs = backlogs;
+        this.assignedUser = {};
     }
 }
 
