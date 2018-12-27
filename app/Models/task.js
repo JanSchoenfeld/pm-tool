@@ -12,7 +12,7 @@ class Task {
         this.description = description;
         this.finished = false;
         this.effort = effort;
-        //user bei taskerstellung angeben? 
+        //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = null;
 
     }

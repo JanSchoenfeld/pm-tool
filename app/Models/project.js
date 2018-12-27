@@ -4,11 +4,11 @@ let projectId = 1;
 
 class Project {
 
-    constructor(title, content, backlogs) {
+    constructor(title, description) {
         this.projectId = projectId++;
         this.title = title;
-        this.content = content;
-        this.backlogs = backlogs;
+        this.description = description;
+        this.backlogs = null;
         this.assignedUser = {};
     }
 }

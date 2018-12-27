@@ -5,18 +5,21 @@ const User = require('./app/Models/user');
 const Sprint = require('./app/Models/sprint');
 const Status = require('./app/Models/status');
 const BacklogItem = require ('./app/Models/backlog-item');
+const fs = require('fs');
 
-
+let testProject = new Project("PM Tool", "Projektmanagement Tool auf Scrum-Basis");
 let testTask = new Task("Scrumboard", "Scrumboard erstellen und füllen", 5);
-let testTask2 = new Task("Backend", "Backend programmieren", 5);
+let testBacklogItem = new BacklogItem("Bugfixing", "Bugs finden und fixen", "to do ", "high", testTask, 3);
+let testSprint = new Sprint("Sprint 1", Date.now(), "March")
 let testUser = new User("Kerstin", "Owner");
-let testUser2 = new User("Jan", "Developer");
 let testStatus = new Status("TO DO    ");
-let testSpring = new Sprint("Sprint 1", Date.now(), "March", )
-let testBacklogItem = new BacklogItem("Bugfixing", "Bugs finden und fixen", "to do ", "high", 2, )
 
-testTask.assignedTo = testUser;
+testProject.backlogs = testBacklogItem;
+testBacklogItem.backlog_status = testStatus;
+testProject.assignedUser = testUser;
 
-console.log(testStatus);
-console.log(testUser2);
-//console.log(testTask);
+
+var json = JSON.stringify(testProject);
+fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8')
+
+console.log(testProject)
