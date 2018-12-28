@@ -12,6 +12,7 @@ class Sprint {
         //wie date bei sprintanlegung feststellen?
         this.startdate = startdate;
         this.enddate = enddate;
+        //referenz zu backlog?
     }
 }
 

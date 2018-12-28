@@ -13,7 +13,11 @@ class Task {
         this.finished = false;
         this.effort = effort;
         //user aus project.users auslesen und als dropdown präsentieren
-        this.assignedTo = null;
+        this.assignedTo = [];
+
+        this.addUser = function(newUser){
+            this.assignedTo.push(newUser);
+        }
 
     }
 

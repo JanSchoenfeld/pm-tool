@@ -8,8 +8,16 @@ class Project {
         this.projectId = projectId++;
         this.title = title;
         this.description = description;
-        this.backlogs = null;
-        this.assignedUser = {};
+        this.backlogs = [];
+        this.assignedUsers = [];
+
+        this.addBacklog = function(newBacklog){
+            this.backlogs.push(newBacklog);
+        }
+
+        this.addUser = function(newUser){
+            this.assignedUsers.push(newUser);
+        }
     }
 }
 
