@@ -3,13 +3,14 @@
   "productName": "Projektmanagement Tool",
   "version": "1.0.0",
   "description": "Electron application for a scrumorienented planning tool",
-  "main": "main.js",
+  "main": "app.js",
   "repository": "",
-  "author": "Jan Schönfeld",
+  "author": "Jan Beautyfield",
   "license": "MIT",
   "devDependencies": {},
   "scripts": {
     "start": "electron .",
+    "test": "electron . --enable-logging",
     "start-mac": "/Applications/Electron.app/Contents/MacOS/Electron ."
   },
   "dependencies": {
