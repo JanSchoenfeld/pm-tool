@@ -1,10 +1,11 @@
 'use strict'
 
 const electron = require('electron')
+const url = require('url')
+const path = require('path')
 const app = electron.app
 const globalShortcut = electron.globalShortcut
 const os = require('os')
-const path = require('path')
 const config = require(path.join(__dirname, 'package.json'))
 const BrowserWindow = electron.BrowserWindow
 
@@ -21,7 +22,11 @@ app.on('ready', function () {
     }
   })
 
-  mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, '/app/intro.html'),
+    protocol: 'file',
+    slashes: true
+  }));
 
   // Enable keyboard shortcuts for Developer Tools on various platforms.
   let platform = os.platform()
@@ -36,7 +41,7 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
     mainWindow.show()
   })
 

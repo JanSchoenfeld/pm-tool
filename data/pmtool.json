@@ -1,0 +1,171 @@
+{
+	"projectId": 1,
+	"title": "PM Tool",
+	"description": "Projektmanagement Tool auf Scrum-Basis",
+	"backlogs": [
+		{
+			"backlogId": 1,
+			"createdAt": 1546180030416,
+			"title": "Bugfixing",
+			"description": "Bugs finden und fixen",
+			"backlog_status": {
+				"to_do": false,
+				"in_progress": true,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "Scrumboard",
+					"description": "Scrumboard erstellen und füllen",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "BurndownChart",
+					"description": "blabla",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		},
+		{
+			"backlogId": 2,
+			"createdAt": 1546180030416,
+			"title": "Testing",
+			"description": "Testen und Qualitätsprüfung",
+			"backlog_status": {
+				"to_do": false,
+				"in_progress": true,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 2,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "Scrumboard",
+					"description": "Scrumboard erstellen und füllen",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "BurndownChart",
+					"description": "blabla",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		},
+		{
+			"backlogId": 55,
+			"createdAt": 1546180030416,
+			"title": "Bugfixing",
+			"description": "Bugs finden und fixen",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "Scrumboard",
+					"description": "Scrumboard erstellen und füllen",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "BurndownChart",
+					"description": "blabla",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		},
+		{
+			"backlogId": 1,
+			"createdAt": 1546180030416,
+			"title": "Bugfixing",
+			"description": "Bugs finden und fixen",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "Scrumboard",
+					"description": "Scrumboard erstellen und füllen",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "BurndownChart",
+					"description": "blabla",
+					"finished": false,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		}
+
+	],
+	"assignedUsers": [
+		{
+			"userId": 1,
+			"name": "Kerstin",
+			"role": {
+				"master": false,
+				"owner": true,
+				"developer": false
+			}
+		}
+	]
+}

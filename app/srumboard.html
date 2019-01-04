@@ -14,7 +14,8 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-      <a class="navbar-brand" href="#">PM Tool</a>
+      <a class="navbar-brand" href="intro.html">PM Tool</a>
+
       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,46 +24,58 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Board <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Scrumboard <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Stuff</a>
+            <a class="nav-link" href="product_backlog.html">Product backlog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="sprint_planning.html">Sprint planning</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="help.html">Help</a>
           </li>
         </ul>
+        <span class="navbar-text">
+          project name
+        </span>
       </div>
     </nav>
   </header>
 
   <div class="container-fluid">
+    <!--Column Head -->
     <div class="row">
-      <div class="col-md-3 container-headline"><b>Backlog</b>
+      <div class="col-md-3 container-headline"><b>Story</b>
       </div>
-      <div class="col-md-3 container-headline"><b>Scrum Backlog</b>
+      <div class="col-md-3 container-headline"><b>Not started</b>
       </div>
-      <div class="col-md-3 container-headline"><b>WIP</b>
+      <div class="col-md-3 container-headline"><b>Doing</b>
       </div>
       <div class="col-md-3 container-headline"><b>Done</b>
       </div>
     </div>
-    <div class="row">
-      <div class="column col-md-3">
-        <div class="content"><i>Nudeln kaufen</i></div>
-      </div>
-      <div class="column col-md-3">
-        <div class="content"></div>
-        <div class="content"></div>
-      </div>
-      <div class="column col-md-3"></div>
-      <div class="column col-md-3"></div>
+  </div>
+
+  <div class="row">
+    <div class="column col-md-3" id='stroy_col'>
+        <button type="button" class="btn btn-default" aria-label="Left Align">
+            +
+          </button>
+      <!--Story column -->
+    </div>
+    <div class="column col-md-3" id='notStart_col'>
+      <!--Not started column -->
+    </div>
+    <div class="column col-md-3" id="doing_col">
+      <!--Doing column -->
+    </div>
+    <div class="column col-md-3" id='done_col'>
+      <!--Done column -->
     </div>
   </div>
+  </div>
 </body>
-<script src="renderer.js"></script>
+<script src="Scripts/scrumboard.js"></script>
 
 </html>

@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "description": "Electron application for a scrumorienented planning tool",
   "main": "main.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanSchoenfeld/pm-tool.git"
+  },
   "author": "Jan Schönfeld",
   "license": "MIT",
   "devDependencies": {},
@@ -14,6 +17,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
+    "electron": "^4.0.0",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.9",
     "tether": "^1.4.0"
@@ -22,5 +26,9 @@
     "globals": [
       "$"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/JanSchoenfeld/pm-tool/issues"
+  },
+  "homepage": "https://github.com/JanSchoenfeld/pm-tool#readme"
 }
