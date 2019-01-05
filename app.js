@@ -10,10 +10,16 @@ const BrowserWindow = electron.BrowserWindow
 const logic = require(path.join(__dirname, 'logic.js'))
 
 app.setName(config.productName)
+
 var mainWindow = null
+
 app.on('ready', function () {
+  
   // Load application logic here
+
   logic.run();
+  console.log("Location of the log: app.js " + global.project.title);
+
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
     title: config.productName,

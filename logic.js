@@ -26,18 +26,22 @@ var json = JSON.stringify(testProject, null, '\t');
 fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8')
 */
 
+global.project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
 
 
-function asd(){
-    let deine_mudder = 'NIEMALS ';
-    console.log(`Gladbach ${deine_mudder}stinkt`);
+function test() {
+
+    let deine_mudder = 'erfolgreich!';
+    console.log(`Test ${deine_mudder}`);
+
 }
 
-function run(){
+function run() {
 
-    let project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
-    asd();
-    console.log(project.backlogs[0].tasks)        
+    test();
+    //global.project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
 }
+
+
 
 module.exports.run = run;
