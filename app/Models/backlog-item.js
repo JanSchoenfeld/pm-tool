@@ -20,6 +20,7 @@ class BacklogItem {
             this.estimated = estimated;
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
             this.tasks = [];
+            this.isInSprint = false;
             
 
             this.addTask = function (newTask){
