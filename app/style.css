@@ -68,3 +68,9 @@ h3 {
   top: 25%;
   left: 25%;
   }
+  .btn {
+    background-color: #017A74;
+  }
+  .btn:hover {
+    background-color: rgb(0, 97, 92);
+  }

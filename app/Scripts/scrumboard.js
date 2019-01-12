@@ -10,6 +10,9 @@ var doing = document.getElementById('doing_col');
 var done = document.getElementById('done_col');
 
 //Loop for backlog array
+/*
+
+*/
 for (let i = 0; i < jsonFile.backlogs.length; i++) {
   //Create new div
   var newDiv = document.createElement("div");

@@ -157,6 +157,16 @@
 		}
 
 	],
+	"sprints": [
+		{
+			"sprint id" : 1,
+			"name" : "Sprint 1",
+			"items" : {
+				"id1" : "1",
+				"id2" : "55"
+			}
+		}
+	],
 	"assignedUsers": [
 		{
 			"userId": 1,
