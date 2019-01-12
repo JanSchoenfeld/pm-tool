@@ -6,11 +6,11 @@
 		{
 			"backlogId": 1,
 			"createdAt": 1546180030416,
-			"title": "Bugfixing",
-			"description": "Bugs finden und fixen",
+			"title": "backlogItem Nr. 1",
+			"description": "backlogItem Nr. 1 description",
 			"backlog_status": {
-				"to_do": false,
-				"in_progress": true,
+				"to_do": true,
+				"in_progress": false,
 				"done": false
 			},
 			"priority": {
@@ -24,18 +24,54 @@
 				{
 					"taskId": 1,
 					"createdAt": 1546180030416,
-					"title": "Scrumboard",
+					"title": "backlogItem Nr. 1 / Task 1",
 					"description": "Scrumboard erstellen und füllen",
-					"finished": false,
+					"task_status": 0,
 					"effort": 5,
 					"assignedTo": []
 				},
 				{
 					"taskId": 2,
 					"createdAt": 1546180030416,
-					"title": "BurndownChart",
+					"title": "backlogItem Nr. 1 / Task 2",
 					"description": "blabla",
-					"finished": false,
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 3,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 3",
+					"description": "blabla",
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 4,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 4",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 5,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 5",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 6,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 6",
+					"description": "blabla",
+					"task_status": 2,
 					"effort": 5,
 					"assignedTo": []
 				}
@@ -44,46 +80,8 @@
 		{
 			"backlogId": 2,
 			"createdAt": 1546180030416,
-			"title": "Testing",
-			"description": "Testen und Qualitätsprüfung",
-			"backlog_status": {
-				"to_do": false,
-				"in_progress": true,
-				"done": false
-			},
-			"priority": {
-				"low": false,
-				"standard": false,
-				"high": true,
-				"priority": "high"
-			},
-			"estimated": 2,
-			"tasks": [
-				{
-					"taskId": 1,
-					"createdAt": 1546180030416,
-					"title": "Scrumboard",
-					"description": "Scrumboard erstellen und füllen",
-					"finished": false,
-					"effort": 5,
-					"assignedTo": []
-				},
-				{
-					"taskId": 2,
-					"createdAt": 1546180030416,
-					"title": "BurndownChart",
-					"description": "blabla",
-					"finished": false,
-					"effort": 5,
-					"assignedTo": []
-				}
-			]
-		},
-		{
-			"backlogId": 55,
-			"createdAt": 1546180030416,
-			"title": "Bugfixing",
-			"description": "Bugs finden und fixen",
+			"title": "backlogItem Nr. 2",
+			"description": "backlogItem Nr. 2 description",
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -100,71 +98,101 @@
 				{
 					"taskId": 1,
 					"createdAt": 1546180030416,
-					"title": "Scrumboard",
+					"title": "backlogItem Nr. 2 / Task 1",
 					"description": "Scrumboard erstellen und füllen",
-					"finished": false,
+					"task_status": 0,
 					"effort": 5,
 					"assignedTo": []
 				},
 				{
 					"taskId": 2,
 					"createdAt": 1546180030416,
-					"title": "BurndownChart",
+					"title": "backlogItem Nr. 2 / Task 2",
 					"description": "blabla",
-					"finished": false,
-					"effort": 5,
-					"assignedTo": []
-				}
-			]
-		},
-		{
-			"backlogId": 1,
-			"createdAt": 1546180030416,
-			"title": "Bugfixing",
-			"description": "Bugs finden und fixen",
-			"backlog_status": {
-				"to_do": true,
-				"in_progress": false,
-				"done": false
-			},
-			"priority": {
-				"low": false,
-				"standard": false,
-				"high": true,
-				"priority": "high"
-			},
-			"estimated": 3,
-			"tasks": [
-				{
-					"taskId": 1,
-					"createdAt": 1546180030416,
-					"title": "Scrumboard",
-					"description": "Scrumboard erstellen und füllen",
-					"finished": false,
+					"task_status": 1,
 					"effort": 5,
 					"assignedTo": []
 				},
 				{
-					"taskId": 2,
+					"taskId": 3,
 					"createdAt": 1546180030416,
-					"title": "BurndownChart",
+					"title": "backlogItem Nr. 2 / Task 3",
 					"description": "blabla",
-					"finished": false,
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 4,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 4",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 5,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 5",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 6,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 6",
+					"description": "blabla",
+					"task_status": 2,
 					"effort": 5,
 					"assignedTo": []
 				}
 			]
 		}
-
 	],
 	"sprints": [
 		{
-			"sprint id" : 1,
-			"name" : "Sprint 1",
-			"items" : {
-				"id1" : "1",
-				"id2" : "55"
-			}
+			"sprint_id": 1,
+			"backlogItemIds": [
+				{
+					"backlogID": 1,
+					"taskIds": [
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"backlogID": 2,
+					"taskIds": [
+						1,
+						2,
+						3
+					]
+				}
+			]
+		},
+		{
+			"sprint_id": 2,
+			"backlogItemIds": [
+				{
+					"backlogID": 1,
+					"taskIds": [
+						"1",
+						"2",
+						"3"
+					]
+				}
+			]
+		},
+		{
+			"sprint_id": 3,
+			"backlogItemIds": [
+			]
 		}
 	],
 	"assignedUsers": [

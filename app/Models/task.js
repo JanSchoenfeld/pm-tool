@@ -1,4 +1,5 @@
 const User = require('./user.js');
+const Status = require('./status.js')
 let userId = 1;
 
 
@@ -10,7 +11,7 @@ class Task {
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;
-        this.finished = false;
+        this.status = new Status("todo");
         this.effort = effort;
         //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = [];

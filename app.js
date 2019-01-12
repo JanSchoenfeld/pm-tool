@@ -1,30 +1,69 @@
-const Task = require('./app/Models/task');
-const Project = require('./app/Models/project');
-const Roles = require('./app/Models/roles');
-const User = require('./app/Models/user');
-const Sprint = require('./app/Models/sprint');
-const Status = require('./app/Models/status');
-const BacklogItem = require('./app/Models/backlog-item');
-const fs = require('fs');
+'use strict'
 
-/*
-let testProject = new Project("PM Tool", "Projektmanagement Tool auf Scrum-Basis");
-let testTask = new Task("Scrumboard", "Scrumboard erstellen und füllen", 5);
-let testBacklogItem = new BacklogItem("Bugfixing", "Bugs finden und fixen", "to do ", "high", 3);
-let testSprint = new Sprint("Sprint 1", Date.now(), "March")
-let testUser = new User("Kerstin", "Owner");
-let testStatus = new Status("TO DO    ");
+const electron = require('electron')
+const url = require('url')
+const path = require('path')
+const app = electron.app
+const globalShortcut = electron.globalShortcut
+const os = require('os')
+const config = require(path.join(__dirname, 'package.json'))
+const BrowserWindow = electron.BrowserWindow
+const logic = require(path.join(__dirname, 'logic.js'))
 
-testBacklogItem.addTask(testTask);
-testBacklogItem.addTask(new Task("BurndownChart", "blabla", 5))
-testProject.addBacklog(testBacklogItem);
-testBacklogItem.backlog_status = testStatus;
-testProject.addUser(testUser);
+app.setName(config.productName)
 
+var mainWindow = null
 
-var json = JSON.stringify(testProject, null, '\t');
-fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8')
-*/
-let project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
+app.on('ready', function () {
+  
+  // Load application logic here
 
-console.log(project.backlogs[0].tasks)
+  logic.run();
+  console.log("Location of the log: app.js " + global.project.title);
+
+  mainWindow = new BrowserWindow({
+    backgroundColor: 'lightgray',
+    title: config.productName,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      defaultEncoding: 'UTF-8'
+    }
+  })
+
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, '/app/intro.html'),
+    protocol: 'file',
+    slashes: true
+  }));
+
+  // Enable keyboard shortcuts for Developer Tools on various platforms.
+  let platform = os.platform()
+  if (platform === 'darwin') {
+    globalShortcut.register('Command+Option+I', () => {
+      mainWindow.webContents.openDevTools()
+    })
+  } else if (platform === 'linux' || platform === 'win32') {
+    globalShortcut.register('Control+Shift+I', () => {
+      mainWindow.webContents.openDevTools()
+    })
+  }
+
+  mainWindow.once('ready-to-show', () => {
+    //mainWindow.setMenu(null)
+    mainWindow.show()
+  })
+
+  mainWindow.onbeforeunload = (e) => {
+    // Prevent Command-R from unloading the window contents.
+    e.returnValue = false
+  }
+
+  mainWindow.on('closed', function () {
+    mainWindow = null
+  })
+})
+
+app.on('window-all-closed', () => {
+  app.quit()
+})

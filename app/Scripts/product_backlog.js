@@ -10,13 +10,13 @@ for (let i = 0; i < jsonFile.backlogs.length; i++) {
   //decision tree
   var newStatus;
   if (jsonFile.backlogs[i].backlog_status.to_do) {
-    newStatus= "To do";
+    newStatus = "To do";
   }
   if (jsonFile.backlogs[i].backlog_status.in_progress) {
-    newStatus= "In progress";
+    newStatus = "In progress";
   }
   if (jsonFile.backlogs[i].backlog_status.done) {
-    newStatus= "Done";
+    newStatus = "Done";
   }
 
   //New Row
@@ -45,13 +45,13 @@ for (let i = 0; i < jsonFile.backlogs.length; i++) {
   var newTD4 = document.createElement("td");
   newTD4.appendChild(newContent4);
   newTR.appendChild(newTD4);
-  
+
   //5. Column status
   var newContent5 = document.createTextNode(newStatus)
   var newTD5 = document.createElement("td");
   newTD5.appendChild(newContent5);
   newTR.appendChild(newTD5);
- 
+
   //Add row
   table.appendChild(newTR);
 }
