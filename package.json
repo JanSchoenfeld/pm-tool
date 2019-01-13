@@ -3,17 +3,20 @@
   "productName": "Projektmanagement Tool",
   "version": "1.0.0",
   "description": "Electron application for a scrumorienented planning tool",
-  "main": "main.js",
+  "main": "app.js",
   "repository": "",
-  "author": "Jan Schönfeld",
+  "author": "Jan Beautyfield",
   "license": "MIT",
   "devDependencies": {},
   "scripts": {
     "start": "electron .",
+    "test": "electron . --enable-logging",
     "start-mac": "/Applications/Electron.app/Contents/MacOS/Electron ."
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
+    "electron": "^4.0.0",
+    "fs": "0.0.1-security",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.9",
     "tether": "^1.4.0"
@@ -22,5 +25,9 @@
     "globals": [
       "$"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/JanSchoenfeld/pm-tool/issues"
+  },
+  "homepage": "https://github.com/JanSchoenfeld/pm-tool#readme"
 }

@@ -34,19 +34,21 @@ h3 {
 */
 
 .column {
-  height: 100vh;
-  background: rgb(213, 213, 223);
+  height: auto;
+  background: rgb(233, 233, 233);
+  padding: 10px;
   border-radius: 16px;
 }
 
 .content {
   width: 100%;
-  height: 120px;
+  height: auto;
   padding: 0px;
   margin-top: 10px;
-  background: rgb(213, 213, 223);
+  background: rgb(194, 194, 194);
   border: 3px rgb(151, 26, 26) solid;
   border-radius: 8px;
+  text-align: center;
 }
 
 
@@ -60,3 +62,58 @@ h3 {
   padding-left: 0px;
   border-bottom: 0px;
 }
+
+.start-menu {
+  width: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  }
+  .btn {
+    background-color: #017A74;
+  }
+  .btn:hover {
+    background-color: rgb(0, 97, 92);
+  }
+
+  /*========================================================*/
+  /*--------------------Fontawsom Icons---------------------*/
+
+  /*Right icon setting*/
+  .fa-chevron-circle-right{
+    color: #017A74;
+    font-size: 20px;
+  }
+  .fa-chevron-circle-right:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+
+  /*Left icon setting*/
+  .fa-chevron-circle-left{
+    color: #017A74;
+    font-size: 20px;
+  }
+  .fa-chevron-circle-left:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+
+  /*edit icon setting*/
+  .fa-edit{
+    color: #017A74;
+    padding: 3px;
+  }
+  .fa-edit:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+  /*delte icon setting*/
+  .fa-trash-alt{
+    color: #017A74;
+    padding: 3px;
+  }
+  .fa-trash-alt:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }

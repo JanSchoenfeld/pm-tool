@@ -1,16 +1,26 @@
 'use strict'
 
 const electron = require('electron')
+const url = require('url')
+const path = require('path')
 const app = electron.app
 const globalShortcut = electron.globalShortcut
 const os = require('os')
-const path = require('path')
 const config = require(path.join(__dirname, 'package.json'))
 const BrowserWindow = electron.BrowserWindow
+const logic = require(path.join(__dirname, 'logic.js'))
 
 app.setName(config.productName)
+
 var mainWindow = null
+
 app.on('ready', function () {
+  
+  // Load application logic here
+
+  logic.run();
+  console.log("Location of the log: app.js " + global.project.title);
+
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
     title: config.productName,
@@ -21,7 +31,11 @@ app.on('ready', function () {
     }
   })
 
-  mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, '/app/intro.html'),
+    protocol: 'file',
+    slashes: true
+  }));
 
   // Enable keyboard shortcuts for Developer Tools on various platforms.
   let platform = os.platform()
@@ -36,7 +50,7 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
     mainWindow.show()
   })
 
@@ -50,4 +64,6 @@ app.on('ready', function () {
   })
 })
 
-app.on('window-all-closed', () => { app.quit() })
+app.on('window-all-closed', () => {
+  app.quit()
+})
