@@ -75,4 +75,45 @@ h3 {
   .btn:hover {
     background-color: rgb(0, 97, 92);
   }
-  
+
+  /*========================================================*/
+  /*--------------------Fontawsom Icons---------------------*/
+
+  /*Right icon setting*/
+  .fa-chevron-circle-right{
+    color: #017A74;
+    font-size: 20px;
+  }
+  .fa-chevron-circle-right:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+
+  /*Left icon setting*/
+  .fa-chevron-circle-left{
+    color: #017A74;
+    font-size: 20px;
+  }
+  .fa-chevron-circle-left:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+
+  /*edit icon setting*/
+  .fa-edit{
+    color: #017A74;
+    padding: 3px;
+  }
+  .fa-edit:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }
+  /*delte icon setting*/
+  .fa-trash-alt{
+    color: #017A74;
+    padding: 3px;
+  }
+  .fa-trash-alt:hover{
+    color: rgb(0, 97, 92);
+    cursor: pointer;
+  }

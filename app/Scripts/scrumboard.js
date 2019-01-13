@@ -56,29 +56,26 @@ function siteContent() {
     buttoncol.className = 'col-md-3 container-headline';
 
     //back Button
-    var backButton = document.createElement('button');
-    backButton.addEventListener("click", sprintBack);
-    backButton.className = 'btn btn-success'
     var backIcon = document.createElement('i');
+    backIcon.addEventListener("click",sprintBack);
     backIcon.className = 'fas fa-chevron-circle-left'
 
     //forward Button
-    var forwardButton = document.createElement('button');
-    forwardButton.addEventListener("click", sprintForward);
-    forwardButton.className = 'btn btn-success'
     var forwardIcon = document.createElement('i');
+    forwardIcon.addEventListener("click",sprintForward);
     forwardIcon.className = 'fas fa-chevron-circle-right'
+
+    //Text for Sprint-Navigation
     var sprintContent = document.createTextNode('  Sprint ' + (sprintNumber + 1) + ' ');
     var currentSprint = document.createElement('i');
-    currentSprint.id = sprintNumber;
+    currentSprint.style.userSelect = "none";
 
     //Add alle Items
-    forwardButton.appendChild(forwardIcon);
-    backButton.appendChild(backIcon);
+    //forwardButton.appendChild(forwardIcon);
     currentSprint.appendChild(sprintContent);
-    buttoncol.appendChild(backButton);
+    buttoncol.appendChild(backIcon);
     buttoncol.appendChild(currentSprint);
-    buttoncol.appendChild(forwardButton);
+    buttoncol.appendChild(forwardIcon);
     actionrow.appendChild(fillercol1);
     actionrow.appendChild(fillercol2);
     actionrow.appendChild(fillercol3);
@@ -128,11 +125,27 @@ function siteContent() {
         //Create new ContentDiv
         var newStoryContentDiv = document.createElement('div');
         newStoryContentDiv.className = 'content';
+        //Create textdiv and actionDiv
+        var newTextDiv = document.createElement('div');
+        var newActionDiv = document.createElement('div');
+        //create action icons
+
+            var editIcon = document.createElement('i');
+            editIcon.className = "far fa-edit";
+            //editIcon.addEventListener(function_here);
+            var deleteIcon = document.createElement('i');
+            deleteIcon.className = "far fa-trash-alt";
+            //deleteIcon.addEventListener(function_here);
+
         //Set Content
         var newStoryContent = document.createTextNode(global.project.backlogs[i].title);
 
         //Add content to the div
-        newStoryContentDiv.appendChild(newStoryContent);
+        newTextDiv.appendChild(newStoryContent);
+        newActionDiv.appendChild(editIcon);
+        newActionDiv.appendChild(deleteIcon);
+        newStoryContentDiv.appendChild(newTextDiv);
+        newStoryContentDiv.appendChild(newActionDiv);
         newStoryDiv.appendChild(newStoryContentDiv);
         newRowDiv.appendChild(newStoryDiv);
 
@@ -141,23 +154,46 @@ function siteContent() {
 
         for (let j = 0; j < tasks.length; j++) {
           if (sprintTasks.includes(tasks[j].taskId)) {
-
+            //Task Content-Text
             var newTaskContent = document.createTextNode(tasks[j].title)
+            //Content div
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
+            //Create textdiv and actionDiv
+             var newTextDiv = document.createElement('div');
+            var newActionDiv = document.createElement('div');
+            //create action icons
+            var editIcon = document.createElement('i');
+            editIcon.className = "far fa-edit";
+            //editIcon.addEventListener(function_here);
+            var deleteIcon = document.createElement('i');
+            deleteIcon.className = "far fa-trash-alt";
+            //deleteIcon.addEventListener(function_here);
             var status = tasks[j].task_status;
             if (tasks[j].task_status == 0) {
-              newContentDiv.appendChild(newTaskContent);
+              newTextDiv.appendChild(newTaskContent);
+              newActionDiv.appendChild(editIcon);
+              newActionDiv.appendChild(deleteIcon);
+              newContentDiv.appendChild(newTextDiv);
+              newContentDiv.appendChild(newActionDiv);
               newBacklogDiv.appendChild(newContentDiv);
               newRowDiv.appendChild(newBacklogDiv);
             }
             else if (tasks[j].task_status == 1) {
-              newContentDiv.appendChild(newTaskContent);
+              newTextDiv.appendChild(newTaskContent);
+              newActionDiv.appendChild(editIcon);
+              newActionDiv.appendChild(deleteIcon);
+              newContentDiv.appendChild(newTextDiv);
+              newContentDiv.appendChild(newActionDiv);
               newDoingDiv.appendChild(newContentDiv);
               newRowDiv.appendChild(newDoingDiv);
             }
             else if (tasks[j].task_status == 2) {
-              newContentDiv.appendChild(newTaskContent);
+              newTextDiv.appendChild(newTaskContent);
+              newActionDiv.appendChild(editIcon);
+              newActionDiv.appendChild(deleteIcon);
+              newContentDiv.appendChild(newTextDiv);
+              newContentDiv.appendChild(newActionDiv);
               newDoneDiv.appendChild(newContentDiv);
               newRowDiv.appendChild(newDoneDiv);
             }
