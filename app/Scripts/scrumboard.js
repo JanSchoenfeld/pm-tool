@@ -1,12 +1,10 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const projectData = require('../logic');
 
-//Load JSON-File
-var jsonFile = JSON.parse(fs.readFileSync(path.join(__dirname, '/../data/pmtool.json')));
 var sprintNumber = 0;
 //HTML ID finding
 var scrumDiv = document.getElementById('scrumboard');
-
 
 siteContent();
 
@@ -15,7 +13,7 @@ function sprintBack() {
 }
 
 function sprintForward() {
-  if ((sprintNumber + 1) >= jsonFile.sprints.length) {
+  if ((sprintNumber + 1) >= global.project.sprints.length) {
     sprintNumber = 0;
   }
   else {
@@ -30,7 +28,7 @@ function sprintForward() {
 
 function siteContent() {
   //Sprint switch buttons
-  if (jsonFile.sprints.length > 1) {
+  if (global.project.sprints.length > 1) {
     //Create Actionrow
     var actionrow = document.createElement('div');
     actionrow.className = 'row';
@@ -81,19 +79,19 @@ function siteContent() {
 
 
   //Loop for backlog array
-  if (jsonFile.sprints.length > 0) {
+  if (global.project.sprints.length > 0) {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    for (let i = 0; i < jsonFile.backlogs.length; i++) {
+    for (let i = 0; i < global.project.backlogs.length; i++) {
       //Get Array with alle Backlogs in Sprint
-      sprintBacklogItemIds = jsonFile.sprints[sprintNumber].backlogItemIds
+      sprintBacklogItemIds = global.project.sprints[sprintNumber].backlogItemIds
 
       var useBacklogItem = false;
       var sprintArrayID;
 
       for (let j = 0; j < sprintBacklogItemIds.length; j++) {
-        if (jsonFile.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
+        if (global.project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
           useBacklogItem = true;
           sprintArrayID = j;
         }
@@ -121,14 +119,14 @@ function siteContent() {
         var newStoryContentDiv = document.createElement('div');
         newStoryContentDiv.className = 'content';
         //Set Content
-        var newStoryContent = document.createTextNode(jsonFile.backlogs[i].title);
+        var newStoryContent = document.createTextNode(global.project.backlogs[i].title);
 
         //Add content to the div
         newStoryContentDiv.appendChild(newStoryContent);
         newStoryDiv.appendChild(newStoryContentDiv);
         newRowDiv.appendChild(newStoryDiv);
 
-        var tasks = jsonFile.backlogs[i].tasks;
+        var tasks = global.project.backlogs[i].tasks;
         var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
 
         for (let j = 0; j < tasks.length; j++) {
