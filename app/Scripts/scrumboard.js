@@ -9,7 +9,17 @@ var scrumDiv = document.getElementById('scrumboard');
 siteContent();
 
 function sprintBack() {
-
+  if ((sprintNumber - 1) < 0) {
+    sprintNumber = (global.project.sprints.length - 1);
+  }
+  else {
+    sprintNumber--;
+  }
+  var removeRow = document.getElementById('action_Row');
+  scrumDiv.removeChild(removeRow);
+  removeRow = document.getElementById('pageContentDiv');
+  scrumDiv.removeChild(removeRow);
+  siteContent();
 }
 
 function sprintForward() {
