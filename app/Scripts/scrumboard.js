@@ -9,6 +9,7 @@ const {
 
 let PROJECTS = remote.getGlobal('PROJECTS');
 let POSITION = fs.readFileSync('data/global/POSITION.json');
+//initialisieren von project
 let project = loadProject();
 
 var sprintNumber = 0;
@@ -214,6 +215,7 @@ function siteContent() {
   }
 }
 
+//lädt die aktuelle projectposition aus dem array
 function loadProject() {
 
   let project = PROJECTS[POSITION];

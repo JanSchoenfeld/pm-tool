@@ -53,7 +53,6 @@ function loadProjects() {
 
         // Load files from disk and load into global variable
         global.PROJECTS.push(JSON.parse(fs.readFileSync('./data/' + elem)));
-        //console.log(elem);
     });
 }
 
