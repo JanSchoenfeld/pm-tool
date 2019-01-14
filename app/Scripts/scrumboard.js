@@ -1,22 +1,21 @@
 const fs = require('fs');
 const path = require('path');
-const { remote } = require('electron');
+const {
+  remote
+} = require('electron');
 
 //currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
 //console.log(require('electron').remote.getGlobal('PROJECTS')[0].title)
 
 let PROJECTS = remote.getGlobal('PROJECTS');
-let POSITION = remote.getGlobal('POSITION');
-console.log(POSITION);
-
-let project = {};
+let POSITION = fs.readFileSync('data/global/POSITION.json');
+let project = loadProject();
 
 var sprintNumber = 0;
 //HTML ID finding
 var scrumDiv = document.getElementById('scrumboard');
 
 siteContent();
-loadProject();
 
 function siteContent() {
   //Sprint switch buttons
@@ -217,8 +216,9 @@ function siteContent() {
 
 function loadProject() {
 
-  project = PROJECTS[POSITION];
+  let project = PROJECTS[POSITION];
 
+  return project;
 }
 
 

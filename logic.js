@@ -6,7 +6,9 @@ const Sprint = require('./app/Models/sprint');
 const Status = require('./app/Models/status');
 const BacklogItem = require('./app/Models/backlog-item');
 const fs = require('fs');
-const {remote} = require('electron');
+const {
+    remote
+} = require('electron');
 
 /*
 let testProject = new Project("PM Tool", "Projektmanagement Tool auf Scrum-Basis");
@@ -30,7 +32,7 @@ fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase()
 global.PROJECTS = [];
 
 function test() {
-    
+
     let deine_mudder = 'erfolgreich!';
     console.log(`Test ${deine_mudder}`);
 
@@ -45,9 +47,9 @@ function run() {
 
 }
 
-function loadProjects(){
-    
-    fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).forEach(function(elem,idx){
+function loadProjects() {
+
+    fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).forEach(function (elem, idx) {
 
         // Load files from disk and load into global variable
         global.PROJECTS.push(JSON.parse(fs.readFileSync('./data/' + elem)));
