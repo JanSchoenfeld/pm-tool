@@ -1,12 +1,11 @@
-const Task = require('./app/Models/task');
-const Project = require('./app/Models/project');
-const Roles = require('./app/Models/roles');
-const User = require('./app/Models/user');
-const Sprint = require('./app/Models/sprint');
-const Status = require('./app/Models/status');
-const BacklogItem = require('./app/Models/backlog-item');
+const Task = require('./Models/task');
+const Project = require('./Models/project');
+const Roles = require('./Models/roles');
+const User = require('./Models/user');
+const Sprint = require('./Models/sprint');
+const Status = require('./Models/status');
+const BacklogItem = require('./Models/backlog-item');
 const fs = require('fs');
-const {remote} = require('electron');
 
 /*
 let testProject = new Project("PM Tool", "Projektmanagement Tool auf Scrum-Basis");
