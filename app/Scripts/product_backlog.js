@@ -1,5 +1,9 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const projectData = require('../logic');
+const backlogItem = require("../app/Models/backlog-item.js");
+const epicCapture = require("../app/Models/epic-capture.js");
+
 
 //Load JSON-File
 var jsonFile = JSON.parse(fs.readFileSync(path.join(__dirname, '/../data/pmtool.json')));
@@ -56,6 +60,113 @@ for (let i = 0; i < jsonFile.backlogs.length; i++) {
   table.appendChild(newTR);
 }
 
+function displayChooseItem() {
+    $("#modal_chooseItem").modal("show");
+}
+function close_chooseItem() {
+    $("#modal_chooseItem").modal("hide");
+}
+
+
+function displayAddBacklogItem() {
+    document.getElementById("form_addBacklogItem").reset();
+    $("#modal_chooseItem").modal("hide");
+    $("#modal_add_backlogItem").modal("show");
+   //TODO: Luc: Anpassen für Electron
+    //document.getElementById("modal_add_item").modal("show");
+}
+function saveBacklogItem() {
+    var item_name = document.getElementById("item_name").value;
+    var item_description = document.getElementById("item_description").value;
+    var item_estimate_time = document.getElementById("item_estimate_time").value;
+    var item_assign_to_sprint = document.getElementById("item_assign_to_sprint").value;
+
+    alert("The Item was added! "+item_name+" "+item_description+" "+" "+item_estimate_time+" "+item_assign_to_sprint);
+
+    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+
+    close_addBacklogItem();
+}
+function close_addBacklogItem() {
+    document.getElementById("form_addBacklogItem").reset();
+    $("#modal_add_backlogItem").modal('hide');
+    //TODO: Luc: Anpassen für Electron
+}
+function displayEditBacklogItem () {
+    /**
+    document.getElementById("form_edit_backlog").reset();
+    document.getElementById("edit_b_item_name").value = backlogItem.name;
+    document.getElementById("edit_b_item_description").value = backlogItem.description;
+    document.getElementById("edit_b_item_estimate_time").value = backlogItem.estimated;
+    document.getElementById("edit_b_item_assign_to_sprint").value = backlogItem.sprintId;
+*/
+    $("#modal_edit_backlogItem").modal("show");
+}
+function saveEditBacklogItem() {
+    var item_name = document.getElementById("eb_item_name").value;
+    var item_description = document.getElementById("eb_item_description").value;
+    var item_estimate_time = document.getElementById("eb_item_estimate_time").value;
+
+    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+
+    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+
+    closeEditBacklogItem();
+}
+function closeEditBacklogItem() {
+    //document.getElementById("form_edit_backlog").reset();
+    $("#modal_edit_backlogItem").modal("hide");
+}
+
+
+
+function displayAddEpicCapture() {
+    document.getElementById("form_addEpicCapture").reset();
+    //$("#modal_chooseItem").modal("hide");
+    close_chooseItem();
+    $("#modal_add_epicCapture").modal("show");
+}
+function saveEpicCapture() {
+    var item_name = document.getElementById("ee_item_name").value;
+    var item_description = document.getElementById("ee_item_description").value;
+    var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
+
+    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+
+    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+
+    close_addEpicCapture();
+}
+function close_addEpicCapture() {
+    //document.getElementById("form_edit_BacklogItem").reset();
+    $("#modal_add_epicCapture").modal('hide');
+}
+function displayEditEpicCapture () {
+    /**
+    document.getElementById("form_edit_epicCapture").reset();
+    document.getElementById("edit_b_item_name").value = epicCapture.name;
+    document.getElementById("edit_b_item_description").value = epicCapture.description;
+    document.getElementById("edit_b_item_estimate_time").value = epicCapture.estimated;
+    document.getElementById("edit_b_item_assign_to_sprint").value = epicCapture.sprintId;
+    */
+    $("#modal_edit_epicCapture").modal("show");
+
+}
+function saveEditEpicCapture() {
+    var item_name = document.getElementById("ee_item_name").value;
+    var item_description = document.getElementById("ee_item_description").value;
+    var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
+
+    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+
+    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+
+    closeEditEpicCapture();
+}
+function closeEditEpicCapture() {
+    document.getElementById("form_edit_epicCapture").reset();
+    $("#modal_edit_epicCapture").modal("hide");
+}
 
 
 
