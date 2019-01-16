@@ -1,6 +1,9 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const {remote} = require('electron');
 
+document.getElementById('button1');
+document.addEventListener('click',openModal);
 //Load JSON-File
 var jsonFile = JSON.parse(fs.readFileSync(path.join(__dirname, '/../data/pmtool.json')));
 //HTML parent <table> ID
@@ -54,6 +57,11 @@ for (let i = 0; i < jsonFile.backlogs.length; i++) {
 
   //Add row
   table.appendChild(newTR);
+}
+
+
+function openModal() {
+
 }
 
 
