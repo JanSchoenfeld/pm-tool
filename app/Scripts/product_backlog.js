@@ -18,7 +18,7 @@ const BacklogItem = require('./app/Models/backlog-item');
 
 */
 let PROJECTS = remote.getGlobal('PROJECTS');
-let POSITION = fs.readFileSync('/data/global/POSITION.json');
+let POSITION = fs.readFileSync('data/global/POSITION.json');
 //let project = loadProject();
 
 function loadProject() {
@@ -32,6 +32,7 @@ function loadProject() {
 //const epicCapture = require("../app/Models/epic-capture.js");
 
 let jsonFile = loadProject();
+console.log(jsonFile);
 
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
