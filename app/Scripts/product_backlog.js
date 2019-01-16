@@ -71,8 +71,8 @@ function close_chooseItem() {
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_chooseItem").modal("hide");
-    //$("#modal_add_backlogItem").modal("show");
-    document.getElementById("modal_add_backlogItem").modal("show");
+    $("#modal_add_backlogItem").modal("show");
+    //document.getElementById("modal_add_backlogItem").modal("show");
 }
 function saveBacklogItem() {
     var item_name = document.getElementById("item_name").value;
