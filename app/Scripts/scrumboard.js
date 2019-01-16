@@ -66,7 +66,7 @@ function siteContent() {
     forwardIcon.className = 'fas fa-chevron-circle-right'
 
     //Text for Sprint-Navigation
-    var sprintContent = document.createTextNode('  Sprint ' + (sprintNumber + 1) + ' ');
+    var sprintContent = document.createTextNode('  Sprint ' + (global.project.sprints[sprintNumber].sprint_id) + ' ');
     var currentSprint = document.createElement('i');
     currentSprint.style.userSelect = "none";
 

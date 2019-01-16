@@ -6,7 +6,7 @@
 		{
 			"backlogId": 1,
 			"createdAt": 1546180030416,
-			"title": "backlogItem Nr. 1",
+			"title": "backlogItem Nr. 1 Hier kommt noch ein echt langer Text hinter weil Gründe",
 			"description": "backlogItem Nr. 1 description",
 			"backlog_status": {
 				"to_do": true,
