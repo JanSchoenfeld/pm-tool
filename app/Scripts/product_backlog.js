@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { BrowserWindow } = require('electron')
+const {
+    BrowserWindow
+} = require('electron')
 const {
     remote
 } = require('electron');
@@ -16,13 +18,20 @@ const BacklogItem = require('./app/Models/backlog-item');
 
 */
 let PROJECTS = remote.getGlobal('PROJECTS');
+let POSITION = fs.readFileSync('/data/global/POSITION.json');
+//let project = loadProject();
+
+function loadProject() {
+
+    let project = PROJECTS[POSITION];
+
+    return project;
+}
 
 //console.log(global.projects);
 //const epicCapture = require("../app/Models/epic-capture.js");
 
-//Load JSON-File
-var jsonFile = JSON.parse(fs.readFileSync(path.join(__dirname, '/../data/pmtool.json')));
-//var jsonFile = global.project;
+let jsonFile = loadProject;
 
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
@@ -31,7 +40,7 @@ siteContent();
 function siteContent() {
 
 
-//Loop for the backlog array
+    //Loop for the backlog array
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
         //decision tree
         var newStatus;
@@ -59,7 +68,7 @@ function siteContent() {
         var a = document.createElement('a');
         a.appendChild(newContent2);
         a.title = jsonFile.backlogs[i].description;
-        a.href = "javascript:displayEditBacklogItem("+i+")";
+        a.href = "javascript:displayEditBacklogItem(" + i + ")";
 
         var newTD2 = document.createElement("td");
         newTD2.appendChild(a);
@@ -90,9 +99,10 @@ function siteContent() {
 
 
 function displayChooseItem() {
-   $("#modal_chooseItem").modal("show");
+    $("#modal_chooseItem").modal("show");
 
 }
+
 function close_chooseItem() {
     $("#modal_chooseItem").modal("hide");
 }
@@ -104,23 +114,26 @@ function displayAddBacklogItem() {
     $("#modal_add_backlogItem").modal("show");
     //document.getElementById("modal_add_backlogItem").modal("show");
 }
+
 function saveBacklogItem() {
     var item_name = document.getElementById("item_name").value;
     var item_description = document.getElementById("item_description").value;
     var item_estimate_time = document.getElementById("item_estimate_time").value;
     var item_assign_to_sprint = document.getElementById("item_assign_to_sprint").value;
 
-    alert("The Item was added! "+item_name+" "+item_description+" "+" "+item_estimate_time+" "+item_assign_to_sprint);
+    alert("The Item was added! " + item_name + " " + item_description + " " + " " + item_estimate_time + " " + item_assign_to_sprint);
 
     //TODO: Luc: Backend Funktion
 
     close_addBacklogItem();
 }
+
 function close_addBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_add_backlogItem").modal('hide');
 }
-function displayEditBacklogItem (i) {
+
+function displayEditBacklogItem(i) {
 
     document.getElementById("form_edit_BacklogItem").reset();
     document.getElementById("edit_b_item_name").value = jsonFile.backlogs[i].name;
@@ -130,17 +143,19 @@ function displayEditBacklogItem (i) {
 
     $("#modal_edit_backlogItem").modal("show");
 }
+
 function saveEditBacklogItem() {
     var item_name = document.getElementById("eb_item_name").value;
     var item_description = document.getElementById("eb_item_description").value;
     var item_estimate_time = document.getElementById("eb_item_estimate_time").value;
 
-    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     //TODO: Luc: Backend Funktion
 
     closeEditBacklogItem();
 }
+
 function closeEditBacklogItem() {
     //document.getElementById("form_edit_backlog").reset();
     $("#modal_edit_backlogItem").modal("hide");
@@ -154,22 +169,25 @@ function displayAddEpicCapture() {
     close_chooseItem();
     $("#modal_add_epicCapture").modal("show");
 }
+
 function saveEpicCapture() {
     var item_name = document.getElementById("ee_item_name").value;
     var item_description = document.getElementById("ee_item_description").value;
     var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
 
-    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     //TODO: Luc: Backend Funktion
 
     close_addEpicCapture();
 }
+
 function close_addEpicCapture() {
     //document.getElementById("form_edit_BacklogItem").reset();
     $("#modal_add_epicCapture").modal('hide');
 }
-function displayEditEpicCapture () {
+
+function displayEditEpicCapture() {
     /**
     document.getElementById("form_edit_epicCapture").reset();
     document.getElementById("edit_b_item_name").value = epicCapture.name;
@@ -180,17 +198,19 @@ function displayEditEpicCapture () {
     $("#modal_edit_epicCapture").modal("show");
 
 }
+
 function saveEditEpicCapture() {
     var item_name = document.getElementById("ee_item_name").value;
     var item_description = document.getElementById("ee_item_description").value;
     var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
 
-    alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
+    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     //TODO: Luc: Backend Funktion
 
     closeEditEpicCapture();
 }
+
 function closeEditEpicCapture() {
     document.getElementById("form_edit_epicCapture").reset();
     $("#modal_edit_epicCapture").modal("hide");
