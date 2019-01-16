@@ -31,7 +31,7 @@ function loadProject() {
 //console.log(global.projects);
 //const epicCapture = require("../app/Models/epic-capture.js");
 
-let jsonFile = loadProject;
+let jsonFile = loadProject();
 
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
