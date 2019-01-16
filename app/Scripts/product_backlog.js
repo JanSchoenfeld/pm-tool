@@ -71,9 +71,8 @@ function close_chooseItem() {
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_chooseItem").modal("hide");
-    $("#modal_add_backlogItem").modal("show");
-   //TODO: Luc: Anpassen für Electron
-    //document.getElementById("modal_add_item").modal("show");
+    //$("#modal_add_backlogItem").modal("show");
+    document.getElementById("modal_add_backlogItem").modal("show");
 }
 function saveBacklogItem() {
     var item_name = document.getElementById("item_name").value;
@@ -83,14 +82,13 @@ function saveBacklogItem() {
 
     alert("The Item was added! "+item_name+" "+item_description+" "+" "+item_estimate_time+" "+item_assign_to_sprint);
 
-    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+    //TODO: Luc: Backend Funktion
 
     close_addBacklogItem();
 }
 function close_addBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_add_backlogItem").modal('hide');
-    //TODO: Luc: Anpassen für Electron
 }
 function displayEditBacklogItem () {
     /**
@@ -109,7 +107,7 @@ function saveEditBacklogItem() {
 
     alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
 
-    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+    //TODO: Luc: Backend Funktion
 
     closeEditBacklogItem();
 }
@@ -133,7 +131,7 @@ function saveEpicCapture() {
 
     alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
 
-    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+    //TODO: Luc: Backend Funktion
 
     close_addEpicCapture();
 }
@@ -159,7 +157,7 @@ function saveEditEpicCapture() {
 
     alert("The Item was added! "+item_name+" "+item_description+" "+item_estimate_time);
 
-    //TODO: Luc: Hier Objekt erstellen mit Variablen und abspeichern + prüfen checkbox
+    //TODO: Luc: Backend Funktion
 
     closeEditEpicCapture();
 }
