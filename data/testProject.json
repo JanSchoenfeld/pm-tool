@@ -1,0 +1,209 @@
+{
+	"projectId": 2,
+	"title": "testproject",
+	"description": "Projektmanagement Tool auf Scrum-Basis",
+	"backlogs": [
+		{
+			"backlogId": 1,
+			"createdAt": 1546180030416,
+			"title": "backlogItem Nr. 1",
+			"description": "backlogItem Nr. 1 description",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 1",
+					"description": "Scrumboard erstellen und füllen",
+					"task_status": 0,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 2",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 3,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 3",
+					"description": "blabla",
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 4,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 4",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 5,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 5",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 6,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 1 / Task 6",
+					"description": "blabla",
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		},
+		{
+			"backlogId": 2,
+			"createdAt": 1546180030416,
+			"title": "backlogItem Nr. 2",
+			"description": "backlogItem Nr. 2 description",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+				{
+					"taskId": 1,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 1",
+					"description": "Scrumboard erstellen und füllen",
+					"task_status": 0,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 2,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 2",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 3,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 3",
+					"description": "blabla",
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 4,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 4",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 5,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 5",
+					"description": "blabla",
+					"task_status": 1,
+					"effort": 5,
+					"assignedTo": []
+				},
+				{
+					"taskId": 6,
+					"createdAt": 1546180030416,
+					"title": "backlogItem Nr. 2 / Task 6",
+					"description": "blabla",
+					"task_status": 2,
+					"effort": 5,
+					"assignedTo": []
+				}
+			]
+		}
+	],
+	"sprints": [
+		{
+			"sprint_id": 1,
+			"backlogItemIds": [
+				{
+					"backlogID": 1,
+					"taskIds": [
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"backlogID": 2,
+					"taskIds": [
+						1,
+						2,
+						3
+					]
+				}
+			]
+		},
+		{
+			"sprint_id": 2,
+			"backlogItemIds": [
+				{
+					"backlogID": 1,
+					"taskIds": [
+						"1",
+						"2",
+						"3"
+					]
+				}
+			]
+		},
+		{
+			"sprint_id": 3,
+			"backlogItemIds": [
+			]
+		}
+	],
+	"assignedUsers": [
+		{
+			"userId": 1,
+			"name": "Kerstin",
+			"role": {
+				"master": false,
+				"owner": true,
+				"developer": false
+			}
+		}
+	]
+}

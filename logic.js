@@ -6,6 +6,9 @@ const Sprint = require('./app/Models/sprint');
 const Status = require('./app/Models/status');
 const BacklogItem = require('./app/Models/backlog-item');
 const fs = require('fs');
+const {
+    remote
+} = require('electron');
 
 /*
 let testProject = new Project("PM Tool", "Projektmanagement Tool auf Scrum-Basis");
@@ -26,8 +29,7 @@ var json = JSON.stringify(testProject, null, '\t');
 fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8')
 */
 
-global.project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
-
+global.PROJECTS = [];
 
 function test() {
 
@@ -39,9 +41,19 @@ function test() {
 function run() {
 
     test();
-    //global.project = JSON.parse(fs.readFileSync('./data/pmtool.json'));
+    loadProjects();
+    console.log(global.PROJECTS.length);
+
+
 }
 
+function loadProjects() {
 
+    fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).forEach(function (elem, idx) {
+
+        // Load files from disk and load into global variable
+        global.PROJECTS.push(JSON.parse(fs.readFileSync('./data/' + elem)));
+    });
+}
 
 module.exports.run = run;
