@@ -21,14 +21,12 @@ class BacklogItem {
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
             this.tasks = [];
             this.isInSprint = false;
-            this.assignedTo = "";
-
+            
 
             this.addTask = function (newTask){
                 this.tasks.push(newTask);
             }
         }
 }
-
 
 module.exports = BacklogItem;
