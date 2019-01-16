@@ -53,15 +53,17 @@
 <div class="container-fluid" id="modal">
 
   <button id="btn_displayChooseItem" onclick="displayChooseItem()" type="button" class="btn btn-info btn-lg" >Choose Item to add</button>
+  <!--
   <button id="btn_editBacklogItem" onclick="displayEditBacklogItem()" type="button" class="btn btn-info btn-lg" >Edit Backlog Item</button>
   <button id="btn_editEpicCapture" onclick="displayEditEpicCapture()" type="button" class="btn btn-info btn-lg" >Edit Epic Capture</button>
+-->
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_chooseItem">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><b>Add Item</b></h5>
-          <button type="button" class="close" onclick="close_chooseItem()" aria-label="Close">
+          <button type="button" class="close" onclick="closeChooseItem()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -73,82 +75,51 @@
     </div>
   </div>
 
+
+
   <div class="modal" tabindex="-1" role="dialog" id="modal_add_backlogItem">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><b>Add Backlog Item</b></h5>
-          <button type="button" class="close" onclick="close_addBacklogItem()" aria-label="Close">
+          <button type="button" class="close" onclick="closeAddBacklogItem()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <form id="form_addBacklogItem">
             <div class="form-group">
-              <label for="item_name">Name</label>
-              <input type="text" class="form-control" id="item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
+              <label for="b_item_name">Name</label>
+              <input type="text" class="form-control" id="b_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
             </div>
             <div class="form-group">
-              <label for="item_description">Description</label>
-              <input type="text" class="form-control" id="item_description" placeholder="Description">
+              <label for="b_item_description">Description</label>
+              <input type="text" class="form-control" id="b_item_description" placeholder="Description">
             </div>
             <div class="form-group">
-              <label for="item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="item_estimate_time" placeholder="Estimate time">
+              <label for="b_item_estimate_time">Estimate time</label>
+              <input type="number" class="form-control" id="b_item_estimate_time" placeholder="Estimate time">
             </div>
-            <label for="item_assign_to_sprint">Assign to sprint</label>
-            <select class="form-control form-control-sm" id="item_assign_to_sprint">
+            <label for="b_item_assign_to_sprint">Assign to sprint</label>
+            <select class="form-control form-control-sm" id="b_item_assign_to_sprint">
               <option></option>
               <option>Sprint 1</option>
               <option>Sprint 2</option>
             </select>
-            <label for="item_assign_to_epic">Assign to epic</label>
-            <select class="form-control form-control-sm" id="item_assign_to_epic">
+            <label for="b_item_assign_to_epic">Assign to epic</label>
+            <select class="form-control form-control-sm" id="b_item_assign_to_epic">
               <option></option>
               <option>Epic 1</option>
               <option>Epic 2</option>
             </select>
+            <input type="hidden" id="b_item_id">
             <br>
             <button type="button" onclick="addBacklogItem()" class="btn btn-primary">Submit</button>
-            <button type="button" onclick="close_addBacklogItem()" class="btn btn-secondary">Close</button>
+            <button type="button" onclick="closeAddBacklogItem()" class="btn btn-secondary">Close</button>
           </form>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="modal" tabindex="-1" role="dialog" id="modal_add_epicCapture">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><b>Add Epic Capture</b></h5>
-          <button type="button" class="close" onclick="close_addEpicCapture()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="form_addEpicCapture">
-            <div class="form-group">
-              <label for="item_name">Name</label>
-              <input type="text" class="form-control" id="ee_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
-            </div>
-            <div class="form-group">
-              <label for="item_description">Description</label>
-              <input type="text" class="form-control" id="ee_item_description" placeholder="Description">
-            </div>
-            <div class="form-group">
-              <label for="item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="ee_item_estimate_time" placeholder="Estimate time">
-            </div>
-            <br>
-            <button type="button" onclick="saveEpicCapture()" class="btn btn-primary">Submit</button>
-            <button type="button" onclick="close_addEpicCapture()" class="btn btn-secondary">Close</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-
   </div>
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_edit_backlogItem">
@@ -163,24 +134,24 @@
         <div class="modal-body">
           <form id="form_edit_BacklogItem">
             <div class="form-group">
-              <label for="item_name">Name</label>
+              <label for="edit_b_item_name">Name</label>
               <input type="text" class="form-control" id="edit_b_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
             </div>
             <div class="form-group">
-              <label for="item_description">Description</label>
+              <label for="edit_b_item_description">Description</label>
               <input type="text" class="form-control" id="edit_b_item_description" placeholder="Description">
             </div>
             <div class="form-group">
-              <label for="item_estimate_time">Estimate time</label>
+              <label for="edit_b_item_estimate_time">Estimate time</label>
               <input type="number" class="form-control" id="edit_b_item_estimate_time" placeholder="Estimate time">
             </div>
-            <label for="item_assign_to_sprint">Assign to sprint</label>
+            <label for="edit_b_item_assign_to_sprint">Assign to sprint</label>
             <select class="form-control form-control-sm" id="edit_b_item_assign_to_sprint">
               <option></option>
               <option>Sprint 1</option>
               <option>Sprint 2</option>
             </select>
-            <label for="item_assign_to_epic">Assign to epic</label>
+            <label for="edit_b_item_assign_to_epic">Assign to epic</label>
             <select class="form-control form-control-sm" id="edit_b_item_assign_to_epic">
               <option></option>
               <option>Epic 1</option>
@@ -195,6 +166,42 @@
     </div>
   </div>
 
+  <div class="modal" tabindex="-1" role="dialog" id="modal_add_epicCapture">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Add Epic Capture</b></h5>
+          <button type="button" class="close" onclick="closeAddEpicCapture()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_addEpicCapture">
+            <div class="form-group">
+              <label for="e_item_name">Name</label>
+              <input type="text" class="form-control" id="e_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="e_item_description">Description</label>
+              <input type="text" class="form-control" id="e_item_description" placeholder="Description">
+            </div>
+            <div class="form-group">
+              <label for="e_item_estimate_time">Estimate time</label>
+              <input type="number" class="form-control" id="e_item_estimate_time" placeholder="Estimate time">
+            </div>
+            <br>
+            <button type="button" onclick="addEpicCapture()" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="closeAddEpicCapture()" class="btn btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
   <div class="modal" tabindex="-1" role="dialog" id="modal_edit_epicCapture">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -207,25 +214,19 @@
         <div class="modal-body">
           <form id="form_edit_epicCapture">
             <div class="form-group">
-              <label for="item_name">Name</label>
+              <label for="edit_e_item_name">Name</label>
               <input type="text" class="form-control" id="edit_e_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
             </div>
             <div class="form-group">
-              <label for="item_description">Description</label>
+              <label for="edit_e_item_description">Description</label>
               <input type="text" class="form-control" id="edit_e_item_description" placeholder="Description">
             </div>
             <div class="form-group">
-              <label for="item_estimate_time">Estimate time</label>
+              <label for="edit_e_item_estimate_time">Estimate time</label>
               <input type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Estimate time">
             </div>
-            <label for="item_assign_to_sprint">Assign to sprint</label>
-            <select class="form-control form-control-sm" id="edit_e_item_assign_to_sprint">
-              <option></option>
-              <option>Sprint 1</option>
-              <option>Sprint 2</option>
-            </select>
             <br>
-            <button type="button" onclick="saveEditEpicCapture()" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="saveEpicCapture()" class="btn btn-primary">Submit</button>
             <button type="button" onclick="closeEditEpicCapture()" class="btn btn-secondary">Close</button>
           </form>
         </div>

@@ -7,16 +7,17 @@ const {
     remote
 } = require('electron');
 //const projectData = require('../logic');
-/*
-const Task = require('./app/Models/task');
-const Project = require('./app/Models/project');
-const Roles = require('./app/Models/roles');
-const User = require('./app/Models/user');
-const Sprint = require('./app/Models/sprint');
-const Status = require('./app/Models/status');
-const BacklogItem = require('./app/Models/backlog-item');
 
-*/
+//const Task = require('./app/Models/task');
+//const Project = require('./app/Models/project');
+//const Roles = require('./app/Models/roles');
+//const User = require('./app/Models/user');
+//const Sprint = require('./app/Models/sprint');
+//const Status = require('./app/Models/status');
+const BacklogItem = require('../app/Models/backlog-item');
+const EpicCapture = require('../app/Models/epic-capture');
+
+
 let PROJECTS = remote.getGlobal('PROJECTS');
 let POSITION = fs.readFileSync('data/global/POSITION.json');
 //let project = loadProject();
@@ -28,15 +29,31 @@ function loadProject() {
     return project;
 }
 
-//console.log(global.projects);
-//const epicCapture = require("../app/Models/epic-capture.js");
 
 let jsonFile = loadProject();
-console.log(jsonFile);
+
 
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
+
+//listEpicCapture();
 siteContent();
+
+
+function listEpicCapture() {
+    for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
+        //console.log("epic Capture "+i+" "+jsonFile.epicCaptures.length);
+        for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; i++) {
+            console.log("Epic Capture " + i +" und Backlog Item " + j);
+        }
+    }
+}
+
+function listBacklogItem() {
+    for (let i= 0; i < jsonFile.backlogs.length; i++) {
+        console.log("backlog item " +i+" "+jsonFile.backlogs.length);
+    }
+}
 
 function siteContent() {
 
@@ -98,118 +115,115 @@ function siteContent() {
     }
 }
 
-
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
 
 }
 
-function close_chooseItem() {
+function closeChooseItem() {
     $("#modal_chooseItem").modal("hide");
 }
-
 
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
-    $("#modal_chooseItem").modal("hide");
+    closeChooseItem();
     $("#modal_add_backlogItem").modal("show");
-    //document.getElementById("modal_add_backlogItem").modal("show");
 }
 
-function saveBacklogItem() {
-    var item_name = document.getElementById("item_name").value;
-    var item_description = document.getElementById("item_description").value;
-    var item_estimate_time = document.getElementById("item_estimate_time").value;
-    var item_assign_to_sprint = document.getElementById("item_assign_to_sprint").value;
+function addBacklogItem() {
+    let item_name = document.getElementById("b_item_name").value;
+    let item_description = document.getElementById("b_item_description").value;
+    let item_estimate_time = document.getElementById("b_item_estimate_time").value;
+    console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
-    alert("The Item was added! " + item_name + " " + item_description + " " + " " + item_estimate_time + " " + item_assign_to_sprint);
+    let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
 
-    //TODO: Luc: Backend Funktion
+    console.log(backlogItem);
+    closeAddBacklogItem();
+    return backlogItem;
 
-    close_addBacklogItem();
+    //TODO: Backend Funktion (Speichern)
+
 }
 
-function close_addBacklogItem() {
+function closeAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_add_backlogItem").modal('hide');
 }
 
 function displayEditBacklogItem(i) {
-
     document.getElementById("form_edit_BacklogItem").reset();
-    document.getElementById("edit_b_item_name").value = jsonFile.backlogs[i].name;
+    document.getElementById("edit_b_item_name").value = jsonFile.backlogs[i].title;
     document.getElementById("edit_b_item_description").value = jsonFile.backlogs[i].description;
     document.getElementById("edit_b_item_estimate_time").value = jsonFile.backlogs[i].estimated;
     document.getElementById("edit_b_item_assign_to_sprint").value = jsonFile.backlogs[i].sprintId;
-
     $("#modal_edit_backlogItem").modal("show");
 }
 
-function saveEditBacklogItem() {
-    var item_name = document.getElementById("eb_item_name").value;
-    var item_description = document.getElementById("eb_item_description").value;
-    var item_estimate_time = document.getElementById("eb_item_estimate_time").value;
+function saveBacklogItem() {
+    let item_name = document.getElementById("edit_b_item_name").value;
+    let item_description = document.getElementById("edit_b_item_description").value;
+    let item_estimate_time = document.getElementById("edit_b_item_estimate_time").value;
+    let item_assign_to_sprint = document.getElementById("edit_b_item_assign_to_sprint").value;
 
-    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
-
-    //TODO: Luc: Backend Funktion
+    console.log("The backlog Item was added! " + item_name + " " + item_description + " " + " " + item_estimate_time + " " + item_assign_to_sprint);
+    let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
+    backlogItem.sprintId = item_assign_to_sprint;
+    console.log(backlogItem);
+    //TODO: Backend Funktion
 
     closeEditBacklogItem();
+    return backlogItem;
+
 }
 
 function closeEditBacklogItem() {
-    //document.getElementById("form_edit_backlog").reset();
+    document.getElementById("form_edit_BacklogItem").reset();
     $("#modal_edit_backlogItem").modal("hide");
 }
 
-
-
 function displayAddEpicCapture() {
     document.getElementById("form_addEpicCapture").reset();
-    //$("#modal_chooseItem").modal("hide");
-    close_chooseItem();
+    closeChooseItem();
     $("#modal_add_epicCapture").modal("show");
 }
 
-function saveEpicCapture() {
-    var item_name = document.getElementById("ee_item_name").value;
-    var item_description = document.getElementById("ee_item_description").value;
-    var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
+function addEpicCapture() {
+    let item_name = document.getElementById("e_item_name").value;
+    let item_description = document.getElementById("e_item_description").value;
+    let item_estimate_time = document.getElementById("e_item_estimate_time").value;
 
-    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
-
-    //TODO: Luc: Backend Funktion
-
-    close_addEpicCapture();
+    console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
+    let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
+    console.log(epicCapture);
+    closeAddEpicCapture()
+    return epicCapture;
 }
 
-function close_addEpicCapture() {
-    //document.getElementById("form_edit_BacklogItem").reset();
+function closeAddEpicCapture() {
     $("#modal_add_epicCapture").modal('hide');
 }
 
 function displayEditEpicCapture() {
-    /**
-    document.getElementById("form_edit_epicCapture").reset();
-    document.getElementById("edit_b_item_name").value = epicCapture.name;
-    document.getElementById("edit_b_item_description").value = epicCapture.description;
-    document.getElementById("edit_b_item_estimate_time").value = epicCapture.estimated;
-    document.getElementById("edit_b_item_assign_to_sprint").value = epicCapture.sprintId;
-    */
+     document.getElementById("form_edit_epicCapture").reset();
+     document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
+     document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
+     document.getElementById("edit_e_item_estimate_time").value = jsonFile.epicCaptures[i].estimated;
     $("#modal_edit_epicCapture").modal("show");
-
 }
 
-function saveEditEpicCapture() {
-    var item_name = document.getElementById("ee_item_name").value;
-    var item_description = document.getElementById("ee_item_description").value;
-    var item_estimate_time = document.getElementById("ee_item_estimate_time").value;
+function saveEpicCapture() {
+    let item_name = document.getElementById("edit_e_item_name").value;
+    let item_description = document.getElementById("edit_e_item_description").value;
+    let item_estimate_time = document.getElementById("edit_e_item_estimate_time").value;
 
-    alert("The Item was added! " + item_name + " " + item_description + " " + item_estimate_time);
-
-    //TODO: Luc: Backend Funktion
+    console.log("The Epic Capture was edited! " + item_name + " " + item_description + " " + item_estimate_time);
+    let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
+    console.log(epicCapture);
+    //TODO: Backend Funktion
 
     closeEditEpicCapture();
+    return epicCapture;
 }
 
 function closeEditEpicCapture() {
