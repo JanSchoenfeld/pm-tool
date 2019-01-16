@@ -4,6 +4,7 @@ const { BrowserWindow } = require('electron')
 const {
     remote
 } = require('electron');
+//const projectData = require('../logic');
 /*
 const Task = require('./app/Models/task');
 const Project = require('./app/Models/project');
@@ -15,10 +16,14 @@ const BacklogItem = require('./app/Models/backlog-item');
 
 */
 let PROJECTS = remote.getGlobal('PROJECTS');
-const projectData = require('../logic');
+
+//console.log(global.projects);
 //const epicCapture = require("../app/Models/epic-capture.js");
+
 //Load JSON-File
 var jsonFile = JSON.parse(fs.readFileSync(path.join(__dirname, '/../data/pmtool.json')));
+//var jsonFile = global.project;
+
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
 siteContent();
