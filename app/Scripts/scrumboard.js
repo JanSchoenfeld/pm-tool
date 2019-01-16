@@ -1,6 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const projectData = require('../logic');
+const {
+  remote
+} = require('electron');
+
+//currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
+//console.log(require('electron').remote.getGlobal('PROJECTS')[0].title)
+
+let PROJECTS = remote.getGlobal('PROJECTS');
+let POSITION = fs.readFileSync('data/global/POSITION.json');
+//initialisieren von project
+let project = loadProject();
 
 var sprintNumber = 0;
 //HTML ID finding
@@ -8,37 +18,9 @@ var scrumDiv = document.getElementById('scrumboard');
 
 siteContent();
 
-function sprintBack() {
-  if ((sprintNumber - 1) < 0) {
-    sprintNumber = (global.project.sprints.length - 1);
-  }
-  else {
-    sprintNumber--;
-  }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
-
-function sprintForward() {
-  if ((sprintNumber + 1) >= global.project.sprints.length) {
-    sprintNumber = 0;
-  }
-  else {
-    sprintNumber++;
-  }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
-
 function siteContent() {
   //Sprint switch buttons
-  if (global.project.sprints.length > 1) {
+  if (project.sprints.length > 1) {
     //Create Actionrow
     var actionrow = document.createElement('div');
     actionrow.className = 'row';
@@ -57,12 +39,12 @@ function siteContent() {
 
     //back Button
     var backIcon = document.createElement('i');
-    backIcon.addEventListener("click",sprintBack);
+    backIcon.addEventListener("click", sprintBack);
     backIcon.className = 'fas fa-chevron-circle-left'
 
     //forward Button
     var forwardIcon = document.createElement('i');
-    forwardIcon.addEventListener("click",sprintForward);
+    forwardIcon.addEventListener("click", sprintForward);
     forwardIcon.className = 'fas fa-chevron-circle-right'
 
     //Text for Sprint-Navigation
@@ -86,19 +68,19 @@ function siteContent() {
 
 
   //Loop for backlog array
-  if (global.project.sprints.length > 0) {
+  if (project.sprints.length > 0) {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    for (let i = 0; i < global.project.backlogs.length; i++) {
+    for (let i = 0; i < project.backlogs.length; i++) {
       //Get Array with alle Backlogs in Sprint
-      sprintBacklogItemIds = global.project.sprints[sprintNumber].backlogItemIds
+      sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
 
       var useBacklogItem = false;
       var sprintArrayID;
 
       for (let j = 0; j < sprintBacklogItemIds.length; j++) {
-        if (global.project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
+        if (project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
           useBacklogItem = true;
           sprintArrayID = j;
         }
@@ -130,15 +112,15 @@ function siteContent() {
         var newActionDiv = document.createElement('div');
         //create action icons
 
-            var editIcon = document.createElement('i');
-            editIcon.className = "far fa-edit";
-            //editIcon.addEventListener(function_here);
-            var deleteIcon = document.createElement('i');
-            deleteIcon.className = "far fa-trash-alt";
-            //deleteIcon.addEventListener(function_here);
+        var editIcon = document.createElement('i');
+        editIcon.className = "far fa-edit";
+        //editIcon.addEventListener(function_here);
+        var deleteIcon = document.createElement('i');
+        deleteIcon.className = "far fa-trash-alt";
+        //deleteIcon.addEventListener(function_here);
 
         //Set Content
-        var newStoryContent = document.createTextNode(global.project.backlogs[i].title);
+        var newStoryContent = document.createTextNode(project.backlogs[i].title);
 
         //Add content to the div
         newTextDiv.appendChild(newStoryContent);
@@ -149,7 +131,7 @@ function siteContent() {
         newStoryDiv.appendChild(newStoryContentDiv);
         newRowDiv.appendChild(newStoryDiv);
 
-        var tasks = global.project.backlogs[i].tasks;
+        var tasks = project.backlogs[i].tasks;
         var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
 
         for (let j = 0; j < tasks.length; j++) {
@@ -160,7 +142,7 @@ function siteContent() {
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
             //Create textdiv and actionDiv
-             var newTextDiv = document.createElement('div');
+            var newTextDiv = document.createElement('div');
             var newActionDiv = document.createElement('div');
             //create action icons
             var editIcon = document.createElement('i');
@@ -178,8 +160,7 @@ function siteContent() {
               newContentDiv.appendChild(newActionDiv);
               newBacklogDiv.appendChild(newContentDiv);
               newRowDiv.appendChild(newBacklogDiv);
-            }
-            else if (tasks[j].task_status == 1) {
+            } else if (tasks[j].task_status == 1) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
               newActionDiv.appendChild(deleteIcon);
@@ -187,8 +168,7 @@ function siteContent() {
               newContentDiv.appendChild(newActionDiv);
               newDoingDiv.appendChild(newContentDiv);
               newRowDiv.appendChild(newDoingDiv);
-            }
-            else if (tasks[j].task_status == 2) {
+            } else if (tasks[j].task_status == 2) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
               newActionDiv.appendChild(deleteIcon);
@@ -218,12 +198,10 @@ function siteContent() {
       newErrorRowDiv.appendChild(newErrorDiv);
       pageContentDiv.appendChild(newErrorRowDiv);
       scrumDiv.appendChild(pageContentDiv);
-    }
-    else {
+    } else {
       scrumDiv.appendChild(pageContentDiv);
     }
-  }
-  else {
+  } else {
     var newErrorRowDiv = document.createElement('div');
     newErrorRowDiv.className = 'row';
     var newErrorDiv = document.createElement('div');
@@ -237,3 +215,40 @@ function siteContent() {
   }
 }
 
+//lädt die aktuelle projectposition aus dem array
+function loadProject() {
+
+  let project = PROJECTS[POSITION];
+
+  return project;
+}
+
+
+/*
+ * Switcher Buttons
+ */
+function sprintBack() {
+  if ((sprintNumber - 1) < 0) {
+    sprintNumber = (project.sprints.length - 1);
+  } else {
+    sprintNumber--;
+  }
+  var removeRow = document.getElementById('action_Row');
+  scrumDiv.removeChild(removeRow);
+  removeRow = document.getElementById('pageContentDiv');
+  scrumDiv.removeChild(removeRow);
+  siteContent();
+}
+
+function sprintForward() {
+  if ((sprintNumber + 1) >= project.sprints.length) {
+    sprintNumber = 0;
+  } else {
+    sprintNumber++;
+  }
+  var removeRow = document.getElementById('action_Row');
+  scrumDiv.removeChild(removeRow);
+  removeRow = document.getElementById('pageContentDiv');
+  scrumDiv.removeChild(removeRow);
+  siteContent();
+}
