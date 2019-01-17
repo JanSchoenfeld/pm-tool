@@ -245,7 +245,7 @@
 			}
 		}
 	],
-	"epicCaptures": [
+	"epics": [
 		{
 			"epicId": 1,
 			"description": "test beschreibung1",
