@@ -1,5 +1,3 @@
-const Project = require('./project');
-const BacklogItem = require('./backlog-item');
 
 let sprintId = 1;
 
