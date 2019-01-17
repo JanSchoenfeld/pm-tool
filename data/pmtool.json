@@ -245,12 +245,13 @@
 			}
 		}
 	],
-	"epics": [
+	"epicCaptures": [
 		{
 			"epicId": 1,
 			"description": "test beschreibung1",
 			"backlogs": [
-				"1"			]
+				"1"
+			]
 		},
 		{
 			"epicId": 2,
@@ -268,7 +269,14 @@
 		},
 		{
 			"epicId": 4,
-			"description": "test beschreibung3",
+			"description": "test beschreibung4",
+			"backlogs": [
+
+			]
+		},
+		{
+			"epicId": 5,
+			"description": "test beschreibung5",
 			"backlogs": [
 
 			]
