@@ -9,7 +9,7 @@ const {
 //const projectData = require('../logic');
 
 //const Task = require('./app/Models/task');
-//const Project = require('../app/Models/project');
+const Project = require('../app/Models/project');
 //const Roles = require('./app/Models/roles');
 //const User = require('./app/Models/user');
 //const Status = require('./app/Models/status');
@@ -149,7 +149,9 @@ function addBacklogItem() {
 
     let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
     console.log(backlogItem);
-    jsonFile.backlogs.push(backlogItem);
+    //jsonFile.addEpicCapture(backlogItem);
+    let project = jsonFile;
+    console.log(project);
 
     closeAddBacklogItem();
 
