@@ -36,23 +36,25 @@ let jsonFile = loadProject();
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
 
-listEpicCapturesWithBacklogs();
-siteContent();
 
+siteContent();
+listEpicCapturesWithBacklogs();
 
 function listEpicCapturesWithBacklogs() {
     let epic;
     for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
         epic = jsonFile.epicCaptures[i];
+        console.log("Epic "+ epic.epicId);
         let backlog;
 
         for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
-            backlog = jsonFile.epicCaptures[i].backlogs[j];
+            let backlogId = jsonFile.epicCaptures[i].backlogs[j];
+            console.log("Backlog " + backlogId);
 
             for (let k=0; k <  jsonFile.backlogs.length; k++) {
                 if (jsonFile.epicCaptures[i].backlogs[j] ===  jsonFile.backlogs[k].backlogId) {
                     console.log("Passender Backlog gefunden "+ jsonFile.backlogs[k].backlogId);
-                    listBacklogItem();
+                    listBacklogItem(k);
                 }
             }
         }
@@ -60,10 +62,10 @@ function listEpicCapturesWithBacklogs() {
 
 }
 
-function listBacklogItem() {
-    for (let i= 0; i < jsonFile.backlogs.length; i++) {
-        console.log("backlog item " +i+" "+jsonFile.backlogs.length);
-    }
+function listBacklogItem(k) {
+    //for (let i= 0; i < jsonFile.backlogs.length; i++) {
+        console.log("backlog item " +k+" "+jsonFile.backlogs[k].backlogId);
+    //}
 }
 
 function siteContent() {
@@ -149,9 +151,15 @@ function addBacklogItem() {
 
     let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
     console.log(backlogItem);
-    //jsonFile.addEpicCapture(backlogItem);
-    let project = jsonFile;
-    console.log(project);
+    let file = jsonFile;
+
+
+
+
+    console.log(file.backlogs.length);
+    file.addBacklog(backlogItem);
+    console.log(file.backlogs.length);
+    jsonFile = file;
 
     closeAddBacklogItem();
 
@@ -180,7 +188,6 @@ function saveBacklogItem() {
     let item_assign_to_sprint = document.getElementById("edit_b_item_assign_to_sprint").value;
     let item_id = document.getElementById("edit_b_item_id").value;
     for(let i=0; i<jsonFile.backlogs.length; i++) {
-        //console.log(jsonFile.backlogs[i].backlogId +" "+ item_id);
 
         //Ändern? Keine Typensicherheit
         if (jsonFile.backlogs[i].backlogId == item_id) {
