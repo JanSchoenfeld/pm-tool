@@ -9,13 +9,13 @@ const {
 //const projectData = require('../logic');
 
 //const Task = require('./app/Models/task');
-//const Project = require('./app/Models/project');
+//const Project = require('../app/Models/project');
 //const Roles = require('./app/Models/roles');
 //const User = require('./app/Models/user');
-//const Sprint = require('./app/Models/sprint');
 //const Status = require('./app/Models/status');
 const BacklogItem = require('../app/Models/backlog-item');
 const EpicCapture = require('../app/Models/epic-capture');
+//const Sprint = require('../app/Models/sprint');
 
 
 let PROJECTS = remote.getGlobal('PROJECTS');
@@ -36,17 +36,28 @@ let jsonFile = loadProject();
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
 
-//listEpicCapture();
+listEpicCapturesWithBacklogs();
 siteContent();
 
 
-function listEpicCapture() {
+function listEpicCapturesWithBacklogs() {
+    let epic;
     for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
-        //console.log("epic Capture "+i+" "+jsonFile.epicCaptures.length);
-        for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; i++) {
-            console.log("Epic Capture " + i +" und Backlog Item " + j);
+        epic = jsonFile.epicCaptures[i];
+        let backlog;
+
+        for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
+            backlog = jsonFile.epicCaptures[i].backlogs[j];
+
+            for (let k=0; k <  jsonFile.backlogs.length; k++) {
+                if (jsonFile.epicCaptures[i].backlogs[j] ===  jsonFile.backlogs[k].backlogId) {
+                    console.log("Passender Backlog gefunden "+ jsonFile.backlogs[k].backlogId);
+                    listBacklogItem();
+                }
+            }
         }
     }
+
 }
 
 function listBacklogItem() {
@@ -137,12 +148,12 @@ function addBacklogItem() {
     console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
-
     console.log(backlogItem);
-    closeAddBacklogItem();
-    return backlogItem;
+    jsonFile.backlogs.push(backlogItem);
 
-    //TODO: Backend Funktion (Speichern)
+    closeAddBacklogItem();
+
+    //TODO: Backlog Speichern
 
 }
 
@@ -156,7 +167,7 @@ function displayEditBacklogItem(i) {
     document.getElementById("edit_b_item_name").value = jsonFile.backlogs[i].title;
     document.getElementById("edit_b_item_description").value = jsonFile.backlogs[i].description;
     document.getElementById("edit_b_item_estimate_time").value = jsonFile.backlogs[i].estimated;
-    document.getElementById("edit_b_item_assign_to_sprint").value = jsonFile.backlogs[i].sprintId;
+    document.getElementById("edit_b_item_id").value = jsonFile.backlogs[i].backlogId;
     $("#modal_edit_backlogItem").modal("show");
 }
 
@@ -165,16 +176,22 @@ function saveBacklogItem() {
     let item_description = document.getElementById("edit_b_item_description").value;
     let item_estimate_time = document.getElementById("edit_b_item_estimate_time").value;
     let item_assign_to_sprint = document.getElementById("edit_b_item_assign_to_sprint").value;
+    let item_id = document.getElementById("edit_b_item_id").value;
+    for(let i=0; i<jsonFile.backlogs.length; i++) {
+        //console.log(jsonFile.backlogs[i].backlogId +" "+ item_id);
 
-    console.log("The backlog Item was added! " + item_name + " " + item_description + " " + " " + item_estimate_time + " " + item_assign_to_sprint);
-    let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
-    backlogItem.sprintId = item_assign_to_sprint;
-    console.log(backlogItem);
-    //TODO: Backend Funktion
-
+        //Ändern? Keine Typensicherheit
+        if (jsonFile.backlogs[i].backlogId == item_id) {
+            console.log("Item gefunden");
+            jsonFile.backlogs[i].title = item_name;
+            jsonFile.backlogs[i].description = item_description;
+            jsonFile.backlogs[i].estimated = item_estimate_time;
+            //TODO: LUC: Sprint variable in Backlogitem
+            //jsonFile.backlogs[i].sprint = item_assign_to_sprint;
+            console.log("Item Edited" + jsonFile.backlogs[i]);
+        }
+    }
     closeEditBacklogItem();
-    return backlogItem;
-
 }
 
 function closeEditBacklogItem() {
@@ -196,34 +213,39 @@ function addEpicCapture() {
     console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
     let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
     console.log(epicCapture);
+    //TODO: Speichern
     closeAddEpicCapture()
-    return epicCapture;
 }
 
 function closeAddEpicCapture() {
     $("#modal_add_epicCapture").modal('hide');
 }
 
-function displayEditEpicCapture() {
+function displayEditEpicCapture(i) {
      document.getElementById("form_edit_epicCapture").reset();
      document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
      document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
      document.getElementById("edit_e_item_estimate_time").value = jsonFile.epicCaptures[i].estimated;
-    $("#modal_edit_epicCapture").modal("show");
+     document.getElementById("edit_b_item_id").value = jsonFile.epicCaptures[i].epicId;
+     $("#modal_edit_epicCapture").modal("show");
 }
 
 function saveEpicCapture() {
     let item_name = document.getElementById("edit_e_item_name").value;
     let item_description = document.getElementById("edit_e_item_description").value;
     let item_estimate_time = document.getElementById("edit_e_item_estimate_time").value;
+    let item_id = document.getElementById("edit_e_item_id").value;
 
-    console.log("The Epic Capture was edited! " + item_name + " " + item_description + " " + item_estimate_time);
-    let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
-    console.log(epicCapture);
-    //TODO: Backend Funktion
-
+    for(let i=0; i<jsonFile.epicCaptures.length; i++) {
+        if (jsonFile.epicCaptures[i].epicId == item_id) {
+            jsonFile.epicCaptures[i].title = item_name;
+            jsonFile.epicCaptures[i].description = item_description;
+            //TODO: Backend funktion: Alle Zeiten der backlogs im Epic zusammenzählen --> Alle Zeiten der Tasks ins Backlog
+            jsonFile.epicCaptures[i].estimated = item_estimate_time;
+            console.log("Item Edited" + jsonFile.epicCaptures[i]);
+        }
+    }
     closeEditEpicCapture();
-    return epicCapture;
 }
 
 function closeEditEpicCapture() {
@@ -231,7 +253,67 @@ function closeEditEpicCapture() {
     $("#modal_edit_epicCapture").modal("hide");
 }
 
+function displayAddSprint() {
+    document.getElementById("form_addSprint").reset();
+    closeChooseItem();
+    $("#modal_add_sprint").modal("show");
+}
 
+function closeAddSprint() {
+    document.getElementById("form_addSprint").reset();
+    $("#modal_add_sprint").modal("hide");
+}
+
+function addSprint() {
+    let sprint_name = document.getElementById("s_name").value;
+    let sprint_startdate = document.getElementById("s_startdate").value;
+    let sprint_enddate = document.getElementById("s_enddate").value;
+    let sprint_capacity = document.getElementById("s_capacity").value;
+
+    console.log("The Sprint was added! " + sprint_name + " " + sprint_startdate + " " + sprint_enddate+" "+sprint_capacity);
+    let sprint1;
+    sprint1 = new Sprint(sprint_name,sprint_startdate, sprint_enddate,sprint_capacity);
+
+    //TODO: Sprint Speichern
+    console.log(sprint1);
+    closeAddSprint();
+}
+
+function displayEditSprint(s) {
+    document.getElementById("form_editSprint").reset();
+    document.getElementById("edit_s_name").value = jsonFile.sprints[s].title;
+    document.getElementById("edit_s_startdate").value = jsonFile.epicCaptures[s].startdate;
+    document.getElementById("edit_s_enddate").value = jsonFile.epicCaptures[s].enddate;
+    document.getElementById("edit_s_capacity").value = jsonFile.epicCaptures[s].capacity;
+
+    $("#modal_edit_sprint").modal("show");
+}
+
+function saveSprint() {
+    let sprint_name = document.getElementById("s_name").value;
+    let sprint_startdate = document.getElementById("s_startdate").value;
+    let sprint_enddate = document.getElementById("s_enddate").value;
+    let sprint_capacity = document.getElementById("s_capacity").value;
+    let sprint_id = document.getElementById("edit_s_item_id").value;
+
+    for(let i=0; i<jsonFile.sprints.length; i++) {
+        if (jsonFile.sprints[i].sprintId == sprint_id) {
+            jsonFile.sprints[i].title = sprint_name;
+            jsonFile.sprints[i].startdate = sprint_startdate;
+            jsonFile.sprints[i].enddate = sprint_enddate;
+            //TODO: Backend funktion: Alle Zeiten der backlogs im Epic zusammenzählen --> Alle Zeiten der Tasks ins Backlog
+            jsonFile.sprints[i].capacity = sprint_capacity;
+            console.log("Item Edited" + jsonFile.sprints[i]);
+        }
+    }
+   closeEditEpicCapture();
+
+}
+
+function closeEditSprint() {
+    document.getElementById("form_editSprint").reset();
+    $("#modal_edit_sprint").modal("hide");
+}
 
 
 //=========================================================================================================
