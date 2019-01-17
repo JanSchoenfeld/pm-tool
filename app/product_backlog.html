@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <title>SCRUM Tool</title>
+  <script src="Models/sprint.js"></script>
 </head>
 
 <body>
@@ -70,11 +71,84 @@
         <div class="modal-body">
           <button type="button" onclick="displayAddEpicCapture()" class="btn btn-primary">Epic-Capture</button>
           <button type="button" onclick="displayAddBacklogItem()" class="btn btn-primary">Backlog-Item</button>
+          <button type="button" onclick="displayAddSprint()" class="btn btn-primary">Sprint</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="modal" tabindex="-1" role="dialog" id="modal_add_sprint">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Add Sprint</b></h5>
+          <button type="button" class="close" onclick="closeAddSprint()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_addSprint">
+            <div class="form-group">
+              <label for="s_name">Name</label>
+              <input type="text" class="form-control" id="s_name" placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="s_startdate">Start Date</label>
+              <input type="number" class="form-control" id="s_startdate" placeholder="Start Date">
+            </div>
+            <div class="form-group">
+              <label for="s_enddate">End Date</label>
+              <input type="number" class="form-control" id="s_enddate" placeholder="End Date">
+            </div>
+            <div class="form-group">
+              <label for="s_capacity">Capacity</label>
+              <input type="number" class="form-control" id="s_capacity" placeholder="Capacity">
+            </div>
+            <br>
+            <button type="button" onclick="addSprint()" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="closeAddSprint()" class="btn btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal_edit_sprint">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Edit Sprint</b></h5>
+          <button type="button" class="close" onclick="closeEditSprint()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_editSprint">
+            <div class="form-group">
+              <label for="edit_s_name">Name</label>
+              <input type="text" class="form-control" id="edit_s_name"  placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="edit_s_startdate">Start Date</label>
+              <input type="number" class="form-control" id="edit_s_startdate" placeholder="Start Date">
+            </div>
+            <div class="form-group">
+              <label for="edit_s_enddate">End Date</label>
+              <input type="number" class="form-control" id="edit_s_enddate" placeholder="End Date">
+            </div>
+            <div class="form-group">
+              <label for="edit_s_capacity">Capacity</label>
+              <input type="number" class="form-control" id="edit_s_capacity" placeholder="End Date">
+            </div>
+            <input type="hidden" id="edit_s_item_id">
+            <br>
+            <button type="button" onclick="saveSprint()" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="closeEditSprint()" class="btn btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_add_backlogItem">
@@ -112,7 +186,6 @@
               <option>Epic 1</option>
               <option>Epic 2</option>
             </select>
-            <input type="hidden" id="b_item_id">
             <br>
             <button type="button" onclick="addBacklogItem()" class="btn btn-primary">Submit</button>
             <button type="button" onclick="closeAddBacklogItem()" class="btn btn-secondary">Close</button>
@@ -157,6 +230,7 @@
               <option>Epic 1</option>
               <option>Epic 2</option>
             </select>
+            <input type="hidden" id="edit_b_item_id">
             <br>
             <button type="button" onclick="saveBacklogItem()" class="btn btn-primary">Submit</button>
             <button type="button" onclick="closeEditBacklogItem()" class="btn btn-secondary">Close</button>
@@ -200,8 +274,6 @@
 
   </div>
 
-
-
   <div class="modal" tabindex="-1" role="dialog" id="modal_edit_epicCapture">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -225,6 +297,7 @@
               <label for="edit_e_item_estimate_time">Estimate time</label>
               <input type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Estimate time">
             </div>
+            <input type="hidden" id="edit_e_item_id">
             <br>
             <button type="button" onclick="saveEpicCapture()" class="btn btn-primary">Submit</button>
             <button type="button" onclick="closeEditEpicCapture()" class="btn btn-secondary">Close</button>

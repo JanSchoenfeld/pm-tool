@@ -2,7 +2,7 @@ const Priority = require('./priority');
 
 let epicId = 1;
 
-class Epic{
+class EpicCapture{
 
 
 
@@ -16,12 +16,13 @@ class Epic{
         this.estimated = estimated;
         //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
         this.backlogs = [];
-        
+
 
         this.addBacklog = function (newBacklog){
+            newBacklog.isInEpic = true;
             this.backlogs.push(newBacklog);
         }
     }
 }
 
-module.exports = BacklogItem;
+module.exports = EpicCapture;
