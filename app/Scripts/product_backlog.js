@@ -52,7 +52,8 @@ function listEpicCapturesWithBacklogs() {
             console.log("Backlog " + backlogId);
 
             for (let k=0; k <  jsonFile.backlogs.length; k++) {
-                if (jsonFile.epicCaptures[i].backlogs[j] ===  jsonFile.backlogs[k].backlogId) {
+                console.log("Suche Backlog "+ jsonFile.backlogs[k].backlogId+" ....");
+                if (jsonFile.epicCaptures[i].backlogs[j] ==  jsonFile.backlogs[k].backlogId) {
                     console.log("Passender Backlog gefunden "+ jsonFile.backlogs[k].backlogId);
                     listBacklogItem(k);
                 }
@@ -64,7 +65,7 @@ function listEpicCapturesWithBacklogs() {
 
 function listBacklogItem(k) {
     //for (let i= 0; i < jsonFile.backlogs.length; i++) {
-        console.log("backlog item " +k+" "+jsonFile.backlogs[k].backlogId);
+        console.log("backlog item an position " +k+" mit ID "+jsonFile.backlogs[k].backlogId);
     //}
 }
 
