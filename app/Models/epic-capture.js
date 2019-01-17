@@ -19,6 +19,7 @@ class Epic{
         
 
         this.addBacklog = function (newBacklog){
+            newBacklog.isInEpic = true;
             this.backlogs.push(newBacklog);
         }
     }

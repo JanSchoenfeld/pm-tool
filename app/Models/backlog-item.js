@@ -21,6 +21,7 @@ class BacklogItem {
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
             this.tasks = [];
             this.isInSprint = false;
+            this.isInEpic = false;
             
 
             this.addTask = function (newTask){

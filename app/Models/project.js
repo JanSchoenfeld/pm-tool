@@ -8,9 +8,14 @@ class Project {
         this.projectId = projectId++;
         this.title = title;
         this.description = description;
+        this.epics = [];
         this.backlogs = [];
         this.assignedUsers = [];
         this.sprints = [];
+
+        this.addEpic = function(newEpic){
+            this.epics.push(newEpic);
+        }
 
         this.addBacklog = function(newBacklog){
             this.backlogs.push(newBacklog);
