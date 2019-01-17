@@ -12,6 +12,7 @@ class Project {
         this.backlogs = [];
         this.assignedUsers = [];
         this.sprints = [];
+        this.epicCaptures = [];
 
         this.addEpic = function(newEpic){
             this.epics.push(newEpic);
@@ -27,6 +28,10 @@ class Project {
         
         this.addSprint = function(newSprint){
             this.sprints.push(newSprint);
+        }
+
+        this.addEpicCapture = function(newEpicCapture){
+            this.epicCaptures.push(newEpicCapture);
         }
     }
 }
