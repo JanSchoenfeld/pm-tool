@@ -150,7 +150,46 @@
 					"assignedTo": []
 				}
 			]
+		},
+		{
+			"backlogId": 3,
+			"createdAt": 1546180030416,
+			"title": "backlogItem Nr. 3",
+			"description": "backlogItem Nr. 3 description",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [
+			]
+		},
+		{
+			"backlogId": 4,
+			"createdAt": 1546180030416,
+			"title": "backlogItem Nr. 4 Hier kommt noch ein echt langer Text hinter weil Gründe",
+			"description": "backlogItem Nr. 4 description",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "low"
+			},
+			"estimated": 5
 		}
+
 	],
 	"sprints": [
 		{
@@ -204,6 +243,35 @@
 				"owner": true,
 				"developer": false
 			}
+		}
+	],
+	"epicCaptures": [
+		{
+			"epicId": 1,
+			"description": "test beschreibung1",
+			"backlogs": [
+				"1"			]
+		},
+		{
+			"epicId": 2,
+			"description": "test beschreibung2",
+			"backlogs": [
+				"2","3"
+			]
+		},
+		{
+			"epicId": 3,
+			"description": "test beschreibung3",
+			"backlogs": [
+				"4"
+			]
+		},
+		{
+			"epicId": 4,
+			"description": "test beschreibung3",
+			"backlogs": [
+
+			]
 		}
 	]
 }
