@@ -1,11 +1,10 @@
 const BacklogItem = require('./backlog-item');
-
-let projectId = 1;
+const uuidv4 = require('uuid/v4');
 
 class Project {
 
     constructor(title, description) {
-        this.projectId = projectId++;
+        this.projectId = uuidv4();
         this.title = title;
         this.description = description;
         this.backlogs = [];

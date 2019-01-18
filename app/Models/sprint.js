@@ -1,12 +1,11 @@
 const Project = require('./project');
 const BacklogItem = require('./backlog-item');
-
-let sprintId = 1;
+const uuidv4 = require('uuid/v4');
 
 class Sprint {
     constructor(name, startdate, enddate, capacity) {
 
-        this.sprintId = sprintId++;
+        this.sprintId = uuidv4();
         this.createdAt = Date.now();
         this.name = name;
         //wie date bei sprintanlegung feststellen?

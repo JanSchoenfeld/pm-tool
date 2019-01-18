@@ -1,13 +1,13 @@
 const User = require('./user.js');
 const Status = require('./status.js')
-let userId = 1;
+const uuidv4 = require('uuid/v4');
 
 
 class Task {
 
     constructor(title, description, effort) {
 
-        this.taskId = userId++;
+        this.taskId = uuidv4();
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;

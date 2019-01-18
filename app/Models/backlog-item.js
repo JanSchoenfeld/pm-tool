@@ -5,13 +5,12 @@ const User = require('./user');
 const Sprint = require('./sprint');
 const Status = require('./status');
 const Priority = require('./priority');
-
-let backlogId = 1;
+const uuidv4 = require('uuid/v4');
 
 class BacklogItem {
 
     constructor(title, description, /*backlog_status,*/ backlog_item_priority, estimated) {
-            this.backlogId = backlogId++;
+            this.backlogId = uuidv4();
             this.createdAt = Date.now();
             this.title = title;
             this.description = description;
