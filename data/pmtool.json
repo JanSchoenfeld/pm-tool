@@ -272,7 +272,7 @@
 	],
 	"sprints": [
 		{
-			"sprint_id": 1,
+			"sprintId": 1,
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -295,7 +295,7 @@
 			]
 		},
 		{
-			"sprint_id": 2,
+			"sprintId": 2,
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -308,7 +308,7 @@
 			]
 		},
 		{
-			"sprint_id": 3,
+			"sprintId": 3,
 			"backlogItemIds": [
 			]
 		}
