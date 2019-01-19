@@ -492,7 +492,21 @@ function closeEditSprint() {
     $("#modal_edit_sprint").modal("hide");
 }
 
+function deleteBacklog() {
+    let id = document.getElementById("edit_b_item_id");
+    console.log(id);
+    //TODO: Lösch Funktion Backlog
+}
 
+function deleteEpicCapture() {
+    let id = document.getElementById("edit_e_item_id");
+    console.log(id);
+    //TODO: Lösch Funktion Epic
+}
+function deleteSprint() {
+    let id = document.getElementById("edit_s_item_id");
+    //TODO: Lösch Funktion Sprint
+}
 //=========================================================================================================
 //Code
 /*
