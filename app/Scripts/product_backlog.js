@@ -37,37 +37,202 @@ let jsonFile = loadProject();
 var table = document.getElementById("productbacklog_table");
 
 
-siteContent();
+//siteContent();
 listEpicCapturesWithBacklogs();
 
 function listEpicCapturesWithBacklogs() {
     let epic;
+    let backlogTable = document.getElementById("productbacklog_table");
+
     for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
         epic = jsonFile.epicCaptures[i];
         console.log("Epic "+ epic.epicId);
         let backlog;
 
-        for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
-            let backlogId = jsonFile.epicCaptures[i].backlogs[j];
-            console.log("Backlog " + backlogId);
+        let epicRow = document.createElement("tr");
+        epicRow.onclick =function () {
+            displayEditEpicCapture(i);
+        };
+        epicRow.style.backgroundColor ="DarkGray";
 
-            for (let k=0; k <  jsonFile.backlogs.length; k++) {
-                console.log("Suche Backlog "+ jsonFile.backlogs[k].backlogId+" ....");
-                if (jsonFile.epicCaptures[i].backlogs[j] ==  jsonFile.backlogs[k].backlogId) {
-                    console.log("Passender Backlog gefunden "+ jsonFile.backlogs[k].backlogId);
-                    listBacklogItem(k);
+        let colIsEpic = document.createElement("td");
+        let isEpic = document.createTextNode("EPIC");
+        colIsEpic.appendChild(isEpic);
+        epicRow.appendChild(colIsEpic);
+
+        let colId = document.createElement("td");
+        let id = document.createTextNode(jsonFile.epicCaptures[i].epicId);
+        colId.appendChild(id);
+        epicRow.appendChild(colId);
+
+        let colTitle = document.createElement("td");
+        let title = document.createTextNode(jsonFile.epicCaptures[i].title);
+        colTitle.appendChild(title);
+        epicRow.appendChild(colTitle);
+
+        let colEstimate = document.createElement("td");
+        let estimate = document.createTextNode(jsonFile.epicCaptures[i].estimated);
+        colEstimate.appendChild(estimate);
+        epicRow.appendChild(colEstimate);
+
+        let colStatus = document.createElement("td");
+        let status;
+        if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
+            status = document.createTextNode("To Do");
+        }
+        else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
+            status = document.createTextNode("To Do");
+        }
+        else if (jsonFile.epicCaptures[i].epic_status.done === true) {
+            status = document.createTextNode("To Do");
+        }
+        else {
+            status = document.createTextNode("Missing");
+        }
+        colStatus.appendChild(status);
+        epicRow.appendChild(colStatus);
+
+        backlogTable.appendChild(epicRow);
+
+        if (jsonFile.epicCaptures[i].backlogs.length > 0) {
+            let tableBacklogsFromEpic = document.createElement("table");
+
+
+            for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
+                let backlogId = jsonFile.epicCaptures[i].backlogs[j];
+                console.log("Backlog " + backlogId);
+
+                for (let k=0; k <  jsonFile.backlogs.length; k++) {
+                    console.log("Suche Backlog "+ jsonFile.backlogs[k].backlogId+" ....");
+                    if (jsonFile.epicCaptures[i].backlogs[j] ==  jsonFile.backlogs[k].backlogId) {
+                        console.log("Passender Backlog gefunden "+ jsonFile.backlogs[k].backlogId);
+
+                        let backlogRow = document.createElement("tr");
+                        backlogRow.onclick =function () {
+                            displayEditBacklogItem(i);
+                        };
+
+                        backlogRow.style.backgroundColor = "Gainsboro";
+
+                        let colIsEpic = document.createElement("td");
+                        let isEpic = document.createTextNode("");
+                        colIsEpic.appendChild(isEpic);
+                        backlogRow.appendChild(colIsEpic);
+
+                        let colId = document.createElement("td");
+                        let id = document.createTextNode(jsonFile.epicCaptures[i].epicId);
+                        colId.appendChild(id);
+                        backlogRow.appendChild(colId);
+
+                        let colTitle = document.createElement("td");
+                        let title = document.createTextNode(jsonFile.epicCaptures[i].title);
+                        colTitle.appendChild(title);
+                        backlogRow.appendChild(colTitle);
+
+                        let colEstimate = document.createElement("td");
+                        let estimate = document.createTextNode(jsonFile.epicCaptures[i].estimated);
+                        colEstimate.appendChild(estimate);
+                        backlogRow.appendChild(colEstimate);
+
+                        let colStatus = document.createElement("td");
+                        let status;
+                        if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
+                            status = document.createTextNode("To Do");
+                        }
+                        else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
+                            status = document.createTextNode("To Do");
+                        }
+                        else if (jsonFile.epicCaptures[i].epic_status.done === true) {
+                            status = document.createTextNode("To Do");
+                        }
+                        else {
+                            status = document.createTextNode("Missing");
+                        }
+                        colStatus.appendChild(status);
+                        backlogRow.appendChild(colStatus);
+
+                        backlogTable.appendChild(backlogRow);
+
+                        listBacklogItem(k);
+
+                    }
                 }
             }
+            /*
+            let br = document.createElement("br");
+            epicRow.appendChild(br);
+            epicRow.appendChild(tableBacklogsFromEpic);
+            */
         }
     }
 
+    for (let i=0; i < jsonFile.backlogs.length; i++) {
+        if (jsonFile.backlogs[i].isInEpic === false) {
+            let backlogRow = document.createElement("tr");
+            backlogRow.onclick =function () {
+                displayEditBacklogItem(i);
+            };
+
+            backlogRow.style.backgroundColor = "PowderBlue";
+
+            let colIsEpic = document.createElement("td");
+            let isEpic = document.createTextNode("BACKLOG");
+            colIsEpic.appendChild(isEpic);
+            backlogRow.appendChild(colIsEpic);
+
+            let colId = document.createElement("td");
+            let id = document.createTextNode(jsonFile.epicCaptures[i].epicId);
+            colId.appendChild(id);
+            backlogRow.appendChild(colId);
+
+            let colTitle = document.createElement("td");
+            let title = document.createTextNode(jsonFile.epicCaptures[i].title);
+            colTitle.appendChild(title);
+            backlogRow.appendChild(colTitle);
+
+            let colEstimate = document.createElement("td");
+            let estimate = document.createTextNode(jsonFile.epicCaptures[i].estimated);
+            colEstimate.appendChild(estimate);
+            backlogRow.appendChild(colEstimate);
+
+            let colStatus = document.createElement("td");
+            let status;
+            if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
+                status = document.createTextNode("To Do");
+            }
+            else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
+                status = document.createTextNode("To Do");
+            }
+            else if (jsonFile.epicCaptures[i].epic_status.done === true) {
+                status = document.createTextNode("To Do");
+            }
+            else {
+                status = document.createTextNode("Missing");
+            }
+            colStatus.appendChild(status);
+            backlogRow.appendChild(colStatus);
+
+            backlogTable.appendChild(backlogRow);
+        }
+    }
 }
 
-function listBacklogItem(k) {
-    //for (let i= 0; i < jsonFile.backlogs.length; i++) {
-        console.log("backlog item an position " +k+" mit ID "+jsonFile.backlogs[k].backlogId);
-    //}
+function listBacklogItem(id) {
+    for (let i= 0; i < jsonFile.backlogs.length; i++) {
+        if (jsonFile.backlogs[i].backlogId == id) {
+            console.log("backlog item an position " +i+" mit ID "+jsonFile.backlogs[i].backlogId);
+        }
+    }
 }
+
+function listBacklogItemWithoutEpic() {
+    for (let p = 0; p < jsonFile.backlogs.length;p++) {
+        if (jsonFile.backlogs[p].isInEpic === false) {
+            //List Backlogs without Epics HTML...
+        }
+    }
+}
+
 
 function siteContent() {
 
