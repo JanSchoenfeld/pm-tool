@@ -1,13 +1,13 @@
 const Priority = require('./priority');
+const uuidv4 = require('uuid/v4');
 
-let epicId = 1;
 
 class EpicCapture{
 
 
 
     constructor(title, description, epic_status, epic_priority, estimated) {
-        this.epicId = epicId++;
+        this.epicId = uuidv4();
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;
