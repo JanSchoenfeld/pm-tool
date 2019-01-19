@@ -40,7 +40,12 @@ var table = document.getElementById("productbacklog_table");
 //siteContent();
 listEpicCapturesWithBacklogs();
 
+function reload() {
+    location.reload();
+}
+
 function listEpicCapturesWithBacklogs() {
+    //$("#productbacklog_table").tbody.empty();
     let epic;
     let backlogTable = document.getElementById("productbacklog_table");
 
@@ -81,10 +86,10 @@ function listEpicCapturesWithBacklogs() {
             status = document.createTextNode("To Do");
         }
         else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
-            status = document.createTextNode("To Do");
+            status = document.createTextNode("In progress");
         }
         else if (jsonFile.epicCaptures[i].epic_status.done === true) {
-            status = document.createTextNode("To Do");
+            status = document.createTextNode("Done");
         }
         else {
             status = document.createTextNode("Missing");
@@ -95,8 +100,6 @@ function listEpicCapturesWithBacklogs() {
         backlogTable.appendChild(epicRow);
 
         if (jsonFile.epicCaptures[i].backlogs.length > 0) {
-            let tableBacklogsFromEpic = document.createElement("table");
-
 
             for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
                 let backlogId = jsonFile.epicCaptures[i].backlogs[j];
@@ -120,29 +123,29 @@ function listEpicCapturesWithBacklogs() {
                         backlogRow.appendChild(colIsEpic);
 
                         let colId = document.createElement("td");
-                        let id = document.createTextNode(jsonFile.epicCaptures[i].epicId);
+                        let id = document.createTextNode(jsonFile.backlogs[i].backlogId);
                         colId.appendChild(id);
                         backlogRow.appendChild(colId);
 
                         let colTitle = document.createElement("td");
-                        let title = document.createTextNode(jsonFile.epicCaptures[i].title);
+                        let title = document.createTextNode(jsonFile.backlogs[i].title);
                         colTitle.appendChild(title);
                         backlogRow.appendChild(colTitle);
 
                         let colEstimate = document.createElement("td");
-                        let estimate = document.createTextNode(jsonFile.epicCaptures[i].estimated);
+                        let estimate = document.createTextNode(jsonFile.backlogs[i].estimated);
                         colEstimate.appendChild(estimate);
                         backlogRow.appendChild(colEstimate);
 
                         let colStatus = document.createElement("td");
                         let status;
-                        if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
+                        if (jsonFile.backlogs[i].backlog_status.to_do === true) {
                             status = document.createTextNode("To Do");
                         }
-                        else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
+                        else if (jsonFile.backlogs[i].backlog_status.in_progress === true) {
                             status = document.createTextNode("To Do");
                         }
-                        else if (jsonFile.epicCaptures[i].epic_status.done === true) {
+                        else if (jsonFile.backlogs[i].backlog_status.done === true) {
                             status = document.createTextNode("To Do");
                         }
                         else {
@@ -181,30 +184,30 @@ function listEpicCapturesWithBacklogs() {
             backlogRow.appendChild(colIsEpic);
 
             let colId = document.createElement("td");
-            let id = document.createTextNode(jsonFile.epicCaptures[i].epicId);
+            let id = document.createTextNode(jsonFile.backlogs[i].backlogId);
             colId.appendChild(id);
             backlogRow.appendChild(colId);
 
             let colTitle = document.createElement("td");
-            let title = document.createTextNode(jsonFile.epicCaptures[i].title);
+            let title = document.createTextNode(jsonFile.backlogs[i].title);
             colTitle.appendChild(title);
             backlogRow.appendChild(colTitle);
 
             let colEstimate = document.createElement("td");
-            let estimate = document.createTextNode(jsonFile.epicCaptures[i].estimated);
+            let estimate = document.createTextNode(jsonFile.backlogs[i].estimated);
             colEstimate.appendChild(estimate);
             backlogRow.appendChild(colEstimate);
 
             let colStatus = document.createElement("td");
             let status;
-            if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
+            if (jsonFile.backlogs[i].backlog_status.to_do === true) {
                 status = document.createTextNode("To Do");
             }
-            else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
-                status = document.createTextNode("To Do");
+            else if (jsonFile.backlogs[i].backlog_status.in_progress === true) {
+                status = document.createTextNode("In Progress");
             }
-            else if (jsonFile.epicCaptures[i].epic_status.done === true) {
-                status = document.createTextNode("To Do");
+            else if (jsonFile.backlogs[i].backlog_status.done === true) {
+                status = document.createTextNode("Done");
             }
             else {
                 status = document.createTextNode("Missing");
@@ -221,14 +224,6 @@ function listBacklogItem(id) {
     for (let i= 0; i < jsonFile.backlogs.length; i++) {
         if (jsonFile.backlogs[i].backlogId == id) {
             console.log("backlog item an position " +i+" mit ID "+jsonFile.backlogs[i].backlogId);
-        }
-    }
-}
-
-function listBacklogItemWithoutEpic() {
-    for (let p = 0; p < jsonFile.backlogs.length;p++) {
-        if (jsonFile.backlogs[p].isInEpic === false) {
-            //List Backlogs without Epics HTML...
         }
     }
 }
@@ -330,7 +325,7 @@ function addBacklogItem() {
     closeAddBacklogItem();
 
     //TODO: Backlog Speichern
-
+    reload();
 }
 
 function closeAddBacklogItem() {
@@ -364,6 +359,7 @@ function saveBacklogItem() {
             //TODO: LUC: Sprint variable in Backlogitem
             //jsonFile.backlogs[i].sprint = item_assign_to_sprint;
             console.log("Item Edited" + jsonFile.backlogs[i]);
+            reload();
         }
     }
     closeEditBacklogItem();
@@ -389,7 +385,9 @@ function addEpicCapture() {
     let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
     console.log(epicCapture);
     //TODO: Speichern
-    closeAddEpicCapture()
+
+    closeAddEpicCapture();
+    reload();
 }
 
 function closeAddEpicCapture() {
@@ -401,7 +399,7 @@ function displayEditEpicCapture(i) {
      document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
      document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
      document.getElementById("edit_e_item_estimate_time").value = jsonFile.epicCaptures[i].estimated;
-     document.getElementById("edit_b_item_id").value = jsonFile.epicCaptures[i].epicId;
+     document.getElementById("edit_e_item_id").value = jsonFile.epicCaptures[i].epicId;
      $("#modal_edit_epicCapture").modal("show");
 }
 
@@ -413,11 +411,13 @@ function saveEpicCapture() {
 
     for(let i=0; i<jsonFile.epicCaptures.length; i++) {
         if (jsonFile.epicCaptures[i].epicId == item_id) {
+            console.log("Item gefunden");
             jsonFile.epicCaptures[i].title = item_name;
             jsonFile.epicCaptures[i].description = item_description;
             //TODO: Backend funktion: Alle Zeiten der backlogs im Epic zusammenzählen --> Alle Zeiten der Tasks ins Backlog
             jsonFile.epicCaptures[i].estimated = item_estimate_time;
             console.log("Item Edited" + jsonFile.epicCaptures[i]);
+            reload();
         }
     }
     closeEditEpicCapture();
@@ -451,6 +451,7 @@ function addSprint() {
 
     //TODO: Sprint Speichern
     console.log(sprint1);
+    reload();
     closeAddSprint();
 }
 
@@ -479,6 +480,7 @@ function saveSprint() {
             //TODO: Backend funktion: Alle Zeiten der backlogs im Epic zusammenzählen --> Alle Zeiten der Tasks ins Backlog
             jsonFile.sprints[i].capacity = sprint_capacity;
             console.log("Item Edited" + jsonFile.sprints[i]);
+            reload();
         }
     }
    closeEditEpicCapture();

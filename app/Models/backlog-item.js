@@ -15,7 +15,7 @@ class BacklogItem {
             this.createdAt = Date.now();
             this.title = title;
             this.description = description;
-            //this.backlog_status = backlog_status;
+            this.backlog_status = backlog_status;
             this.priority = new Priority(backlog_item_priority);
             this.estimated = estimated;
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
