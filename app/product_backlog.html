@@ -177,9 +177,11 @@
             </div>
             <label for="b_item_assign_to_sprint">Assign to sprint</label>
             <select class="form-control form-control-sm" id="b_item_assign_to_sprint">
+            <option value=""></option>
             </select>
             <label for="b_item_assign_to_epic">Assign to epic</label>
             <select class="form-control form-control-sm" id="b_item_assign_to_epic">
+              <option value=""></option>
             </select>
             <br>
             <button type="button" onclick="addBacklogItem()" class="btn-primary">Save</button>
@@ -220,6 +222,8 @@
             <select class="form-control form-control-sm" id="edit_b_item_assign_to_epic">
             </select>
             <input type="hidden" id="edit_b_item_id">
+            <input type="hidden" id="edit_b_item_epicId">
+            <input type="hidden" id="edit_b_item_sprintId">
             <br>
             <button type="button" onclick="saveBacklogItem()" class="btn-primary">Save</button>
             <button type="button" onclick="deleteBacklog()" class="btn-danger">Delete</button>
