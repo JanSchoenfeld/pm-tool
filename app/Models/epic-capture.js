@@ -18,9 +18,8 @@ class EpicCapture{
         this.backlogs = [];
 
 
-        this.addBacklog = function (newBacklog){
-            newBacklog.isInEpic = true;
-            this.backlogs.push(newBacklog);
+        this.addBacklog = function (id){
+            this.backlogs.push(id);
         }
     }
 }
