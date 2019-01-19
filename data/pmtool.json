@@ -20,6 +20,7 @@
 				"priority": "high"
 			},
 			"estimated": 3,
+          "isInEpic": true,
 			"tasks": [
 				{
 					"taskId": 1,
@@ -94,6 +95,7 @@
 				"priority": "high"
 			},
 			"estimated": 3,
+          "isInEpic": true,
 			"tasks": [
 				{
 					"taskId": 1,
@@ -168,6 +170,7 @@
 				"priority": "high"
 			},
 			"estimated": 3,
+          "isInEpic": true,
 			"tasks": [
 			]
 		},
@@ -176,6 +179,7 @@
 			"createdAt": 1546180030416,
 			"title": "backlogItem Nr. 4 Hier kommt noch ein echt langer Text hinter weil Gründe",
 			"description": "backlogItem Nr. 4 description",
+          "isInEpic": true,
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -188,7 +192,82 @@
 				"priority": "low"
 			},
 			"estimated": 5
-		}
+		},
+      {
+        "backlogId": 5,
+        "createdAt": 1546180030416,
+        "title": "backlogItem Nr. 5 Hier kommt noch ein echt langer Text hinter weil Gründe",
+        "description": "backlogItem Nr. 5 description",
+        "backlog_status": {
+          "to_do": false,
+          "in_progress": false,
+          "done": true
+        },
+        "priority": {
+          "low": false,
+          "standard": false,
+          "high": true,
+          "priority": "high"
+        },
+        "estimated": 3,
+        "isInEpic": false,
+        "tasks": [
+          {
+            "taskId": 1,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 1",
+            "description": "Scrumboard erstellen und füllen",
+            "task_status": 0,
+            "effort": 5,
+            "assignedTo": []
+          },
+          {
+            "taskId": 2,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 2",
+            "description": "blabla",
+            "task_status": 1,
+            "effort": 5,
+            "assignedTo": []
+          },
+          {
+            "taskId": 3,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 3",
+            "description": "blabla",
+            "task_status": 2,
+            "effort": 5,
+            "assignedTo": []
+          },
+          {
+            "taskId": 4,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 4",
+            "description": "blabla",
+            "task_status": 1,
+            "effort": 5,
+            "assignedTo": []
+          },
+          {
+            "taskId": 5,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 5",
+            "description": "blabla",
+            "task_status": 1,
+            "effort": 5,
+            "assignedTo": []
+          },
+          {
+            "taskId": 6,
+            "createdAt": 1546180030416,
+            "title": "backlogItem Nr. 1 / Task 6",
+            "description": "blabla",
+            "task_status": 2,
+            "effort": 5,
+            "assignedTo": []
+          }
+        ]
+      }
 
 	],
 	"sprints": [
@@ -248,35 +327,70 @@
 	"epicCaptures": [
 		{
 			"epicId": 1,
+          "title": "Title 1",
 			"description": "test beschreibung1",
+            "estimated": 5,
+          "epic_status": {
+            "to_do": true,
+            "in_progress": false,
+            "done": false
+          },
 			"backlogs": [
 				"1"
 			]
 		},
 		{
 			"epicId": 2,
+          "title": "Title 2",
 			"description": "test beschreibung2",
+          "estimated": 3,
+          "epic_status": {
+            "to_do": true,
+            "in_progress": false,
+            "done": false
+          },
 			"backlogs": [
 				"2","3"
 			]
 		},
 		{
 			"epicId": 3,
+          "title": "Title 3",
 			"description": "test beschreibung3",
+          "estimated": 1,
+          "epic_status": {
+            "to_do": true,
+            "in_progress": false,
+            "done": false
+          },
 			"backlogs": [
 				"4"
 			]
 		},
 		{
 			"epicId": 4,
+          "title": "Title 4",
 			"description": "test beschreibung4",
+          "estimated": 3,
+          "epic_status": {
+            "to_do": true,
+            "in_progress": false,
+            "done": false
+          },
 			"backlogs": [
 
 			]
 		},
 		{
 			"epicId": 5,
+          "title": "Title 5",
 			"description": "test beschreibung5",
+          "estimated": 3,
+          "epic_status": {
+            "to_do": true,
+            "in_progress": false,
+            "done": false
+          },
 			"backlogs": [
 
 			]
