@@ -300,6 +300,18 @@ function closeChooseItem() {
 
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
+    let selectSprint = document.getElementById("b_item_assign_to_sprint");
+    selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    for (let i= 0; i< jsonFile.sprints.length; i++) {
+        let id = jsonFile.sprints[i].sprintId;
+        selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
+    }
+    let selectEpic = document.getElementById("b_item_assign_to_epic");
+    selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    for (let i= 0; i< jsonFile.epicCaptures.length; i++) {
+        let id = jsonFile.epicCaptures[i].epicId;
+        selectEpic.options[selectEpic.options.length] = new Option("Sprint " + id, id);
+    }
     closeChooseItem();
     $("#modal_add_backlogItem").modal("show");
 }
@@ -339,6 +351,20 @@ function displayEditBacklogItem(i) {
     document.getElementById("edit_b_item_description").value = jsonFile.backlogs[i].description;
     document.getElementById("edit_b_item_estimate_time").value = jsonFile.backlogs[i].estimated;
     document.getElementById("edit_b_item_id").value = jsonFile.backlogs[i].backlogId;
+
+    let selectSprint = document.getElementById("edit_b_item_assign_to_sprint");
+    selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    for (let i= 0; i< jsonFile.sprints.length; i++) {
+        let id = jsonFile.sprints[i].sprintId;
+        selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
+    }
+    let selectEpic = document.getElementById("edit_b_item_assign_to_epic");
+    selectEpic.options[selectEpic.options.length] = new Option("" , "");
+    for (let i= 0; i< jsonFile.epicCaptures.length; i++) {
+        let id = jsonFile.epicCaptures[i].epicId;
+        selectEpic.options[selectEpic.options.length] = new Option("Sprint " + id, id);
+    }
+
     $("#modal_edit_backlogItem").modal("show");
 }
 
