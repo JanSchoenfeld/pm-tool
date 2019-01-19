@@ -1,0 +1,27 @@
+{
+	"projectId": 1,
+	"title": "Jan Test",
+	"description": "Test für Backlogs",
+	"epics": [],
+	"backlogs": [
+		{
+			"backlogId": 1,
+			"createdAt": 1547834029125,
+			"title": "TestBacklog",
+			"description": "Testingbacklogs",
+			"priority": {
+				"low": false,
+				"standard": false,
+				"high": true,
+				"priority": "high"
+			},
+			"estimated": 3,
+			"tasks": [],
+			"isInSprint": false,
+			"isInEpic": false
+		}
+	],
+	"assignedUsers": [],
+	"sprints": [],
+	"epicCaptures": []
+}
