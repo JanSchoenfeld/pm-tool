@@ -1,14 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const {
-  remote
+  remote, ipcRenderer
 } = require('electron');
 
 //currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
 //console.log(require('electron').remote.getGlobal('PROJECTS')[0].title)
 
 let PROJECTS = remote.getGlobal('PROJECTS');
-let POSITION = fs.readFileSync('data/global/POSITION.json');
+let POSITION = JSON.parse(fs.readFileSync('data/global/POSITION.json'));
 //initialisieren von project
 let project = loadProject();
 document.getElementById('title').appendChild(document.createTextNode(project.title));

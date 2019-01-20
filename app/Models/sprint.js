@@ -1,10 +1,10 @@
+const uuidv4 = require('uuid/v4');
 
-let sprintId = 1;
 
 class Sprint {
     constructor(name, startdate, enddate, capacity) {
 
-        this.sprintId = sprintId++;
+        this.sprintId = uuidv4();
         this.createdAt = Date.now();
         this.name = name;
         //wie date bei sprintanlegung feststellen?
@@ -14,9 +14,8 @@ class Sprint {
         //referenz zu backlog?
         this.backlogs = [];
 
-        this.addBacklog = function (newBacklog){
-            this.backlogs.push(newBacklog);
-            newBacklog.isInSprint = true;
+        this.addBacklog = function (id){
+            this.backlogs.push(id);
         }
     }
 }
