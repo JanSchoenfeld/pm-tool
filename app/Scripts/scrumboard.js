@@ -149,6 +149,9 @@ function siteContent() {
         newStoryContentDiv.appendChild(newActionDiv);
         newStoryDiv.appendChild(newStoryContentDiv);
         newRowDiv.appendChild(newStoryDiv);
+        newRowDiv.appendChild(newBacklogDiv);
+        newRowDiv.appendChild(newDoingDiv);
+        newRowDiv.appendChild(newDoneDiv);
 
         var tasks = project.backlogs[i].tasks;
         var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
@@ -163,6 +166,9 @@ function siteContent() {
             newContentDiv.id = 'content' + i + j
             newContentDiv.draggable = true;
             newContentDiv.addEventListener('dragstart', drag);
+            newContentDiv.addEventListener('dragover', function () {
+              return false;
+            })
             //Create textdiv and actionDiv
             var newTextDiv = document.createElement('div');
             var newActionDiv = document.createElement('div');
@@ -181,7 +187,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newBacklogDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newBacklogDiv);
+              
             } else if (tasks[j].task_status == 1) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
@@ -189,7 +195,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newDoingDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newDoingDiv);
+             
             } else if (tasks[j].task_status == 2) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
@@ -197,7 +203,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newDoneDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newDoneDiv);
+              
             }
 
           }
@@ -277,14 +283,30 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
+  if (ev.target.id != '') {
 
+  console.log("data: "+ data.substring(data.length - 2, data.length - 1))
+  console.log("target: "+ ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length))
   if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-    ev.target.appendChild(document.getElementById(data));
     var rowID = data.substring(data.length - 2, data.length - 1)
     var taskID = data.substring(data.length - 1, data.length)
-    var element = PROJECTS[POSITION].backlogs[rowID].tasks[taskID];
-    console.log(PROJECTS[POSITION].backlogs[rowID].tasks[taskID].task_status)
-    if (PROJECTS[POSITION].backlogs[rowID].tasks[taskID].task_status != null) {
+
+    if (project.backlogs[rowID].tasks[taskID].task_status != null) {
+      if (ev.target.id.startsWith('backlog')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.backlogs[rowID].tasks[taskID].task_status=0;
+        syncProjects();
+      }
+      else if (ev.target.id.startsWith('doing')) {
+        ev.target.appendChild(document.getElementById(data));
+       project.backlogs[rowID].tasks[taskID].task_status=1;
+       syncProjects();
+      }
+      else if (ev.target.id.startsWith('done')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.backlogs[rowID].tasks[taskID].task_status=2;
+        syncProjects();
+      }
         
     }
     else {
@@ -294,5 +316,13 @@ function drop(ev) {
   else {
     alert('The task you wanna move is assign to another row.')
   }
+}
+else{
+  alert(alert + ' Not a valid target!')
+}
 
+}
+function syncProjects() {
+
+  ipcRenderer.send("PROJECTS", PROJECTS);
 }
