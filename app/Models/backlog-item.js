@@ -19,7 +19,7 @@ class BacklogItem {
             this.priority = new Priority(backlog_item_priority);
             this.estimated = estimated;
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
-            this.tasks = [];
+            //this.tasks = [];
             //this.isInSprint = false;
             //this.isInEpic = false;
             this.inSprint = null;

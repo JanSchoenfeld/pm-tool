@@ -433,9 +433,9 @@ function addSprint() {
 function displayEditSprint(s) {
     document.getElementById("form_editSprint").reset();
     document.getElementById("edit_s_name").value = jsonFile.sprints[s].title;
-    document.getElementById("edit_s_startdate").value = jsonFile.epicCaptures[s].startdate;
-    document.getElementById("edit_s_enddate").value = jsonFile.epicCaptures[s].enddate;
-    document.getElementById("edit_s_capacity").value = jsonFile.epicCaptures[s].capacity;
+    document.getElementById("edit_s_startdate").value = jsonFile.sprints[s].startdate;
+    document.getElementById("edit_s_enddate").value = jsonFile.sprints[s].enddate;
+    document.getElementById("edit_s_capacity").value = jsonFile.sprints[s].capacity;
 
     $("#modal_edit_sprint").modal("show");
 }
@@ -473,23 +473,49 @@ function closeEditSprint() {
 
 
 function deleteBacklog() {
-    let id = document.getElementById("edit_b_item_id");
+    let id = document.getElementById("edit_b_item_id").value;
     console.log(id);
+
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
+        if (id === jsonFile.backlogs[i].backlogId) {
+            delete jsonFile.backlogs[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     reload();
-    //TODO: LÖSCHEN
 }
 
 function deleteEpicCapture() {
-    let id = document.getElementById("edit_e_item_id");
+    let id = document.getElementById("edit_e_item_id").value;
     console.log(id);
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
+        if (id === jsonFile.epicCaptures[i].epicId) {
+            delete jsonFile.epicCaptures[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     reload();
-    //TODO: LÖSCHEN
 }
+
 function deleteSprint() {
-    let id = document.getElementById("edit_s_item_id");
+    let id = document.getElementById("edit_s_item_id").value;
     console.log(id);
+    for (let i = 0; i < jsonFile.sprints.length; i++) {
+        if (id === jsonFile.sprints[i].sprintId) {
+            delete jsonFile.sprints[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     reload();
-    //TODO: LÖSCHEN
 }
 
 function syncProjects() {
