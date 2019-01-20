@@ -9,6 +9,11 @@
 			"createdAt": 1547834029125,
 			"title": "TestBacklog",
 			"description": "Testingbacklogs",
+			"backlog_status": {
+				"to_do": true,
+				"in_progress": false,
+				"done": false
+			},
 			"priority": {
 				"low": false,
 				"standard": false,
