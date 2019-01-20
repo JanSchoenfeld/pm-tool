@@ -22,11 +22,11 @@ app.setName(config.productName)
 var mainWindow = null
 
 app.on('ready', function () {
-  
+
   // Load application logic here
 
   logic.run();
-  console.log("Location of the log: app.js " + global.PROJECTS[0].title);
+  //console.log("Location of the log: app.js " + global.PROJECTS[0].title);
 
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',

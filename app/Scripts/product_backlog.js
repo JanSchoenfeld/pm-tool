@@ -1,44 +1,43 @@
 const fs = require('fs');
 const path = require('path');
 const {
-    BrowserWindow
-} = require('electron')
-const {
-    remote
+    BrowserWindow,
+    remote,
+    ipcRenderer
 } = require('electron');
-//const projectData = require('../logic');
-
-//const Task = require('./app/Models/task');
-const Project = require('../app/Models/project');
-//const Roles = require('./app/Models/roles');
-//const User = require('./app/Models/user');
-//const Status = require('./app/Models/status');
-const BacklogItem = require('../app/Models/backlog-item');
+const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
-//const Sprint = require('../app/Models/sprint');
 
+//let PROJECTS = remote.getGlobal('PROJECTS');
 
-let PROJECTS = remote.getGlobal('PROJECTS');
+let PROJECTS;
+let jsonFile;
 let POSITION = fs.readFileSync('data/global/POSITION.json');
-//let project = loadProject();
-
-function loadProject() {
-
-    let project = PROJECTS[POSITION];
-
-    return project;
-}
 
 
-let jsonFile = loadProject();
+ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
+    PROJECTS = projects;
+    jsonFile = PROJECTS[POSITION]
+    //siteContent();
+    listEpicCapturesWithBacklogs();
+    //console.log("Funktion: reqPROJECTSRenderer");
+})
+
+ipcRenderer.send("reqPROJECTS");
+
+/*
+ipcRenderer.on("loadProjects", function (event, projects) {
+    //PROJECTS = projects;
+    jsonFile = PROJECTS[POSITION];
+    console.log("got projects");
+
+
+})
+*/
 
 //HTML parent <table> ID
 var table = document.getElementById("productbacklog_table");
-
-
-//siteContent();
-listEpicCapturesWithBacklogs();
 
 function reload() {
     location.reload();
@@ -51,7 +50,7 @@ function listEpicCapturesWithBacklogs() {
 
     for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
         epic = jsonFile.epicCaptures[i];
-        console.log("Epic "+ epic.epicId);
+        //console.log("Epic "+ epic.epicId);
         let backlog;
 
         let epicRow = document.createElement("tr");
@@ -160,6 +159,7 @@ function listEpicCapturesWithBacklogs() {
                         break;
 
                     }
+
                 }
             }
             /*
@@ -217,6 +217,7 @@ function listEpicCapturesWithBacklogs() {
             backlogRow.appendChild(colStatus);
 
             backlogTable.appendChild(backlogRow);
+         
         }
     }
 }
@@ -255,17 +256,35 @@ function addBacklogItem() {
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
     console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
-    let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
-    console.log(backlogItem);
+
+    let tmpBLitem = new BacklogItem(item_name, item_description, "high", item_estimate_time);
+
+    let count = jsonFile.backlogs.push(tmpBLitem);
+
+    //console.log(new BacklogItem("asd","hiii","high" ,1) + "");
+    //console.log(jsonFile.backlogs.length + " " + count);
+    console.log("Neu hinzugefügter Backlog: " + JSON.stringify(jsonFile.backlogs[jsonFile.backlogs.length - 1], null, 2));
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+
+    console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length-1], null, 2))
+    /*
+    let testArray = [];
+    testArray.push("gl in esports");
+    console.log(testArray + "");
+    */
+
+
+    /*
     let file = jsonFile;
-
-
-
 
     console.log(file.backlogs.length);
     file.addBacklog(backlogItem);
     console.log(file.backlogs.length);
     jsonFile = file;
+    */
 
     closeAddBacklogItem();
 
@@ -321,7 +340,7 @@ function saveBacklogItem() {
     let item_assign_to_sprint = document.getElementById("edit_b_item_assign_to_sprint").value;
     let item_assign_to_epic = document.getElementById("edit_b_item_assign_to_epic").value;
     let item_id = document.getElementById("edit_b_item_id").value;
-    for(let i=0; i<jsonFile.backlogs.length; i++) {
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
 
         if (jsonFile.backlogs[i].backlogId == item_id) {
             console.log("Item gefunden");
@@ -383,7 +402,7 @@ function addEpicCapture() {
     let item_estimate_time = document.getElementById("e_item_estimate_time").value;
 
     console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
-    let epicCapture = new EpicCapture(item_name,item_description, "high", "high", item_estimate_time);
+    let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
     console.log(epicCapture);
     //TODO: SPEICHERN
 
@@ -396,6 +415,7 @@ function closeAddEpicCapture() {
 }
 
 function displayEditEpicCapture(i) {
+
      document.getElementById("form_edit_epicCapture").reset();
      document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
      document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
@@ -410,7 +430,7 @@ function saveEpicCapture() {
     let item_estimate_time = document.getElementById("edit_e_item_estimate_time").value;
     let item_id = document.getElementById("edit_e_item_id").value;
 
-    for(let i=0; i<jsonFile.epicCaptures.length; i++) {
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         if (jsonFile.epicCaptures[i].epicId == item_id) {
             console.log("Item gefunden");
             jsonFile.epicCaptures[i].title = item_name;
@@ -446,9 +466,9 @@ function addSprint() {
     let sprint_enddate = document.getElementById("s_enddate").value;
     let sprint_capacity = document.getElementById("s_capacity").value;
 
-    console.log("The Sprint was added! " + sprint_name + " " + sprint_startdate + " " + sprint_enddate+" "+sprint_capacity);
+    console.log("The Sprint was added! " + sprint_name + " " + sprint_startdate + " " + sprint_enddate + " " + sprint_capacity);
     let sprint1;
-    sprint1 = new Sprint(sprint_name,sprint_startdate, sprint_enddate,sprint_capacity);
+    sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
 
     //TODO: SPEICHERN
     console.log(sprint1);
@@ -473,7 +493,7 @@ function saveSprint() {
     let sprint_capacity = document.getElementById("s_capacity").value;
     let sprint_id = document.getElementById("edit_s_item_id").value;
 
-    for(let i=0; i<jsonFile.sprints.length; i++) {
+    for (let i = 0; i < jsonFile.sprints.length; i++) {
         if (jsonFile.sprints[i].sprintId == sprint_id) {
             jsonFile.sprints[i].title = sprint_name;
             jsonFile.sprints[i].startdate = sprint_startdate;
@@ -484,7 +504,7 @@ function saveSprint() {
             reload();
         }
     }
-   closeEditEpicCapture();
+    closeEditEpicCapture();
 
 }
 
@@ -493,11 +513,31 @@ function closeEditSprint() {
     $("#modal_edit_sprint").modal("hide");
 }
 
+
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id");
     console.log(id);
     reload();
     //TODO: LÖSCHEN
+
+function syncProjects() {
+
+    ipcRenderer.send("PROJECTS", PROJECTS);
+
+}
+//https://discuss.atom.io/t/how-to-set-global-variable-of-main-process/24833/11
+
+//=========================================================================================================
+//Code
+/*
+var data = {}
+data.okay = []
+for (i = 0; i < 26; i++) {
+  var obj = {
+    id: i,
+    square: i * i
+  }
+  data.okay.push(obj)
 }
 
 function deleteEpicCapture() {
