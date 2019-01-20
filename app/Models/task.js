@@ -15,6 +15,7 @@ class Task {
         this.effort = effort;
         //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = [];
+        this.backlog = null;
 
         this.addUser = function(id){
             this.assignedTo.push(id);
