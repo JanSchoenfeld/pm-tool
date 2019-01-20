@@ -7,16 +7,26 @@ const {
 //currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
 //console.log(require('electron').remote.getGlobal('PROJECTS')[0].title)
 
-let PROJECTS = remote.getGlobal('PROJECTS');
+let PROJECTS;
+let project;
 let POSITION = JSON.parse(fs.readFileSync('data/global/POSITION.json'));
-//initialisieren von project
-let project = loadProject();
+
 
 var sprintNumber = 0;
 //HTML ID finding
 var scrumDiv = document.getElementById('scrumboard');
 
-siteContent();
+
+ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
+
+  PROJECTS = projects;
+  project = PROJECTS[POSITION]
+  siteContent();
+})
+
+ipcRenderer.send("reqPROJECTS");
+
+
 
 function siteContent() {
   //Sprint switch buttons
@@ -214,15 +224,6 @@ function siteContent() {
     scrumDiv.appendChild(newErrorRowDiv);
   }
 }
-
-//lädt die aktuelle projectposition aus dem array
-function loadProject() {
-
-  let project = PROJECTS[POSITION];
-
-  return project;
-}
-
 
 /*
  * Switcher Buttons
