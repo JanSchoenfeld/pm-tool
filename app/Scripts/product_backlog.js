@@ -7,6 +7,7 @@ const {
 } = require('electron');
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
+const Task = require('../app/Models/task');
 
 let PROJECTS;
 let jsonFile;
@@ -203,13 +204,15 @@ function closeChooseItem() {
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     let selectSprint = document.getElementById("b_item_assign_to_sprint");
-    //selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    let selectEpic = document.getElementById("b_item_assign_to_epic");
+    $("#b_item_assign_to_sprint").empty();
+    selectSprint.options[selectSprint.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.sprints.length; i++) {
         let id = jsonFile.sprints[i].sprintId;
         selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
     }
-    let selectEpic = document.getElementById("b_item_assign_to_epic");
-    //selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    $("#b_item_assign_to_epic").empty();
+    selectEpic.options[selectEpic.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         let id = jsonFile.epicCaptures[i].epicId;
         selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id);
@@ -222,9 +225,25 @@ function addBacklogItem() {
     let item_name = document.getElementById("b_item_name").value;
     let item_description = document.getElementById("b_item_description").value;
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
+    let item_assign_to_sprint = document.getElementById("b_item_assign_to_sprint").value;
+    let item_assign_to_epic = document.getElementById("b_item_assign_to_epic").value;
     console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     let tmpBLitem = new BacklogItem(item_name, item_description, "high", item_estimate_time);
+    if (item_assign_to_epic === "") {
+        tmpBLitem.inEpic = null;
+
+    } else {
+        tmpBLitem.inEpic = item_assign_to_epic;
+    }
+
+    if (item_assign_to_sprint === "") {
+        tmpBLitem.inSprint = null;
+
+    } else {
+        tmpBLitem.inSprint = item_assign_to_sprint;
+    }
+
 
     jsonFile.backlogs.push(tmpBLitem);
 
@@ -291,31 +310,28 @@ function saveBacklogItem() {
     let item_assign_to_epic = document.getElementById("edit_b_item_assign_to_epic").value;
     let item_id = document.getElementById("edit_b_item_id").value;
 
-    console.log(item_assign_to_sprint);
+    console.log("Sprint "+ item_assign_to_sprint);
+    console.log("Epic "+ item_assign_to_epic);
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
 
-        if (jsonFile.backlogs[i].backlogId == item_id) {
+        if (jsonFile.backlogs[i].backlogId === item_id) {
             console.log("Item gefunden");
             jsonFile.backlogs[i].title = item_name;
             jsonFile.backlogs[i].description = item_description;
             jsonFile.backlogs[i].estimated = item_estimate_time;
-            if (item_assign_to_sprint != "") {
-                jsonFile.backlogs[i].inSprint = item_assign_to_sprint;
-            } else {
+            if (item_assign_to_sprint === "") {
                 jsonFile.backlogs[i].inSprint = null;
+
+            } else {
+                jsonFile.backlogs[i].inSprint = "" + item_assign_to_sprint;
             }
 
             if (item_assign_to_epic === "") {
                 jsonFile.backlogs[i].inEpic = null;
-                console.log("Kein Epic gewählt");
 
             } else {
-                let parsedEpicId = parseInt(item_assign_to_epic);
-                console.log("Epic gewählt " + parsedEpicId);
-                jsonFile.backlogs[i].inEpic = parsedEpicId;
+                jsonFile.backlogs[i].inEpic = item_assign_to_epic;
             }
-            console.log("Item Edited" + jsonFile.backlogs[i]);
-
         }
     }
     PROJECTS[POSITION] = jsonFile;
@@ -474,11 +490,36 @@ function closeEditSprint() {
 
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id").value;
-    console.log(id);
+    console.log("Delete Backlogs ID " + id);
 
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
         if (id === jsonFile.backlogs[i].backlogId) {
+            deleteTasksInBacklog(id);
             delete jsonFile.backlogs[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+
+
+function deleteBacklogsInEpic(epicId) {
+    //TODO: LUC: Safe Delete
+    console.log("Delete Backlogs in Epic ID " + epicId);
+    let counter = jsonFile.backlogs.length;
+    //let toDelete = [];
+    for (let i = 0; i < counter; i++) {
+        console.log("INFO: Backlog mit ID " + jsonFile.backlogs[i].backlogId + " is in Epic: " + jsonFile.backlogs[i].inEpic);
+        if (epicId === jsonFile.backlogs[i].inEpic) {
+            deleteTasksInBacklog(jsonFile.backlogs[i].backlogId);
+            //toDelete.append(jsonFile.backlogs[i].backlogId);
+            delete jsonFile.backlogs[i];
+            //i = i - 1;
+           // counter = counter - 1;
         }
     }
 
@@ -490,12 +531,14 @@ function deleteBacklog() {
 
 function deleteEpicCapture() {
     let id = document.getElementById("edit_e_item_id").value;
-    console.log(id);
+    console.log("Delete Epic ID " + id);
     for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         if (id === jsonFile.epicCaptures[i].epicId) {
+            deleteBacklogsInEpic(id);
             delete jsonFile.epicCaptures[i];
         }
     }
+    deleteBacklogsInEpic(id);
 
     PROJECTS[POSITION] = jsonFile;
 
@@ -505,10 +548,45 @@ function deleteEpicCapture() {
 
 function deleteSprint() {
     let id = document.getElementById("edit_s_item_id").value;
-    console.log(id);
+    console.log("Delete Sprint ID " + id);
     for (let i = 0; i < jsonFile.sprints.length; i++) {
         if (id === jsonFile.sprints[i].sprintId) {
             delete jsonFile.sprints[i];
+        }
+    }
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
+        if (id === jsonFile.backlogs[i].inSprint) {
+            jsonFile.backlogs[i].inSprint = null;
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteTasksInBacklog(backlogId) {
+    console.log("Delete Task in Backlog ID " + backlogId);
+
+    for (let i = 0; i < jsonFile.tasks.length; i++) {
+        if (backlogId === jsonFile.tasks[i].inBacklog) {
+            delete jsonFile.tasks[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteTask() {
+    let id = document.getElementById("edit_t_item_id").value;
+    console.log("Delete Task " + id);
+    for (let i = 0; i < jsonFile.tasks.length; i++) {
+        if (id === jsonFile.tasks[i].epicId) {
+            delete jsonFile.tasks[i];
         }
     }
 

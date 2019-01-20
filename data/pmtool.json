@@ -4,12 +4,12 @@
 	"description": "Projektmanagement Tool auf Scrum-Basis",
 	"backlogs": [
 		{
-			"backlogId": 1,
+			"backlogId": "1",
 			"createdAt": 1546180030416,
 			"title": "backlogItem Nr. 1 ",
 			"description": "backlogItem Nr. 1 description",
-          "inEpic": 1,
-          "inSprint": 1,
+          "inEpic": "1",
+          "inSprint": "1",
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -81,7 +81,7 @@
 			]
 		},
 		{
-			"backlogId": 2,
+			"backlogId": "2",
 			"createdAt": 1546180030416,
 			"title": "backlogItem Nr. 2",
 			"description": "backlogItem Nr. 2 description",
@@ -98,8 +98,8 @@
 			},
 			"estimated": 3,
           "isInEpic": true,
-          "inEpic": 2,
-          "inSprint": 1,
+          "inEpic": "2",
+          "inSprint": "1",
 			"tasks": [
 				{
 					"taskId": 1,
@@ -175,19 +175,19 @@
 			},
 			"estimated": 3,
           "isInEpic": true,
-          "inEpic": 2,
-          "inSprint": 1,
+          "inEpic": "2",
+          "inSprint": "1",
 			"tasks": [
 			]
 		},
 		{
-			"backlogId": 4,
+			"backlogId": "4",
 			"createdAt": 1546180030416,
 			"title": "backlogItem Nr. 4",
 			"description": "backlogItem Nr. 4 description",
           "isInEpic": true,
-          "inEpic": 3,
-          "inSprint": 1,
+          "inEpic": "3",
+          "inSprint": "1",
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -202,7 +202,7 @@
 			"estimated": 5
 		},
       {
-        "backlogId": 5,
+        "backlogId": "5",
         "createdAt": 1546180030416,
         "title": "backlogItem Nr. 5 ",
         "description": "backlogItem Nr. 5 description",
@@ -220,69 +220,13 @@
         "estimated": 3,
         "isInEpic": false,
         "inEpic": null,
-        "inSprint": null,
-        "tasks": [
-          {
-            "taskId": 1,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 1",
-            "description": "Scrumboard erstellen und füllen",
-            "task_status": 0,
-            "effort": 5,
-            "assignedTo": []
-          },
-          {
-            "taskId": 2,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 2",
-            "description": "blabla",
-            "task_status": 1,
-            "effort": 5,
-            "assignedTo": []
-          },
-          {
-            "taskId": 3,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 3",
-            "description": "blabla",
-            "task_status": 2,
-            "effort": 5,
-            "assignedTo": []
-          },
-          {
-            "taskId": 4,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 4",
-            "description": "blabla",
-            "task_status": 1,
-            "effort": 5,
-            "assignedTo": []
-          },
-          {
-            "taskId": 5,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 5",
-            "description": "blabla",
-            "task_status": 1,
-            "effort": 5,
-            "assignedTo": []
-          },
-          {
-            "taskId": 6,
-            "createdAt": 1546180030416,
-            "title": "backlogItem Nr. 1 / Task 6",
-            "description": "blabla",
-            "task_status": 2,
-            "effort": 5,
-            "assignedTo": []
-          }
-        ]
+        "inSprint": null
       }
 
 	],
 	"sprints": [
 		{
-			"sprintId": 1,
+			"sprintId": "1",
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -305,7 +249,7 @@
 			]
 		},
 		{
-			"sprintId": 2,
+			"sprintId": "2",
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -318,7 +262,7 @@
 			]
 		},
 		{
-			"sprintId": 3,
+			"sprintId": "3",
 			"backlogItemIds": [
 			]
 		}
@@ -336,7 +280,7 @@
 	],
 	"epicCaptures": [
 		{
-			"epicId": 1,
+			"epicId": "1",
           "title": "epic 1",
 			"description": "test beschreibung1",
             "estimated": 5,
@@ -347,7 +291,7 @@
           }
 		},
 		{
-			"epicId": 2,
+			"epicId": "2",
           "title": "epic 2",
 			"description": "test beschreibung2",
           "estimated": 3,
@@ -358,7 +302,7 @@
           }
 		},
 		{
-			"epicId": 3,
+			"epicId": "3",
           "title": "epic 3",
 			"description": "test beschreibung3",
           "estimated": 1,
@@ -369,7 +313,7 @@
           }
 		},
       {
-        "epicId": 4,
+        "epicId": "4",
         "title": "epic 4",
         "description": "test beschreibung4",
         "estimated": 3,
@@ -380,7 +324,7 @@
         }
       },
 		{
-			"epicId": 5,
+			"epicId": "5",
           "title": "epic 5",
 			"description": "test beschreibung5",
           "estimated": 3,
@@ -390,5 +334,67 @@
             "done": false
           }
 		}
-	]
+	],
+  "tasks": [
+    {
+      "taskId": "1",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 1",
+      "description": "Scrumboard erstellen und füllen",
+      "task_status": 0,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    },
+    {
+      "taskId": "2",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 2",
+      "description": "blabla",
+      "task_status": 1,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    },
+    {
+      "taskId": "3",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 3",
+      "description": "blabla",
+      "task_status": 2,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    },
+    {
+      "taskId": "4",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 4",
+      "description": "blabla",
+      "task_status": 1,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    },
+    {
+      "taskId": "5",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 5",
+      "description": "blabla",
+      "task_status": 1,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    },
+    {
+      "taskId": "6",
+      "createdAt": 1546180030416,
+      "title": "backlogItem Nr. 1 / Task 6",
+      "description": "blabla",
+      "task_status": 2,
+      "inBacklog" : "1",
+      "effort": 5,
+      "assignedTo": []
+    }
+  ]
 }
