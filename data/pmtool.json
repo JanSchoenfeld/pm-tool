@@ -9,6 +9,7 @@
 			"title": "backlogItem Nr. 1 ",
 			"description": "backlogItem Nr. 1 description",
           "inEpic": 1,
+          "inSprint": 1,
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -98,6 +99,7 @@
 			"estimated": 3,
           "isInEpic": true,
           "inEpic": 2,
+          "inSprint": 1,
 			"tasks": [
 				{
 					"taskId": 1,
@@ -174,6 +176,7 @@
 			"estimated": 3,
           "isInEpic": true,
           "inEpic": 2,
+          "inSprint": 1,
 			"tasks": [
 			]
 		},
@@ -184,6 +187,7 @@
 			"description": "backlogItem Nr. 4 description",
           "isInEpic": true,
           "inEpic": 3,
+          "inSprint": 1,
 			"backlog_status": {
 				"to_do": true,
 				"in_progress": false,
@@ -215,7 +219,8 @@
         },
         "estimated": 3,
         "isInEpic": false,
-        "inEpic": "",
+        "inEpic": null,
+        "inSprint": null,
         "tasks": [
           {
             "taskId": 1,
@@ -339,10 +344,7 @@
             "to_do": true,
             "in_progress": false,
             "done": false
-          },
-			"backlogs": [
-				"1"
-			]
+          }
 		},
 		{
 			"epicId": 2,
@@ -353,10 +355,7 @@
             "to_do": true,
             "in_progress": false,
             "done": false
-          },
-			"backlogs": [
-				"2","3"
-			]
+          }
 		},
 		{
 			"epicId": 3,
@@ -367,25 +366,19 @@
             "to_do": true,
             "in_progress": false,
             "done": false
-          },
-			"backlogs": [
-				"4"
-			]
+          }
 		},
-		{
-			"epicId": 4,
-          "title": "epic 4",
-			"description": "test beschreibung4",
-          "estimated": 3,
-          "epic_status": {
-            "to_do": true,
-            "in_progress": false,
-            "done": false
-          },
-			"backlogs": [
-
-			]
-		},
+      {
+        "epicId": 4,
+        "title": "epic 4",
+        "description": "test beschreibung4",
+        "estimated": 3,
+        "epic_status": {
+          "to_do": true,
+          "in_progress": false,
+          "done": false
+        }
+      },
 		{
 			"epicId": 5,
           "title": "epic 5",
@@ -395,10 +388,7 @@
             "to_do": true,
             "in_progress": false,
             "done": false
-          },
-			"backlogs": [
-
-			]
+          }
 		}
 	]
 }

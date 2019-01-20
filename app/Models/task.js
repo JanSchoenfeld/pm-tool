@@ -16,8 +16,8 @@ class Task {
         //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = [];
 
-        this.addUser = function(newUser){
-            this.assignedTo.push(newUser);
+        this.addUser = function(id){
+            this.assignedTo.push(id);
         }
 
     }
