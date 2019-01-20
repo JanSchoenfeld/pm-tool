@@ -58,7 +58,7 @@ function siteContent() {
     forwardIcon.className = 'fas fa-chevron-circle-right'
 
     //Text for Sprint-Navigation
-    var sprintContent = document.createTextNode('  Sprint ' + (project.sprints[sprintNumber].sprint_id) + ' ');
+    var sprintContent = document.createTextNode('  Sprint ' + project.sprints[sprintNumber].sprintId + ' ');
     var currentSprint = document.createElement('i');
     currentSprint.style.userSelect = "none";
 
@@ -107,12 +107,21 @@ function siteContent() {
         //Backlog Div
         var newBacklogDiv = document.createElement('div');
         newBacklogDiv.className = 'column col-md-3';
+        newBacklogDiv.id = 'backlog' + i;
+        newBacklogDiv.addEventListener('drop', drop);
+        newBacklogDiv.addEventListener('dragover', allowDrop);
         //Doing Div
         var newDoingDiv = document.createElement('div');
         newDoingDiv.className = 'column col-md-3';
+        newDoingDiv.id = 'doing' + i;
+        newDoingDiv.addEventListener('drop', drop);
+        newDoingDiv.addEventListener('dragover', allowDrop);
         //Done Div
         var newDoneDiv = document.createElement('div');
         newDoneDiv.className = 'column col-md-3';
+        newDoneDiv.id = 'done' + i;
+        newDoneDiv.addEventListener('drop', drop);
+        newDoneDiv.addEventListener('dragover', allowDrop);
 
         //Create new ContentDiv
         var newStoryContentDiv = document.createElement('div');
@@ -151,7 +160,9 @@ function siteContent() {
             //Content div
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
-            newContentDiv.draggable=true;
+            newContentDiv.id = 'content' + i + j
+            newContentDiv.draggable = true;
+            newContentDiv.addEventListener('dragstart', drag);
             //Create textdiv and actionDiv
             var newTextDiv = document.createElement('div');
             var newActionDiv = document.createElement('div');
@@ -253,4 +264,35 @@ function sprintForward() {
   removeRow = document.getElementById('pageContentDiv');
   scrumDiv.removeChild(removeRow);
   siteContent();
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+
+  if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
+    ev.target.appendChild(document.getElementById(data));
+    var rowID = data.substring(data.length - 2, data.length - 1)
+    var taskID = data.substring(data.length - 1, data.length)
+    var element = PROJECTS[POSITION].backlogs[rowID].tasks[taskID];
+    console.log(PROJECTS[POSITION].backlogs[rowID].tasks[taskID].task_status)
+    if (PROJECTS[POSITION].backlogs[rowID].tasks[taskID].task_status != null) {
+        
+    }
+    else {
+      alert('Data is corrupt. Please check you data!')
+    }
+  }
+  else {
+    alert('The task you wanna move is assign to another row.')
+  }
+
 }
