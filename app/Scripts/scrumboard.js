@@ -219,6 +219,8 @@ function siteContent() {
 //lädt die aktuelle projectposition aus dem array
 function loadProject() {
 
+  console.log(PROJECTS);
+  console.log(POSITION);
   let project = PROJECTS[POSITION];
 
   return project;
