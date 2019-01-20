@@ -8,8 +8,6 @@ const {
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 
-//let PROJECTS = remote.getGlobal('PROJECTS');
-
 let PROJECTS;
 let jsonFile;
 let POSITION = fs.readFileSync('data/global/POSITION.json');
@@ -21,7 +19,6 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
     jsonFile = PROJECTS[POSITION]
     //siteContent();
     listEpicCapturesWithBacklogs();
-    //console.log("Funktion: reqPROJECTSRenderer");
 })
 
 ipcRenderer.send("reqPROJECTS");
@@ -48,16 +45,16 @@ function listEpicCapturesWithBacklogs() {
     let epic;
     let backlogTable = document.getElementById("productbacklog_table");
 
-    for (let i= 0; i < jsonFile.epicCaptures.length; i++) {
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         epic = jsonFile.epicCaptures[i];
         //console.log("Epic "+ epic.epicId);
         let backlog;
 
         let epicRow = document.createElement("tr");
-        epicRow.onclick =function () {
+        epicRow.onclick = function () {
             displayEditEpicCapture(i);
         };
-        epicRow.style.backgroundColor ="DarkGray";
+        epicRow.style.backgroundColor = "DarkGray";
 
         let colIsEpic = document.createElement("td");
         let isEpic = document.createTextNode("EPIC");
@@ -83,14 +80,11 @@ function listEpicCapturesWithBacklogs() {
         let status;
         if (jsonFile.epicCaptures[i].epic_status.to_do === true) {
             status = document.createTextNode("To Do");
-        }
-        else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
+        } else if (jsonFile.epicCaptures[i].epic_status.in_progress === true) {
             status = document.createTextNode("In progress");
-        }
-        else if (jsonFile.epicCaptures[i].epic_status.done === true) {
+        } else if (jsonFile.epicCaptures[i].epic_status.done === true) {
             status = document.createTextNode("Done");
-        }
-        else {
+        } else {
             status = document.createTextNode("Missing");
         }
         colStatus.appendChild(status);
@@ -100,17 +94,17 @@ function listEpicCapturesWithBacklogs() {
 
         if (jsonFile.epicCaptures[i].backlogs.length > 0) {
 
-            for (let j=0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
+            for (let j = 0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
                 let backlogId = jsonFile.epicCaptures[i].backlogs[j];
-                console.log("Suche nach Backlog Eintrag mit ID " + backlogId);
+                //console.log("Suche nach Backlog Eintrag mit ID " + backlogId);
 
-                for (let k=0; k <  jsonFile.backlogs.length; k++) {
-                    console.log("Suche Backlog mit ID "+backlogId+" ...."+ " bei Backlog Position "+ k + " mit ID "+jsonFile.backlogs[k].backlogId);
-                    if (backlogId ==  jsonFile.backlogs[k].backlogId) {
-                        console.log("Passender Backlog gefunden mit ID "+ jsonFile.backlogs[k].backlogId);
+                for (let k = 0; k < jsonFile.backlogs.length; k++) {
+                    // console.log("Suche Backlog mit ID "+backlogId+" ...."+ " bei Backlog Position "+ k + " mit ID "+jsonFile.backlogs[k].backlogId);
+                    if (backlogId == jsonFile.backlogs[k].backlogId) {
+                        // console.log("Passender Backlog gefunden mit ID "+ jsonFile.backlogs[k].backlogId);
 
                         let backlogRow = document.createElement("tr");
-                        backlogRow.onclick =function () {
+                        backlogRow.onclick = function () {
                             displayEditBacklogItem(k);
                         };
 
@@ -140,14 +134,11 @@ function listEpicCapturesWithBacklogs() {
                         let status;
                         if (jsonFile.backlogs[k].backlog_status.to_do === true) {
                             status = document.createTextNode("To Do");
-                        }
-                        else if (jsonFile.backlogs[k].backlog_status.in_progress === true) {
+                        } else if (jsonFile.backlogs[k].backlog_status.in_progress === true) {
                             status = document.createTextNode("To Do");
-                        }
-                        else if (jsonFile.backlogs[k].backlog_status.done === true) {
+                        } else if (jsonFile.backlogs[k].backlog_status.done === true) {
                             status = document.createTextNode("To Do");
-                        }
-                        else {
+                        } else {
                             status = document.createTextNode("Missing");
                         }
                         colStatus.appendChild(status);
@@ -155,7 +146,6 @@ function listEpicCapturesWithBacklogs() {
 
                         backlogTable.appendChild(backlogRow);
 
-                       // listBacklogItem(k);
                         break;
 
                     }
@@ -170,10 +160,10 @@ function listEpicCapturesWithBacklogs() {
         }
     }
 
-    for (let i=0; i < jsonFile.backlogs.length; i++) {
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
         if (jsonFile.backlogs[i].isInEpic === false) {
             let backlogRow = document.createElement("tr");
-            backlogRow.onclick =function () {
+            backlogRow.onclick = function () {
                 displayEditBacklogItem(i);
             };
 
@@ -203,21 +193,18 @@ function listEpicCapturesWithBacklogs() {
             let status;
             if (jsonFile.backlogs[i].backlog_status.to_do === true) {
                 status = document.createTextNode("To Do");
-            }
-            else if (jsonFile.backlogs[i].backlog_status.in_progress === true) {
+            } else if (jsonFile.backlogs[i].backlog_status.in_progress === true) {
                 status = document.createTextNode("In Progress");
-            }
-            else if (jsonFile.backlogs[i].backlog_status.done === true) {
+            } else if (jsonFile.backlogs[i].backlog_status.done === true) {
                 status = document.createTextNode("Done");
-            }
-            else {
+            } else {
                 status = document.createTextNode("Missing");
             }
             colStatus.appendChild(status);
             backlogRow.appendChild(colStatus);
 
             backlogTable.appendChild(backlogRow);
-         
+
         }
     }
 }
@@ -236,13 +223,13 @@ function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     let selectSprint = document.getElementById("b_item_assign_to_sprint");
     //selectSprint.options[selectSprint.options.length] = new Option("" , "");
-    for (let i= 0; i< jsonFile.sprints.length; i++) {
+    for (let i = 0; i < jsonFile.sprints.length; i++) {
         let id = jsonFile.sprints[i].sprintId;
         selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
     }
     let selectEpic = document.getElementById("b_item_assign_to_epic");
     //selectSprint.options[selectSprint.options.length] = new Option("" , "");
-    for (let i= 0; i< jsonFile.epicCaptures.length; i++) {
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         let id = jsonFile.epicCaptures[i].epicId;
         selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id);
     }
@@ -256,39 +243,18 @@ function addBacklogItem() {
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
     console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
-
     let tmpBLitem = new BacklogItem(item_name, item_description, "high", item_estimate_time);
 
-    let count = jsonFile.backlogs.push(tmpBLitem);
-
-    //console.log(new BacklogItem("asd","hiii","high" ,1) + "");
-    //console.log(jsonFile.backlogs.length + " " + count);
-    console.log("Neu hinzugefügter Backlog: " + JSON.stringify(jsonFile.backlogs[jsonFile.backlogs.length - 1], null, 2));
+    jsonFile.backlogs.push(tmpBLitem);
 
     PROJECTS[POSITION] = jsonFile;
 
     syncProjects();
 
-    console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length-1], null, 2))
-    /*
-    let testArray = [];
-    testArray.push("gl in esports");
-    console.log(testArray + "");
-    */
-
-
-    /*
-    let file = jsonFile;
-
-    console.log(file.backlogs.length);
-    file.addBacklog(backlogItem);
-    console.log(file.backlogs.length);
-    jsonFile = file;
-    */
+    console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
 
     closeAddBacklogItem();
 
-    //TODO: SPEICHERN
     reload();
 }
 
@@ -309,8 +275,8 @@ function displayEditBacklogItem(i) {
     let selectedSprint = jsonFile.backlogs[i].inSprint;
 
     let selectSprint = document.getElementById("edit_b_item_assign_to_sprint");
-    selectSprint.options[selectSprint.options.length] = new Option("" , "");
-    for (let i= 0; i< jsonFile.sprints.length; i++) {
+    selectSprint.options[selectSprint.options.length] = new Option("", "");
+    for (let i = 0; i < jsonFile.sprints.length; i++) {
         let id = jsonFile.sprints[i].sprintId;
         selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
         if (selectedSprint == id) {
@@ -318,14 +284,13 @@ function displayEditBacklogItem(i) {
         }
     }
     let selectEpic = document.getElementById("edit_b_item_assign_to_epic");
-    selectEpic.options[selectEpic.options.length] = new Option("" , "");
-    for (let i= 0; i< jsonFile.epicCaptures.length; i++) {
+    selectEpic.options[selectEpic.options.length] = new Option("", "");
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         let id = jsonFile.epicCaptures[i].epicId;
 
         if (selectedEpic == id) {
-            selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id, false,true);
-        }
-        else {
+            selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id, false, true);
+        } else {
             selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id);
         }
     }
@@ -349,7 +314,7 @@ function saveBacklogItem() {
             jsonFile.backlogs[i].estimated = item_estimate_time;
             if (item_assign_to_sprint != "") {
                 jsonFile.backlogs[i].isInSprint = true;
-                for (let j=0; j<jsonFile.sprints.length;j++) {
+                for (let j = 0; j < jsonFile.sprints.length; j++) {
                     if (jsonFile.sprints[j].sprintId == item_assign_to_sprint) {
                         //TODO: SPEICHERN
                         jsonFile.sprints[j].backlogs.push(item_id);
@@ -357,13 +322,12 @@ function saveBacklogItem() {
                         alert("Added To Sprint " + item_assign_to_sprint);
                     }
                 }
-            }
-            else {
+            } else {
                 jsonFile.backlogs[i].isInSprint = false;
             }
             if (item_assign_to_epic != null) {
                 jsonFile.backlogs[i].isInEpic = true;
-                for (let j=0; j<jsonFile.epicCaptures.length;j++) {
+                for (let j = 0; j < jsonFile.epicCaptures.length; j++) {
                     if (jsonFile.epicCaptures[j].epicId == item_assign_to_epic) {
                         //TODO: SPEICHERN
                         jsonFile.epicCaptures[j].backlogs.push(item_id);
@@ -371,8 +335,7 @@ function saveBacklogItem() {
                         alert("Added To Epic " + item_assign_to_epic);
                     }
                 }
-            }
-            else {
+            } else {
                 jsonFile.backlogs[i].isInEpic = false;
                 console.log("Deleted From Epic");
             }
@@ -416,12 +379,12 @@ function closeAddEpicCapture() {
 
 function displayEditEpicCapture(i) {
 
-     document.getElementById("form_edit_epicCapture").reset();
-     document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
-     document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
-     document.getElementById("edit_e_item_estimate_time").value = jsonFile.epicCaptures[i].estimated;
-     document.getElementById("edit_e_item_id").value = jsonFile.epicCaptures[i].epicId;
-     $("#modal_edit_epicCapture").modal("show");
+    document.getElementById("form_edit_epicCapture").reset();
+    document.getElementById("edit_e_item_name").value = jsonFile.epicCaptures[i].title;
+    document.getElementById("edit_e_item_description").value = jsonFile.epicCaptures[i].description;
+    document.getElementById("edit_e_item_estimate_time").value = jsonFile.epicCaptures[i].estimated;
+    document.getElementById("edit_e_item_id").value = jsonFile.epicCaptures[i].epicId;
+    $("#modal_edit_epicCapture").modal("show");
 }
 
 function saveEpicCapture() {
@@ -519,6 +482,7 @@ function deleteBacklog() {
     console.log(id);
     reload();
     //TODO: LÖSCHEN
+}
 
 function syncProjects() {
 
@@ -552,3 +516,4 @@ function deleteSprint() {
     reload();
     //TODO: LÖSCHEN
 }
+*/
