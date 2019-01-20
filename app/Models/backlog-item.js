@@ -21,8 +21,10 @@ class BacklogItem {
             this.tasks = [];
             this.isInSprint = false;
             this.isInEpic = false;
+            /*
             this.inSprint = "";
             this.inEpic = "";
+            */
             
 
             this.addTask = function (newTask){
