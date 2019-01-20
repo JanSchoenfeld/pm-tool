@@ -240,7 +240,7 @@ function addBacklogItem() {
     let item_name = document.getElementById("b_item_name").value;
     let item_description = document.getElementById("b_item_description").value;
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
-    console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
+    //console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     let tmpBLitem = new BacklogItem(item_name, item_description, "high", item_estimate_time);
 
@@ -250,7 +250,7 @@ function addBacklogItem() {
 
     syncProjects();
 
-    console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
+    //console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
 
     closeAddBacklogItem();
 
@@ -365,8 +365,10 @@ function addEpicCapture() {
 
     console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
     let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
-    console.log(epicCapture);
-    //TODO: SPEICHERN
+
+    jsonFile.epicCaptures.push(epicCapture);
+    PROJECTS[POSITION] = jsonFile;
+    syncProjects();
 
     closeAddEpicCapture();
     reload();
@@ -429,11 +431,11 @@ function addSprint() {
     let sprint_capacity = document.getElementById("s_capacity").value;
 
     console.log("The Sprint was added! " + sprint_name + " " + sprint_startdate + " " + sprint_enddate + " " + sprint_capacity);
-    let sprint1;
-    sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
+    let sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
 
-    //TODO: SPEICHERN
-    console.log(sprint1);
+    jsonFile.sprints.push(sprint1);
+    PROJECTS[POSITION] = jsonFile;
+    syncProjects();
     reload();
     closeAddSprint();
 }
@@ -479,6 +481,7 @@ function closeEditSprint() {
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id");
     console.log(id);
+
     reload();
     //TODO: LÖSCHEN
 }
