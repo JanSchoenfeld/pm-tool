@@ -14,9 +14,8 @@ class Sprint {
         //referenz zu backlog?
         this.backlogs = [];
 
-        this.addBacklog = function (newBacklog){
-            this.backlogs.push(newBacklog);
-            newBacklog.isInSprint = true;
+        this.addBacklog = function (id){
+            this.backlogs.push(id);
         }
     }
 }
