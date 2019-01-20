@@ -149,8 +149,10 @@ function addBacklogItem() {
 
     let backlogItem = new BacklogItem(item_name,item_description,"high" ,item_estimate_time);
     console.log(backlogItem);
+    console.log(jsonFile);
     jsonFile.backlogs.push(backlogItem);
-
+    console.log(jsonFile);
+    PROJECTS[POSITION].backlogs.push(backlogItem);
     closeAddBacklogItem();
 
     //TODO: Backlog Speichern

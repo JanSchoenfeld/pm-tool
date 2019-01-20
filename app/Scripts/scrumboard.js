@@ -11,7 +11,7 @@ let PROJECTS = remote.getGlobal('PROJECTS');
 let POSITION = fs.readFileSync('data/global/POSITION.json');
 //initialisieren von project
 let project = loadProject();
-
+document.getElementById('title').appendChild(document.createTextNode(project.title));
 var sprintNumber = 0;
 //HTML ID finding
 var scrumDiv = document.getElementById('scrumboard');
@@ -141,6 +141,7 @@ function siteContent() {
             //Content div
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
+            newContentDiv.draggable=true;
             //Create textdiv and actionDiv
             var newTextDiv = document.createElement('div');
             var newActionDiv = document.createElement('div');
