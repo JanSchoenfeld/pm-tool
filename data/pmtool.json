@@ -225,6 +225,7 @@
 	"sprints": [
 		{
 			"sprintId": "1",
+			"name":"Sprint die erste",
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -248,6 +249,7 @@
 		},
 		{
 			"sprintId": "2",
+			"name":"Sprint die zweite",
 			"backlogItemIds": [
 				{
 					"backlogID": 1,
@@ -261,6 +263,7 @@
 		},
 		{
 			"sprintId": "3",
+			"name":"Sprint die dritte",
 			"backlogItemIds": []
 		}
 	],

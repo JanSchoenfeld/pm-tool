@@ -58,7 +58,7 @@ function siteContent() {
     forwardIcon.className = 'fas fa-chevron-circle-right'
 
     //Text for Sprint-Navigation
-    var sprintContent = document.createTextNode('  Sprint ' + project.sprints[sprintNumber].sprintId + ' ');
+    var sprintContent = document.createTextNode(' Sprint: ' + project.sprints[sprintNumber].name + " ");
     var currentSprint = document.createElement('i');
     currentSprint.style.userSelect = "none";
 
@@ -82,6 +82,7 @@ function siteContent() {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
+    if ( project.sprints[sprintNumber].backlogItemIds != null) {
     for (let i = 0; i < project.backlogs.length; i++) {
       //Get Array with alle Backlogs in Sprint
       sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
@@ -213,6 +214,7 @@ function siteContent() {
         contentWasWriten = true;
       }
     }
+  }
 
     if (contentWasWriten == false) {
       var newErrorRowDiv = document.createElement('div');
