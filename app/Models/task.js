@@ -1,13 +1,13 @@
 const User = require('./user.js');
 const Status = require('./status.js')
-let userId = 1;
+const uuidv4 = require('uuid/v4');
 
 
 class Task {
 
     constructor(title, description, effort) {
 
-        this.taskId = userId++;
+        this.taskId = uuidv4();
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;
@@ -15,9 +15,10 @@ class Task {
         this.effort = effort;
         //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = [];
+        this.inBacklog = null;
 
-        this.addUser = function(newUser){
-            this.assignedTo.push(newUser);
+        this.addUser = function(id){
+            this.assignedTo.push(id);
         }
 
     }

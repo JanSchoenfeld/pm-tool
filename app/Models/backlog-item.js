@@ -5,26 +5,28 @@ const User = require('./user');
 const Sprint = require('./sprint');
 const Status = require('./status');
 const Priority = require('./priority');
+const uuidv4 = require('uuid/v4');
 
-let backlogId = 1;
 
 class BacklogItem {
 
-    constructor(title, description, /*backlog_status,*/ backlog_item_priority, estimated) {
-            this.backlogId = backlogId++;
+    constructor(title, description, backlog_item_priority, estimated) {
+            this.backlogId = uuidv4();
             this.createdAt = Date.now();
             this.title = title;
             this.description = description;
-            //this.backlog_status = backlog_status;
+            this.backlog_status = new Status("to do");
             this.priority = new Priority(backlog_item_priority);
             this.estimated = estimated;
             //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
-            this.tasks = [];
-            this.isInSprint = false;
-            
+            //this.tasks = [];
+            //this.isInSprint = false;
+            //this.isInEpic = false;
+            this.inSprint = null;
+            this.inEpic = null;
 
-            this.addTask = function (newTask){
-                this.tasks.push(newTask);
+            this.addTask = function (id){
+                this.tasks.push(id);
             }
         }
 }

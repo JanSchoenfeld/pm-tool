@@ -1,16 +1,23 @@
 const BacklogItem = require('./backlog-item');
+const uuidv4 = require('uuid/v4');
 
-let projectId = 1;
 
 class Project {
 
     constructor(title, description) {
-        this.projectId = projectId++;
+        this.projectId = uuidv4();
         this.title = title;
         this.description = description;
+        this.epics = [];
         this.backlogs = [];
         this.assignedUsers = [];
         this.sprints = [];
+        this.epicCaptures = [];
+        this.tasks = [];
+
+        this.addEpic = function(newEpic){
+            this.epics.push(newEpic);
+        }
 
         this.addBacklog = function(newBacklog){
             this.backlogs.push(newBacklog);
@@ -22,6 +29,14 @@ class Project {
         
         this.addSprint = function(newSprint){
             this.sprints.push(newSprint);
+        }
+
+        this.addEpicCapture = function(newEpicCapture){
+            this.epicCaptures.push(newEpicCapture);
+        }
+
+        this.addTask = function(newTask){
+            this.tasks.push(newTask);
         }
     }
 }

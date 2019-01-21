@@ -1,13 +1,13 @@
 const Priority = require('./priority');
+const uuidv4 = require('uuid/v4');
 
-let epicId = 1;
 
-class Epic{
+class EpicCapture{
 
 
 
     constructor(title, description, epic_status, epic_priority, estimated) {
-        this.epicId = epicId++;
+        this.epicId = uuidv4();
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;
@@ -16,12 +16,12 @@ class Epic{
         this.estimated = estimated;
         //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
         this.backlogs = [];
-        
 
-        this.addBacklog = function (newBacklog){
-            this.backlogs.push(newBacklog);
+
+        this.addBacklog = function (id){
+            this.backlogs.push(id);
         }
     }
 }
 
-module.exports = BacklogItem;
+module.exports = EpicCapture;
