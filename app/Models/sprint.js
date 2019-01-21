@@ -1,5 +1,3 @@
-const Project = require('./project');
-const BacklogItem = require('./backlog-item');
 const uuidv4 = require('uuid/v4');
 
 class Sprint {
