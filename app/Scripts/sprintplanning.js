@@ -110,10 +110,7 @@ function siteContent() {
 
     var rightPanelGroup = document.createElement('div');
     rightPanelGroup.className = 'panel-group';
-    for (let i = 0; i < array.length; i++) {
-        
-        
-    }
+ 
 
     var content = document.createElement('b');
     content.className = 'col';
