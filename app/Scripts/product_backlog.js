@@ -18,7 +18,6 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
     PROJECTS = projects;
     jsonFile = PROJECTS[POSITION]
-    //siteContent();
     listEpicCapturesWithBacklogs();
 })
 

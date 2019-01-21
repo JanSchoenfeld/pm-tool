@@ -24,7 +24,7 @@
 				{
 					"taskId": 1,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 1",
+					"title": "backlogItem Nr. 1 / Task 1 testproject",
 					"description": "Scrumboard erstellen und füllen",
 					"task_status": 0,
 					"effort": 5,
@@ -33,7 +33,7 @@
 				{
 					"taskId": 2,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 2",
+					"title": "backlogItem Nr. 1 / Task 2 testproject",
 					"description": "blabla",
 					"task_status": 1,
 					"effort": 5,
@@ -42,7 +42,7 @@
 				{
 					"taskId": 3,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 3",
+					"title": "backlogItem Nr. 1 / Task 3 testproject",
 					"description": "blabla",
 					"task_status": 2,
 					"effort": 5,
@@ -51,7 +51,7 @@
 				{
 					"taskId": 4,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 4",
+					"title": "backlogItem Nr. 1 / Task 4 testproject",
 					"description": "blabla",
 					"task_status": 1,
 					"effort": 5,
@@ -60,7 +60,7 @@
 				{
 					"taskId": 5,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 5",
+					"title": "backlogItem Nr. 1 / Task 5 testproject",
 					"description": "blabla",
 					"task_status": 1,
 					"effort": 5,
@@ -69,7 +69,7 @@
 				{
 					"taskId": 6,
 					"createdAt": 1546180030416,
-					"title": "backlogItem Nr. 1 / Task 6",
+					"title": "backlogItem Nr. 1 / Task 6 testproject",
 					"description": "blabla",
 					"task_status": 2,
 					"effort": 5,
@@ -159,19 +159,13 @@
 				{
 					"backlogID": 1,
 					"taskIds": [
-						1,
-						2,
-						3,
-						4,
-						5
+						1
 					]
 				},
 				{
 					"backlogID": 2,
 					"taskIds": [
-						1,
-						2,
-						3
+						1
 					]
 				}
 			]
@@ -182,9 +176,9 @@
 				{
 					"backlogID": 1,
 					"taskIds": [
-						"1",
-						"2",
-						"3"
+						1,
+						2,
+						3
 					]
 				}
 			]

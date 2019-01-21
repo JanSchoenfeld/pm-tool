@@ -7,10 +7,9 @@ const Status = require('./status');
 const Priority = require('./priority');
 const uuidv4 = require('uuid/v4');
 
-
 class BacklogItem {
 
-    constructor(title, description, backlog_item_priority, estimated) {
+    constructor(title, description, /*backlog_status,*/ backlog_item_priority, estimated) {
             this.backlogId = uuidv4();
             this.createdAt = Date.now();
             this.title = title;

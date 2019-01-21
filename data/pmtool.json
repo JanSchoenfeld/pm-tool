@@ -29,7 +29,7 @@
 					"createdAt": 1546180030416,
 					"title": "backlogItem Nr. 1 / Task 1",
 					"description": "Scrumboard erstellen und füllen",
-					"task_status": 0,
+					"task_status": 1,
 					"effort": 5,
 					"assignedTo": []
 				},
@@ -47,7 +47,7 @@
 					"createdAt": 1546180030416,
 					"title": "backlogItem Nr. 1 / Task 3",
 					"description": "blabla",
-					"task_status": 2,
+					"task_status": 1,
 					"effort": 5,
 					"assignedTo": []
 				},
@@ -254,9 +254,9 @@
 				{
 					"backlogID": 1,
 					"taskIds": [
-						"1",
-						"2",
-						"3"
+						1,
+						2,
+						3
 					]
 				}
 			]

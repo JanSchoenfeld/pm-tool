@@ -1,7 +1,6 @@
 const Roles = require('./roles');
 const uuidv4 = require('uuid/v4');
 
-
 //user evtl. einzeln für projekte anlegen - project.json datei vielleicht gut?
 
 class User {

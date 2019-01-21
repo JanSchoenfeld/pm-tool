@@ -7,16 +7,26 @@ const {
 //currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
 //console.log(require('electron').remote.getGlobal('PROJECTS')[0].title)
 
-let PROJECTS = remote.getGlobal('PROJECTS');
+let PROJECTS;
+let project;
 let POSITION = JSON.parse(fs.readFileSync('data/global/POSITION.json'));
-//initialisieren von project
-let project = loadProject();
+
 
 var sprintNumber = 0;
 //HTML ID finding
 var scrumDiv = document.getElementById('scrumboard');
 
-siteContent();
+
+ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
+
+  PROJECTS = projects;
+  project = PROJECTS[POSITION]
+  siteContent();
+})
+
+ipcRenderer.send("reqPROJECTS");
+
+
 
 function siteContent() {
   //Sprint switch buttons
@@ -48,7 +58,7 @@ function siteContent() {
     forwardIcon.className = 'fas fa-chevron-circle-right'
 
     //Text for Sprint-Navigation
-    var sprintContent = document.createTextNode('  Sprint ' + (project.sprints[sprintNumber].sprint_id) + ' ');
+    var sprintContent = document.createTextNode('  Sprint ' + project.sprints[sprintNumber].sprintId + ' ');
     var currentSprint = document.createElement('i');
     currentSprint.style.userSelect = "none";
 
@@ -97,12 +107,21 @@ function siteContent() {
         //Backlog Div
         var newBacklogDiv = document.createElement('div');
         newBacklogDiv.className = 'column col-md-3';
+        newBacklogDiv.id = 'backlog' + i;
+        newBacklogDiv.addEventListener('drop', drop);
+        newBacklogDiv.addEventListener('dragover', allowDrop);
         //Doing Div
         var newDoingDiv = document.createElement('div');
         newDoingDiv.className = 'column col-md-3';
+        newDoingDiv.id = 'doing' + i;
+        newDoingDiv.addEventListener('drop', drop);
+        newDoingDiv.addEventListener('dragover', allowDrop);
         //Done Div
         var newDoneDiv = document.createElement('div');
         newDoneDiv.className = 'column col-md-3';
+        newDoneDiv.id = 'done' + i;
+        newDoneDiv.addEventListener('drop', drop);
+        newDoneDiv.addEventListener('dragover', allowDrop);
 
         //Create new ContentDiv
         var newStoryContentDiv = document.createElement('div');
@@ -130,6 +149,9 @@ function siteContent() {
         newStoryContentDiv.appendChild(newActionDiv);
         newStoryDiv.appendChild(newStoryContentDiv);
         newRowDiv.appendChild(newStoryDiv);
+        newRowDiv.appendChild(newBacklogDiv);
+        newRowDiv.appendChild(newDoingDiv);
+        newRowDiv.appendChild(newDoneDiv);
 
         var tasks = project.backlogs[i].tasks;
         var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
@@ -141,6 +163,12 @@ function siteContent() {
             //Content div
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
+            newContentDiv.id = 'content' + i + j
+            newContentDiv.draggable = true;
+            newContentDiv.addEventListener('dragstart', drag);
+            newContentDiv.addEventListener('dragover', function () {
+              return false;
+            })
             //Create textdiv and actionDiv
             var newTextDiv = document.createElement('div');
             var newActionDiv = document.createElement('div');
@@ -159,7 +187,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newBacklogDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newBacklogDiv);
+              
             } else if (tasks[j].task_status == 1) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
@@ -167,7 +195,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newDoingDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newDoingDiv);
+             
             } else if (tasks[j].task_status == 2) {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
@@ -175,7 +203,7 @@ function siteContent() {
               newContentDiv.appendChild(newTextDiv);
               newContentDiv.appendChild(newActionDiv);
               newDoneDiv.appendChild(newContentDiv);
-              newRowDiv.appendChild(newDoneDiv);
+              
             }
 
           }
@@ -215,15 +243,6 @@ function siteContent() {
   }
 }
 
-//lädt die aktuelle projectposition aus dem array
-function loadProject() {
-
-  let project = PROJECTS[POSITION];
-
-  return project;
-}
-
-
 /*
  * Switcher Buttons
  */
@@ -251,4 +270,59 @@ function sprintForward() {
   removeRow = document.getElementById('pageContentDiv');
   scrumDiv.removeChild(removeRow);
   siteContent();
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  if (ev.target.id != '') {
+
+  console.log("data: "+ data.substring(data.length - 2, data.length - 1))
+  console.log("target: "+ ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length))
+  if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
+    var rowID = data.substring(data.length - 2, data.length - 1)
+    var taskID = data.substring(data.length - 1, data.length)
+
+    if (project.backlogs[rowID].tasks[taskID].task_status != null) {
+      if (ev.target.id.startsWith('backlog')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.backlogs[rowID].tasks[taskID].task_status=0;
+        syncProjects();
+      }
+      else if (ev.target.id.startsWith('doing')) {
+        ev.target.appendChild(document.getElementById(data));
+       project.backlogs[rowID].tasks[taskID].task_status=1;
+       syncProjects();
+      }
+      else if (ev.target.id.startsWith('done')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.backlogs[rowID].tasks[taskID].task_status=2;
+        syncProjects();
+      }
+        
+    }
+    else {
+      alert('Data is corrupt. Please check you data!')
+    }
+  }
+  else {
+    alert('The task you wanna move is assign to another row.')
+  }
+}
+else{
+  alert(alert + ' Not a valid target!')
+}
+
+}
+function syncProjects() {
+
+  ipcRenderer.send("PROJECTS", PROJECTS);
 }
