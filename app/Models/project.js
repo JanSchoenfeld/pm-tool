@@ -12,6 +12,7 @@ class Project {
         this.assignedUsers = [];
         this.sprints = [];
         this.epicCaptures = [];
+        this.tasks = [];
 
         this.addEpic = function(newEpic){
             this.epics.push(newEpic);
@@ -31,6 +32,10 @@ class Project {
 
         this.addEpicCapture = function(newEpicCapture){
             this.epicCaptures.push(newEpicCapture);
+        }
+
+        this.addTask = function(newTask){
+            this.tasks.push(newTask);
         }
     }
 }

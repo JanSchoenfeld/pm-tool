@@ -7,6 +7,7 @@ const {
 } = require('electron');
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
+const Task = require('../app/Models/task');
 
 let PROJECTS;
 let jsonFile;
@@ -91,76 +92,57 @@ function listEpicCapturesWithBacklogs() {
 
         backlogTable.appendChild(epicRow);
 
-        if (jsonFile.epicCaptures[i].backlogs.length > 0) {
+        for (let b = 0; jsonFile.backlogs.length > b; b++) {
+            if (jsonFile.backlogs[b].inEpic === jsonFile.epicCaptures[i].epicId) {
+                let backlogRow = document.createElement("tr");
+                backlogRow.onclick = function () {
+                    displayEditBacklogItem(b);
+                };
 
-            for (let j = 0; j < jsonFile.epicCaptures[i].backlogs.length; j++) {
-                let backlogId = jsonFile.epicCaptures[i].backlogs[j];
-                //console.log("Suche nach Backlog Eintrag mit ID " + backlogId);
+                backlogRow.style.backgroundColor = "Gainsboro";
 
-                for (let k = 0; k < jsonFile.backlogs.length; k++) {
-                    // console.log("Suche Backlog mit ID "+backlogId+" ...."+ " bei Backlog Position "+ k + " mit ID "+jsonFile.backlogs[k].backlogId);
-                    if (backlogId == jsonFile.backlogs[k].backlogId) {
-                        // console.log("Passender Backlog gefunden mit ID "+ jsonFile.backlogs[k].backlogId);
+                let colIsEpic = document.createElement("td");
+                let isEpic = document.createTextNode("");
+                colIsEpic.appendChild(isEpic);
+                backlogRow.appendChild(colIsEpic);
 
-                        let backlogRow = document.createElement("tr");
-                        backlogRow.onclick = function () {
-                            displayEditBacklogItem(k);
-                        };
+                let colId = document.createElement("td");
+                let id = document.createTextNode(jsonFile.backlogs[b].backlogId);
+                colId.appendChild(id);
+                backlogRow.appendChild(colId);
 
-                        backlogRow.style.backgroundColor = "Gainsboro";
+                let colTitle = document.createElement("td");
+                let title = document.createTextNode(jsonFile.backlogs[b].title);
+                colTitle.appendChild(title);
+                backlogRow.appendChild(colTitle);
 
-                        let colIsEpic = document.createElement("td");
-                        let isEpic = document.createTextNode("");
-                        colIsEpic.appendChild(isEpic);
-                        backlogRow.appendChild(colIsEpic);
+                let colEstimate = document.createElement("td");
+                let estimate = document.createTextNode(jsonFile.backlogs[b].estimated);
+                colEstimate.appendChild(estimate);
+                backlogRow.appendChild(colEstimate);
 
-                        let colId = document.createElement("td");
-                        let id = document.createTextNode(jsonFile.backlogs[k].backlogId);
-                        colId.appendChild(id);
-                        backlogRow.appendChild(colId);
-
-                        let colTitle = document.createElement("td");
-                        let title = document.createTextNode(jsonFile.backlogs[k].title);
-                        colTitle.appendChild(title);
-                        backlogRow.appendChild(colTitle);
-
-                        let colEstimate = document.createElement("td");
-                        let estimate = document.createTextNode(jsonFile.backlogs[k].estimated);
-                        colEstimate.appendChild(estimate);
-                        backlogRow.appendChild(colEstimate);
-
-                        let colStatus = document.createElement("td");
-                        let status;
-                        if (jsonFile.backlogs[k].backlog_status.to_do === true) {
-                            status = document.createTextNode("To Do");
-                        } else if (jsonFile.backlogs[k].backlog_status.in_progress === true) {
-                            status = document.createTextNode("To Do");
-                        } else if (jsonFile.backlogs[k].backlog_status.done === true) {
-                            status = document.createTextNode("To Do");
-                        } else {
-                            status = document.createTextNode("Missing");
-                        }
-                        colStatus.appendChild(status);
-                        backlogRow.appendChild(colStatus);
-
-                        backlogTable.appendChild(backlogRow);
-
-                        break;
-
-                    }
-
+                let colStatus = document.createElement("td");
+                let status;
+                if (jsonFile.backlogs[b].backlog_status.to_do === true) {
+                    status = document.createTextNode("To Do");
+                } else if (jsonFile.backlogs[b].backlog_status.in_progress === true) {
+                    status = document.createTextNode("To Do");
+                } else if (jsonFile.backlogs[b].backlog_status.done === true) {
+                    status = document.createTextNode("To Do");
+                } else {
+                    status = document.createTextNode("Missing");
                 }
+                colStatus.appendChild(status);
+                backlogRow.appendChild(colStatus);
+
+                backlogTable.appendChild(backlogRow);
             }
-            /*
-            let br = document.createElement("br");
-            epicRow.appendChild(br);
-            epicRow.appendChild(tableBacklogsFromEpic);
-            */
         }
     }
 
+
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
-        if (jsonFile.backlogs[i].isInEpic === false) {
+        if (jsonFile.backlogs[i].inEpic === null) {
             let backlogRow = document.createElement("tr");
             backlogRow.onclick = function () {
                 displayEditBacklogItem(i);
@@ -221,13 +203,15 @@ function closeChooseItem() {
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     let selectSprint = document.getElementById("b_item_assign_to_sprint");
-    //selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    let selectEpic = document.getElementById("b_item_assign_to_epic");
+    $("#b_item_assign_to_sprint").empty();
+    selectSprint.options[selectSprint.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.sprints.length; i++) {
         let id = jsonFile.sprints[i].sprintId;
         selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
     }
-    let selectEpic = document.getElementById("b_item_assign_to_epic");
-    //selectSprint.options[selectSprint.options.length] = new Option("" , "");
+    $("#b_item_assign_to_epic").empty();
+    selectEpic.options[selectEpic.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         let id = jsonFile.epicCaptures[i].epicId;
         selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id);
@@ -240,9 +224,25 @@ function addBacklogItem() {
     let item_name = document.getElementById("b_item_name").value;
     let item_description = document.getElementById("b_item_description").value;
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
+    let item_assign_to_sprint = document.getElementById("b_item_assign_to_sprint").value;
+    let item_assign_to_epic = document.getElementById("b_item_assign_to_epic").value;
     console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
 
     let tmpBLitem = new BacklogItem(item_name, item_description, "high", item_estimate_time);
+    if (item_assign_to_epic === "") {
+        tmpBLitem.inEpic = null;
+
+    } else {
+        tmpBLitem.inEpic = item_assign_to_epic;
+    }
+
+    if (item_assign_to_sprint === "") {
+        tmpBLitem.inSprint = null;
+
+    } else {
+        tmpBLitem.inSprint = item_assign_to_sprint;
+    }
+
 
     jsonFile.backlogs.push(tmpBLitem);
 
@@ -274,20 +274,24 @@ function displayEditBacklogItem(i) {
     let selectedSprint = jsonFile.backlogs[i].inSprint;
 
     let selectSprint = document.getElementById("edit_b_item_assign_to_sprint");
+    $("#edit_b_item_assign_to_sprint").empty();
     selectSprint.options[selectSprint.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.sprints.length; i++) {
         let id = jsonFile.sprints[i].sprintId;
-        selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
-        if (selectedSprint == id) {
-            //selectSprint.options[i].selectedIndex = true;
+
+        if (selectedSprint === id) {
+            selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id, false, true);
+        } else {
+            selectSprint.options[selectSprint.options.length] = new Option("Sprint " + id, id);
         }
     }
     let selectEpic = document.getElementById("edit_b_item_assign_to_epic");
+    $("#edit_b_item_assign_to_epic").empty();
     selectEpic.options[selectEpic.options.length] = new Option("", "");
     for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
         let id = jsonFile.epicCaptures[i].epicId;
 
-        if (selectedEpic == id) {
+        if (selectedEpic === id) {
             selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id, false, true);
         } else {
             selectEpic.options[selectEpic.options.length] = new Option("Epic " + id, id);
@@ -304,44 +308,34 @@ function saveBacklogItem() {
     let item_assign_to_sprint = document.getElementById("edit_b_item_assign_to_sprint").value;
     let item_assign_to_epic = document.getElementById("edit_b_item_assign_to_epic").value;
     let item_id = document.getElementById("edit_b_item_id").value;
+
+    console.log("Sprint "+ item_assign_to_sprint);
+    console.log("Epic "+ item_assign_to_epic);
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
 
-        if (jsonFile.backlogs[i].backlogId == item_id) {
+        if (jsonFile.backlogs[i].backlogId === item_id) {
             console.log("Item gefunden");
             jsonFile.backlogs[i].title = item_name;
             jsonFile.backlogs[i].description = item_description;
             jsonFile.backlogs[i].estimated = item_estimate_time;
-            if (item_assign_to_sprint != "") {
-                jsonFile.backlogs[i].isInSprint = true;
-                for (let j = 0; j < jsonFile.sprints.length; j++) {
-                    if (jsonFile.sprints[j].sprintId == item_assign_to_sprint) {
-                        //TODO: SPEICHERN
-                        jsonFile.sprints[j].backlogs.push(item_id);
-                        //jsonFile.sprints[j].addBacklog(item_id);
-                        alert("Added To Sprint " + item_assign_to_sprint);
-                    }
-                }
-            } else {
-                jsonFile.backlogs[i].isInSprint = false;
-            }
-            if (item_assign_to_epic != null) {
-                jsonFile.backlogs[i].isInEpic = true;
-                for (let j = 0; j < jsonFile.epicCaptures.length; j++) {
-                    if (jsonFile.epicCaptures[j].epicId == item_assign_to_epic) {
-                        //TODO: SPEICHERN
-                        jsonFile.epicCaptures[j].backlogs.push(item_id);
-                        //jsonFile.epicCaptures[j].addBacklog(item_id);
-                        alert("Added To Epic " + item_assign_to_epic);
-                    }
-                }
-            } else {
-                jsonFile.backlogs[i].isInEpic = false;
-                console.log("Deleted From Epic");
-            }
-            console.log("Item Edited" + jsonFile.backlogs[i]);
+            if (item_assign_to_sprint === "") {
+                jsonFile.backlogs[i].inSprint = null;
 
+            } else {
+                jsonFile.backlogs[i].inSprint = "" + item_assign_to_sprint;
+            }
+
+            if (item_assign_to_epic === "") {
+                jsonFile.backlogs[i].inEpic = null;
+
+            } else {
+                jsonFile.backlogs[i].inEpic = item_assign_to_epic;
+            }
         }
     }
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     //listEpicCapturesWithBacklogs();
     reload();
     closeEditBacklogItem();
@@ -366,7 +360,13 @@ function addEpicCapture() {
     console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
     let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
     console.log(epicCapture);
-    //TODO: SPEICHERN
+
+    jsonFile.epicCaptures.push(epicCapture);
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+
 
     closeAddEpicCapture();
     reload();
@@ -403,6 +403,9 @@ function saveEpicCapture() {
             reload();
         }
     }
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     closeEditEpicCapture();
 }
 
@@ -432,7 +435,11 @@ function addSprint() {
     let sprint1;
     sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
 
-    //TODO: SPEICHERN
+    jsonFile.sprints.push(sprint1);
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     console.log(sprint1);
     reload();
     closeAddSprint();
@@ -441,9 +448,9 @@ function addSprint() {
 function displayEditSprint(s) {
     document.getElementById("form_editSprint").reset();
     document.getElementById("edit_s_name").value = jsonFile.sprints[s].title;
-    document.getElementById("edit_s_startdate").value = jsonFile.epicCaptures[s].startdate;
-    document.getElementById("edit_s_enddate").value = jsonFile.epicCaptures[s].enddate;
-    document.getElementById("edit_s_capacity").value = jsonFile.epicCaptures[s].capacity;
+    document.getElementById("edit_s_startdate").value = jsonFile.sprints[s].startdate;
+    document.getElementById("edit_s_enddate").value = jsonFile.sprints[s].enddate;
+    document.getElementById("edit_s_capacity").value = jsonFile.sprints[s].capacity;
 
     $("#modal_edit_sprint").modal("show");
 }
@@ -466,6 +473,10 @@ function saveSprint() {
             reload();
         }
     }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     closeEditEpicCapture();
 
 }
@@ -477,10 +488,111 @@ function closeEditSprint() {
 
 
 function deleteBacklog() {
-    let id = document.getElementById("edit_b_item_id");
-    console.log(id);
+    let id = document.getElementById("edit_b_item_id").value;
+    console.log("Delete Backlogs ID " + id);
+
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
+        if (id === jsonFile.backlogs[i].backlogId) {
+            deleteTasksInBacklog(id);
+            delete jsonFile.backlogs[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
     reload();
-    //TODO: LÖSCHEN
+}
+
+
+
+function deleteBacklogsInEpic(epicId) {
+    //TODO: LUC: Safe Delete
+    console.log("Delete Backlogs in Epic ID " + epicId);
+    let counter = jsonFile.backlogs.length;
+    //let toDelete = [];
+    for (let i = 0; i < counter; i++) {
+        console.log("INFO: Backlog mit ID " + jsonFile.backlogs[i].backlogId + " is in Epic: " + jsonFile.backlogs[i].inEpic);
+        if (epicId === jsonFile.backlogs[i].inEpic) {
+            deleteTasksInBacklog(jsonFile.backlogs[i].backlogId);
+            //toDelete.append(jsonFile.backlogs[i].backlogId);
+            delete jsonFile.backlogs[i];
+            //i = i - 1;
+           // counter = counter - 1;
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteEpicCapture() {
+    let id = document.getElementById("edit_e_item_id").value;
+    console.log("Delete Epic ID " + id);
+    for (let i = 0; i < jsonFile.epicCaptures.length; i++) {
+        if (id === jsonFile.epicCaptures[i].epicId) {
+            deleteBacklogsInEpic(id);
+            delete jsonFile.epicCaptures[i];
+        }
+    }
+    deleteBacklogsInEpic(id);
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteSprint() {
+    let id = document.getElementById("edit_s_item_id").value;
+    console.log("Delete Sprint ID " + id);
+    for (let i = 0; i < jsonFile.sprints.length; i++) {
+        if (id === jsonFile.sprints[i].sprintId) {
+            delete jsonFile.sprints[i];
+        }
+    }
+    for (let i = 0; i < jsonFile.backlogs.length; i++) {
+        if (id === jsonFile.backlogs[i].inSprint) {
+            jsonFile.backlogs[i].inSprint = null;
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteTasksInBacklog(backlogId) {
+    console.log("Delete Task in Backlog ID " + backlogId);
+
+    for (let i = 0; i < jsonFile.tasks.length; i++) {
+        if (backlogId === jsonFile.tasks[i].inBacklog) {
+            delete jsonFile.tasks[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
+}
+
+function deleteTask() {
+    let id = document.getElementById("edit_t_item_id").value;
+    console.log("Delete Task " + id);
+    for (let i = 0; i < jsonFile.tasks.length; i++) {
+        if (id === jsonFile.tasks[i].epicId) {
+            delete jsonFile.tasks[i];
+        }
+    }
+
+    PROJECTS[POSITION] = jsonFile;
+
+    syncProjects();
+    reload();
 }
 
 function syncProjects() {
@@ -503,16 +615,5 @@ for (i = 0; i < 26; i++) {
   data.okay.push(obj)
 }
 
-function deleteEpicCapture() {
-    let id = document.getElementById("edit_e_item_id");
-    console.log(id);
-    reload();
-    //TODO: LÖSCHEN
-}
-function deleteSprint() {
-    let id = document.getElementById("edit_s_item_id");
-    console.log(id);
-    reload();
-    //TODO: LÖSCHEN
-}
+
 */
