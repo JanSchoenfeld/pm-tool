@@ -443,14 +443,16 @@ function addSprint() {
     console.log(sprint1);
     reload();
     closeAddSprint();
+    displayEditSprint(jsonFile.sprints.length-1);
 }
 
 function displayEditSprint(s) {
     document.getElementById("form_editSprint").reset();
-    document.getElementById("edit_s_name").value = jsonFile.sprints[s].title;
+    document.getElementById("edit_s_name").value = jsonFile.sprints[s].name;
     document.getElementById("edit_s_startdate").value = jsonFile.sprints[s].startdate;
     document.getElementById("edit_s_enddate").value = jsonFile.sprints[s].enddate;
     document.getElementById("edit_s_capacity").value = jsonFile.sprints[s].capacity;
+    document.getElementById("edit_s_item_id").value = jsonFile.sprints[s].sprintId;
 
     $("#modal_edit_sprint").modal("show");
 }
@@ -464,13 +466,13 @@ function saveSprint() {
 
     for (let i = 0; i < jsonFile.sprints.length; i++) {
         if (jsonFile.sprints[i].sprintId == sprint_id) {
-            jsonFile.sprints[i].title = sprint_name;
+            jsonFile.sprints[i].name = sprint_name;
             jsonFile.sprints[i].startdate = sprint_startdate;
             jsonFile.sprints[i].enddate = sprint_enddate;
             //TODO: Backend funktion: Alle Zeiten der backlogs im Epic zusammenzählen --> Alle Zeiten der Tasks ins Backlog
             jsonFile.sprints[i].capacity = sprint_capacity;
             console.log("Item Edited" + jsonFile.sprints[i]);
-            reload();
+
         }
     }
 
@@ -478,7 +480,7 @@ function saveSprint() {
 
     syncProjects();
     closeEditEpicCapture();
-
+    reload();
 }
 
 function closeEditSprint() {
@@ -517,8 +519,8 @@ function deleteBacklogsInEpic(epicId) {
             deleteTasksInBacklog(jsonFile.backlogs[i].backlogId);
             //toDelete.append(jsonFile.backlogs[i].backlogId);
             delete jsonFile.backlogs[i];
-            //i = i - 1;
-           // counter = counter - 1;
+            //i = i - 2;
+            //counter = counter - 2;
         }
     }
 
