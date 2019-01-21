@@ -36,17 +36,20 @@ function siteContent() {
     rightCol.id = 'rightCol'
     row.appendChild(rightCol);
 
-    var panelGroup = document.createElement('div');
-    panelGroup.className = 'panel-group';
+    var leftPanelGroup = document.createElement('div');
+    leftPanelGroup.className = 'panel-group';
 
     for (let i = 0; i < project.sprints.length; i++) {
         var panel = document.createElement('div');
-        panel.className = 'contentLeft';
-        panelGroup.appendChild(panel);
+        panel.className = 'sprintContent';
+        leftPanelGroup.appendChild(panel);
 
         var panelHead = document.createElement('div');
         panelHead.className = 'alert alert-success';
-        panelHead.appendChild(document.createTextNode('Sprint ' + project.sprints[i].sprintId));
+        var headline = document.createTextNode('Sprint ' + project.sprints[i].sprintId);
+        var headlineWrapper = document.createElement('h5');
+        headlineWrapper.appendChild(headline);
+        panelHead.appendChild(headlineWrapper);
         panel.appendChild(panelHead);
 
         var panelBody = document.createElement('div');
@@ -55,7 +58,7 @@ function siteContent() {
 
         for (let j = 0; j < project.sprints[i].backlogItemIds.length; j++) {
             var panelBodyContent = document.createElement('div');
-            panelBodyContent.className = 'content';
+            panelBodyContent.className = 'content contentLeft';
             panelBody.appendChild(panelBodyContent);
             for (let k = 0; k < project.backlogs.length; k++) {
                 if (project.sprints[i].backlogItemIds[j].backlogID == project.backlogs[k].backlogId) {
@@ -63,8 +66,31 @@ function siteContent() {
                     panelBodyContent.appendChild(infoDiv);
 
                     var backlog = document.createElement('div');
-                    backlog.appendChild(document.createTextNode(project.backlogs[k].title))
                     infoDiv.appendChild(backlog);
+                    
+                    var title = document.createElement('div')
+                    var bold = document.createElement('b')
+                    bold.className = 'font-weight-bold'
+                    bold.appendChild(document.createTextNode("Title: "))
+                    title.appendChild(bold);
+                    title.appendChild(document.createTextNode(project.backlogs[k].title));
+                    backlog.appendChild(title);
+
+                    var description = document.createElement('div')
+                    var bold = document.createElement('b')
+                    bold.className = 'font-weight-bold'
+                    bold.appendChild(document.createTextNode("Beschreibung: "))
+                    description.appendChild(bold);
+                    description.appendChild(document.createTextNode(project.backlogs[k].description));
+                    backlog.appendChild(description);
+
+                    var priority = document.createElement('div')
+                    var bold = document.createElement('b')
+                    bold.className = 'font-weight-bold'
+                    bold.appendChild(document.createTextNode("Priorität: "))
+                    priority.appendChild(bold);
+                    priority.appendChild(document.createTextNode(project.backlogs[k].priority.priority));
+                    backlog.appendChild(priority);                    
 
                     var actionDiv = document.createElement('div');
                     infoDiv.appendChild(actionDiv);
@@ -80,9 +106,16 @@ function siteContent() {
         }
 
     }
-    leftCol.appendChild(panelGroup);
-    
-    var content = document.createElement('div');
+    leftCol.appendChild(leftPanelGroup);
+
+    var rightPanelGroup = document.createElement('div');
+    rightPanelGroup.className = 'panel-group';
+    for (let i = 0; i < array.length; i++) {
+        
+        
+    }
+
+    var content = document.createElement('b');
     content.className = 'col';
     rightCol.appendChild(content);
     var text = document.createTextNode('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo ')
