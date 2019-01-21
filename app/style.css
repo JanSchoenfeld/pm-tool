@@ -54,12 +54,19 @@ h3 {
 .contentLeft {
   width: 100%;
   height: auto;
-  padding: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
   margin-top: 10px;
-  background: rgb(194, 194, 194);
-  border: 3px rgb(151, 26, 26) solid;
+  background: rgb(255, 255, 255);
+  border: 3px black solid;
   border-radius: 8px;
   text-align: left;
+}
+
+.alert-success{
+  background: #017A74;
+  color: white;
 }
 
 [class*="col-md-3"] {
