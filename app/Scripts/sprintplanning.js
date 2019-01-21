@@ -81,6 +81,7 @@ function siteContent() {
 
     }
     leftCol.appendChild(panelGroup);
+    
     var content = document.createElement('div');
     content.className = 'col';
     rightCol.appendChild(content);
