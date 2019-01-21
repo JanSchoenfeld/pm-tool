@@ -51,12 +51,21 @@ h3 {
   text-align: center;
 }
 
+.contentLeft {
+  width: 100%;
+  height: auto;
+  padding: 0px;
+  margin-top: 10px;
+  background: rgb(194, 194, 194);
+  border: 3px rgb(151, 26, 26) solid;
+  border-radius: 8px;
+  text-align: left;
+}
 
 [class*="col-md-3"] {
   background-clip: padding-box;
   border: 10px solid transparent;
 }
-
 
 .container-headline {
   padding-left: 0px;
@@ -75,7 +84,6 @@ h3 {
   .btn:hover {
     background-color: rgb(0, 97, 92);
   }
-
   /*========================================================*/
   /*--------------------Fontawsom Icons---------------------*/
 
@@ -116,4 +124,12 @@ h3 {
   .fa-trash-alt:hover{
     color: rgb(0, 97, 92);
     cursor: pointer;
+  }
+
+  /*Sprintplanning*/
+
+  .leftCol{
+    height: 96vh; 
+    overflow-y: scroll;
+
   }
