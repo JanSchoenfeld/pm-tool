@@ -11,11 +11,14 @@ class Sprint {
         this.enddate = enddate;
         this.capacity = capacity;
         //referenz zu backlog?
-        this.backlogs = [];
+        //this.backlogs = [];
 
+
+        /*
         this.addBacklog = function (id){
             this.backlogs.push(id);
         }
+        */
     }
 }
 
