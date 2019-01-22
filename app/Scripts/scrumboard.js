@@ -82,22 +82,24 @@ function siteContent() {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    if ( project.sprints[sprintNumber].backlogItemIds != null) {
-    for (let i = 0; i < project.backlogs.length; i++) {
-      //Get Array with alle Backlogs in Sprint
-      sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
+    if (project.sprints[sprintNumber].backlogs != 0) {
+    
+      for (let i = 0; i < project.backlogs.length; i++) {
+                                                                                            //Get Array with alle Backlogs in Sprint
+                                                                                              /*
+                                                                                            sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
 
-      var useBacklogItem = false;
-      var sprintArrayID;
+                                                                                            var useBacklogItem = false;
+                                                                                            var sprintArrayID;
 
-      for (let j = 0; j < sprintBacklogItemIds.length; j++) {
-        if (project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
-          useBacklogItem = true;
-          sprintArrayID = j;
-        }
-      }
+                                                                                            for (let j = 0; j < sprintBacklogItemIds.length; j++) {
+                                                                                              if (project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
+                                                                                                useBacklogItem = true;
+                                                                                                sprintArrayID = j;
+                                                                                              }
+                                                                                            }*/
       //Is the current BacklogItem in the chosen sprint?
-      if (useBacklogItem) {
+      if (project.sprints[sprintNumber].backlogs.includes(project.backlogs[i].backlogId)) {
         //Create new Row
         var newRowDiv = document.createElement("div");
         newRowDiv.className = 'row';
@@ -154,13 +156,13 @@ function siteContent() {
         newRowDiv.appendChild(newDoingDiv);
         newRowDiv.appendChild(newDoneDiv);
 
-        var tasks = project.backlogs[i].tasks;
-        var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
+        //var tasks = project.backlogs[i].tasks;
+        //var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
 
-        for (let j = 0; j < tasks.length; j++) {
-          if (sprintTasks.includes(tasks[j].taskId)) {
+        for (let j = 0; j < project.tasks.length; j++) {
+          if (project.tasks[j].inBacklog == project.backlogs[i].backlogId) {
             //Task Content-Text
-            var newTaskContent = document.createTextNode(tasks[j].title)
+            var newTaskContent = document.createTextNode(project.tasks[j].title)
             //Content div
             var newContentDiv = document.createElement('div');
             newContentDiv.className = 'content';
@@ -180,8 +182,8 @@ function siteContent() {
             var deleteIcon = document.createElement('i');
             deleteIcon.className = "far fa-trash-alt";
             //deleteIcon.addEventListener(function_here);
-            var status = tasks[j].task_status;
-            if (tasks[j].task_status == 0) {
+
+            if (project.tasks[j].status == "to do") {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
               newActionDiv.appendChild(deleteIcon);
@@ -189,7 +191,7 @@ function siteContent() {
               newContentDiv.appendChild(newActionDiv);
               newBacklogDiv.appendChild(newContentDiv);
               
-            } else if (tasks[j].task_status == 1) {
+            } else if (project.tasks[j].status == "in progress") {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
               newActionDiv.appendChild(deleteIcon);
@@ -197,7 +199,7 @@ function siteContent() {
               newContentDiv.appendChild(newActionDiv);
               newDoingDiv.appendChild(newContentDiv);
              
-            } else if (tasks[j].task_status == 2) {
+            } else if (project.tasks[j].status == "done") {
               newTextDiv.appendChild(newTaskContent);
               newActionDiv.appendChild(editIcon);
               newActionDiv.appendChild(deleteIcon);
@@ -248,6 +250,7 @@ function siteContent() {
 /*
  * Switcher Buttons
  */
+
 function sprintBack() {
   if ((sprintNumber - 1) < 0) {
     sprintNumber = (project.sprints.length - 1);
@@ -286,41 +289,32 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   if (ev.target.id != '') {
-
-  console.log("data: "+ data.substring(data.length - 2, data.length - 1))
-  console.log("target: "+ ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length))
   if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-    var rowID = data.substring(data.length - 2, data.length - 1)
     var taskID = data.substring(data.length - 1, data.length)
 
-    if (project.backlogs[rowID].tasks[taskID].task_status != null) {
+
       if (ev.target.id.startsWith('backlog')) {
         ev.target.appendChild(document.getElementById(data));
-        project.backlogs[rowID].tasks[taskID].task_status=0;
+        project.tasks[taskID].status= "to do";
         syncProjects();
       }
       else if (ev.target.id.startsWith('doing')) {
         ev.target.appendChild(document.getElementById(data));
-       project.backlogs[rowID].tasks[taskID].task_status=1;
+        project.tasks[taskID].status= "in progress";
        syncProjects();
       }
       else if (ev.target.id.startsWith('done')) {
         ev.target.appendChild(document.getElementById(data));
-        project.backlogs[rowID].tasks[taskID].task_status=2;
+        project.tasks[taskID].status="done";
         syncProjects();
       }
-        
-    }
-    else {
-      alert('Data is corrupt. Please check you data!')
-    }
   }
   else {
     alert('The task you wanna move is assign to another row.')
   }
 }
 else{
-  alert(alert + ' Not a valid target!')
+  alert('Not a valid target!')
 }
 
 }
