@@ -78,26 +78,13 @@ function siteContent() {
 
 
   //Loop for backlog array
-  if (project.sprints.length > 0) {
+  //if (project.sprints.length > 0) {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    if (project.sprints[sprintNumber].backlogs != 0) {
+    if (project.sprints[sprintNumber].backlogs != null && project.sprints[sprintNumber].backlogs != 0 ) {
     
       for (let i = 0; i < project.backlogs.length; i++) {
-                                                                                            //Get Array with alle Backlogs in Sprint
-                                                                                              /*
-                                                                                            sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
-
-                                                                                            var useBacklogItem = false;
-                                                                                            var sprintArrayID;
-
-                                                                                            for (let j = 0; j < sprintBacklogItemIds.length; j++) {
-                                                                                              if (project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
-                                                                                                useBacklogItem = true;
-                                                                                                sprintArrayID = j;
-                                                                                              }
-                                                                                            }*/
       //Is the current BacklogItem in the chosen sprint?
       if (project.sprints[sprintNumber].backlogs.includes(project.backlogs[i].backlogId)) {
         //Create new Row
@@ -216,7 +203,7 @@ function siteContent() {
         contentWasWriten = true;
       }
     }
-  }
+  
 
     if (contentWasWriten == false) {
       var newErrorRowDiv = document.createElement('div');

@@ -58,7 +58,6 @@ function siteContent() {
 
 
         for (let j = 0; j < project.backlogs.length; j++) {
-            console.log(project.backlogs[j]);
             if (project.backlogs[j].inSprint == project.sprints[i].sprintId) {
                 
                 var panelBodyContent = document.createElement('div');
@@ -71,6 +70,14 @@ function siteContent() {
 
                 var backlog = document.createElement('div');
                 infoDiv.appendChild(backlog);
+
+                var id = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("ID: "))
+                id.appendChild(bold);
+                id.appendChild(document.createTextNode(project.backlogs[j].backlogId));
+                backlog.appendChild(id);
 
                 var title = document.createElement('div')
                 var bold = document.createElement('b')
@@ -116,9 +123,79 @@ function siteContent() {
     rightPanelGroup.className = 'panel-group';
 
 
-    var content = document.createElement('b');
-    content.className = 'col';
-    rightCol.appendChild(content);
-    var text = document.createTextNode('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo ')
-    content.appendChild(text);
+        var panel = document.createElement('div');
+        panel.className = 'sprintContent';
+        rightPanelGroup.appendChild(panel);
+
+        var panelHead = document.createElement('div');
+        panelHead.className = 'alert alert-success';
+        var headline = document.createTextNode('Sprintbacklog');
+        var headlineWrapper = document.createElement('h5');
+        headlineWrapper.appendChild(headline);
+        panelHead.appendChild(headlineWrapper);
+        panel.appendChild(panelHead);
+
+        var panelBody = document.createElement('div');
+        panelBody.className = 'panel-body';
+        panel.appendChild(panelBody);
+        for (let i = 0; i < project.backlogs.length; i++) {
+                
+            if (project.backlogs[i].inSprint == null) {
+                
+                var panelBodyContent = document.createElement('div');
+                panelBodyContent.className = 'content contentLeft';
+                panelBody.appendChild(panelBodyContent);
+
+
+                var infoDiv = document.createElement('div');
+                panelBodyContent.appendChild(infoDiv);
+
+                var backlog = document.createElement('div');
+                infoDiv.appendChild(backlog);
+
+                var id = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("ID: "))
+                id.appendChild(bold);
+                id.appendChild(document.createTextNode(project.backlogs[i].backlogId));
+                backlog.appendChild(id);
+
+                var title = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("Title: "))
+                title.appendChild(bold);
+                title.appendChild(document.createTextNode(project.backlogs[i].title));
+                backlog.appendChild(title);
+
+                var description = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("Beschreibung: "))
+                description.appendChild(bold);
+                description.appendChild(document.createTextNode(project.backlogs[i].description));
+                backlog.appendChild(description);
+
+                var priority = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("Priorität: "))
+                priority.appendChild(bold);
+                priority.appendChild(document.createTextNode(project.backlogs[i].priority));
+                backlog.appendChild(priority);
+
+                var actionDiv = document.createElement('div');
+                infoDiv.appendChild(actionDiv);
+                var editIcon = document.createElement('i');
+                editIcon.className = "far fa-edit";
+                var deleteIcon = document.createElement('i');
+                deleteIcon.className = "far fa-trash-alt";
+                actionDiv.appendChild(editIcon);
+                actionDiv.appendChild(deleteIcon);
+            }
+
+
+        }
+    rightCol.appendChild(rightPanelGroup);
 };
