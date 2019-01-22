@@ -15,12 +15,13 @@ class EpicCapture{
         this.priority = new Priority(epic_priority);
         this.estimated = estimated;
         //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
-        this.backlogs = [];
+        //.backlogs = [];
 
-
+        /*
         this.addBacklog = function (id){
             this.backlogs.push(id);
         }
+        */
     }
 }
 
