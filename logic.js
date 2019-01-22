@@ -9,7 +9,7 @@ const {
     remote, ipcMain
 } = require('electron');
 
-/*
+
 //new project
 let testProject = new Project("Projektmanagement Tool", "Ein Tool für das agile Projektmanagement auf SCRUM Basis");
 //erstelle neue user
@@ -164,7 +164,6 @@ testProject.addTask(task20);
 testProject.addTask(task21);
 let json = JSON.stringify(testProject, null, '\t');
 fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
-*/
 
 let projects = [];
 
