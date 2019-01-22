@@ -11,14 +11,15 @@ class Task {
         this.createdAt = Date.now();
         this.title = title;
         this.description = description;
-        this.status = new Status("todo");
+        this.status = "to do"
         this.effort = effort;
         //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = [];
         this.inBacklog = null;
 
-        this.addUser = function(id){
-            this.assignedTo.push(id);
+        this.addUser = function(newUser){
+            newUser.assignedTasks.push(this.taskId);
+            this.assignedTo.push(newUser.userId);
         }
 
     }
