@@ -7,9 +7,11 @@ class User {
 
     constructor(name, role) {
         this.userId = uuidv4();
+        this.createdAd = Date.now();
         this.name = name;
         //role später als dropdown im formular
         this.role = new Roles(role);
+        this.assignedTasks = [];
     }
 }
 

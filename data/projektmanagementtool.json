@@ -1,0 +1,503 @@
+{
+	"projectId": "f0886f1f-243f-4929-88c2-0727419bb803",
+	"title": "Projektmanagement Tool",
+	"description": "Ein Tool für das agile Projektmanagement auf SCRUM Basis",
+	"epics": [
+		{
+			"epicId": "5616b1e3-5318-4de9-a8c9-58db88b23c40",
+			"createdAt": 1548181740657,
+			"title": "Product Backlog",
+			"description": "Volle Funktionalität rund um das Product Backlog",
+			"epic_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"backlogs": [
+				"4c3e1a55-facd-48aa-a32e-fcaeedd80401",
+				"ebee2087-f325-48cc-afe5-862b92556bf7",
+				"a8461cc1-46dc-4955-a7e9-bb33b2e4aa23"
+			]
+		},
+		{
+			"epicId": "2528b572-cfc2-4cd5-a510-7172a7703936",
+			"createdAt": 1548181740657,
+			"title": "Sprint Planning",
+			"description": "Volle Funktionalität rund um Sprints",
+			"epic_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"backlogs": [
+				"512c1f5f-a6fe-470b-95a0-0bef5390100c",
+				"eca84e4f-dc4b-4fec-a44f-37a8303d66a7",
+				"f46774da-4b71-4505-8feb-6d2d851b236b"
+			]
+		},
+		{
+			"epicId": "69f11b4f-c059-4e7b-b67b-65e63be92a17",
+			"createdAt": 1548181740657,
+			"title": "SCRUM Board",
+			"description": "Ansicht eines funktionalen Scrumboards zur Ansicht des Projektverlaufes",
+			"epic_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"backlogs": [
+				"616636cd-90c3-40b0-b9fd-95aae86c6511",
+				"c27fc7ef-6e5b-4e46-af43-ce4512ee0b7f"
+			]
+		}
+	],
+	"backlogs": [
+		{
+			"backlogId": "4c3e1a55-facd-48aa-a32e-fcaeedd80401",
+			"createdAt": 1548181740656,
+			"title": "Backlog Liste",
+			"description": "Es soll eine Übersicht aller Backlog Items verfügbar sein",
+			"backlog_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"taskIds": [
+				"413a13e8-f928-4458-822f-c5512e1f65b1",
+				"ec3d3e03-863b-48e0-981f-98dacfee701e",
+				"df17e20f-7e21-4c07-b268-66165e100e6a"
+			],
+			"inSprint": "439d5580-8690-4f76-a3a6-10439303c294",
+			"inEpic": "5616b1e3-5318-4de9-a8c9-58db88b23c40"
+		},
+		{
+			"backlogId": "ebee2087-f325-48cc-afe5-862b92556bf7",
+			"createdAt": 1548181740656,
+			"title": "Funktionalität um Backlogs zu erstellen",
+			"description": "Der Owner soll die Möglichkeit haben neue Backlogitems zu erstellen",
+			"backlog_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"taskIds": [
+				"396c7958-ed59-4e7d-a83b-2e914b5e18e4",
+				"65308ab0-ad78-4f88-bc31-57950a73437a",
+				"e067416c-4528-42cf-9b10-937e88e60431"
+			],
+			"inSprint": "439d5580-8690-4f76-a3a6-10439303c294",
+			"inEpic": "5616b1e3-5318-4de9-a8c9-58db88b23c40"
+		},
+		{
+			"backlogId": "a8461cc1-46dc-4955-a7e9-bb33b2e4aa23",
+			"createdAt": 1548181740656,
+			"title": "Backlogs öffnen und bearbeiten",
+			"description": "Der Owner soll die Möglichkeit haben Backlogs zu öffnen und zu bearbeiten",
+			"backlog_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"taskIds": [
+				"120671c9-cacb-47bd-a7d6-df82ee2ef130",
+				"dadfaedb-6efa-475b-b3e7-e626449da317"
+			],
+			"inSprint": "439d5580-8690-4f76-a3a6-10439303c294",
+			"inEpic": "5616b1e3-5318-4de9-a8c9-58db88b23c40"
+		},
+		{
+			"backlogId": "512c1f5f-a6fe-470b-95a0-0bef5390100c",
+			"createdAt": 1548181740656,
+			"title": "Sprint Übersicht",
+			"description": "Anzeige einer Liste mit nicht zugewiesenen Sprints",
+			"backlog_status": "to do",
+			"priority": "standard",
+			"estimated": null,
+			"taskIds": [
+				"ed58b874-15f6-45b8-b4f0-c3b739ec20fa"
+			],
+			"inSprint": "57f82313-6aa7-4186-831b-281ed1c9e398",
+			"inEpic": "2528b572-cfc2-4cd5-a510-7172a7703936"
+		},
+		{
+			"backlogId": "eca84e4f-dc4b-4fec-a44f-37a8303d66a7",
+			"createdAt": 1548181740656,
+			"title": "Sprint erstellen",
+			"description": "Die Möglichkeit für den Scrum-Master neue Sprints zu erstellen",
+			"backlog_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"taskIds": [
+				"138fdfb6-22c5-45d5-a31f-bd40306553c2",
+				"8276912f-aa52-47bf-b1df-4f63953b6f90",
+				"6e56901a-46ec-4a8b-af0a-3341dbac2852"
+			],
+			"inSprint": "57f82313-6aa7-4186-831b-281ed1c9e398",
+			"inEpic": "2528b572-cfc2-4cd5-a510-7172a7703936"
+		},
+		{
+			"backlogId": "f46774da-4b71-4505-8feb-6d2d851b236b",
+			"createdAt": 1548181740656,
+			"title": "Sprint öffnen",
+			"description": "Die Möglichkeit für den Scrum-Master einen Sprint zu öffnen und zu bearbeiten",
+			"backlog_status": "to do",
+			"priority": "standard",
+			"estimated": null,
+			"taskIds": [
+				"01df3a29-0ad7-4dea-b7a1-52fe7e49e1b0",
+				"d1caa787-a9a1-4060-a5fb-678048c69649"
+			],
+			"inSprint": "783782f7-beeb-4894-8aa9-41624cc37727",
+			"inEpic": "2528b572-cfc2-4cd5-a510-7172a7703936"
+		},
+		{
+			"backlogId": "616636cd-90c3-40b0-b9fd-95aae86c6511",
+			"createdAt": 1548181740656,
+			"title": "Auswahl von Sprints innerhalb des Boards",
+			"description": "Auswahlmöglichkeit um die Ansicht auf verschiedene Sprints zu wechseln",
+			"backlog_status": "to do",
+			"priority": "standard",
+			"estimated": null,
+			"taskIds": [
+				"b8617867-b8ba-47d1-8ec7-aeb6aae9784d",
+				"4af51743-67f9-47c7-ac2f-832e9405d973",
+				"ee00fd62-61da-4c1b-94e7-d822f06b1ec5"
+			],
+			"inSprint": "783782f7-beeb-4894-8aa9-41624cc37727",
+			"inEpic": "69f11b4f-c059-4e7b-b67b-65e63be92a17"
+		},
+		{
+			"backlogId": "c27fc7ef-6e5b-4e46-af43-ce4512ee0b7f",
+			"createdAt": 1548181740656,
+			"title": "Aufteilung des Boards in Spalten",
+			"description": "Die Ansicht des Boards soll in Spalten unterteilt sein, je nach Task-Status",
+			"backlog_status": "to do",
+			"priority": "high",
+			"estimated": null,
+			"taskIds": [
+				"2b8d9114-369f-47b0-81ef-1150c150347a"
+			],
+			"inSprint": "783782f7-beeb-4894-8aa9-41624cc37727",
+			"inEpic": "69f11b4f-c059-4e7b-b67b-65e63be92a17"
+		},
+		{
+			"backlogId": "70b7448a-8256-4b77-ba95-6fc9f9be9580",
+			"createdAt": 1548181740656,
+			"title": "Effort-Estimation",
+			"description": "Implementieren der Effort-Estimation innerhalb des Tools",
+			"backlog_status": "to do",
+			"priority": "low",
+			"estimated": null,
+			"taskIds": [
+				"0c881c85-f5bd-4802-a3b6-68d1fa20b720"
+			],
+			"inSprint": "783782f7-beeb-4894-8aa9-41624cc37727",
+			"inEpic": null
+		},
+		{
+			"backlogId": "f8b1b1ba-e817-4b94-b388-8db1d64dd5ea",
+			"createdAt": 1548181740656,
+			"title": "Burn-Down-Chart",
+			"description": "Implementierung der Burn-Down-Chart innerhalb des Tools",
+			"backlog_status": "to do",
+			"priority": "low",
+			"estimated": null,
+			"taskIds": [
+				"55a7b4f0-9894-4e19-b444-779690978595"
+			],
+			"inSprint": null,
+			"inEpic": null
+		},
+		{
+			"backlogId": "1fc0c434-7c11-47aa-880e-ba42106cba59",
+			"createdAt": 1548181740656,
+			"title": "Roadmap",
+			"description": "Implementierung der Roadmap innerhalb des Tools",
+			"backlog_status": "to do",
+			"priority": "low",
+			"estimated": null,
+			"taskIds": [
+				"6921bedf-0066-4cf1-a40b-05e95c9285c5"
+			],
+			"inSprint": null,
+			"inEpic": null
+		}
+	],
+	"assignedUsers": [
+		{
+			"userId": "69a9961c-913b-40d4-b6dc-ac95fbbdd903",
+			"createdAd": 1548181740656,
+			"name": "Marvin",
+			"role": {
+				"master": false,
+				"owner": false,
+				"developer": true
+			},
+			"assignedTasks": []
+		},
+		{
+			"userId": "d6a5e89e-188d-449b-a85d-b9f37b0acde4",
+			"createdAd": 1548181740656,
+			"name": "Kerstin",
+			"role": {
+				"master": false,
+				"owner": true,
+				"developer": false
+			},
+			"assignedTasks": []
+		},
+		{
+			"userId": "2a81c4a5-1192-47c3-831d-5788572ec4e5",
+			"createdAd": 1548181740656,
+			"name": "Luc",
+			"role": {
+				"master": false,
+				"owner": false,
+				"developer": true
+			},
+			"assignedTasks": []
+		}
+	],
+	"sprints": [
+		{
+			"sprintId": "439d5580-8690-4f76-a3a6-10439303c294",
+			"createdAt": 1548181740657,
+			"name": "Sprint 1",
+			"startdate": "22-01-2019",
+			"enddate": "31-01-2019",
+			"capacity": 20,
+			"backlogs": [
+				"4c3e1a55-facd-48aa-a32e-fcaeedd80401",
+				"ebee2087-f325-48cc-afe5-862b92556bf7",
+				"a8461cc1-46dc-4955-a7e9-bb33b2e4aa23"
+			]
+		},
+		{
+			"sprintId": "57f82313-6aa7-4186-831b-281ed1c9e398",
+			"createdAt": 1548181740657,
+			"name": "Sprint 2",
+			"startdate": "01-02-2019",
+			"enddate": "10-02-2019",
+			"capacity": 20,
+			"backlogs": [
+				"512c1f5f-a6fe-470b-95a0-0bef5390100c",
+				"eca84e4f-dc4b-4fec-a44f-37a8303d66a7"
+			]
+		},
+		{
+			"sprintId": "783782f7-beeb-4894-8aa9-41624cc37727",
+			"createdAt": 1548181740657,
+			"name": "Sprint 3",
+			"startdate": "11-02-2019",
+			"enddate": "21-02-2019",
+			"capacity": 25,
+			"backlogs": [
+				"f46774da-4b71-4505-8feb-6d2d851b236b",
+				"616636cd-90c3-40b0-b9fd-95aae86c6511",
+				"c27fc7ef-6e5b-4e46-af43-ce4512ee0b7f",
+				"70b7448a-8256-4b77-ba95-6fc9f9be9580"
+			]
+		}
+	],
+	"epicCaptures": [],
+	"tasks": [
+		{
+			"taskId": "413a13e8-f928-4458-822f-c5512e1f65b1",
+			"createdAt": 1548181740657,
+			"title": "Programmierung der Listenansicht",
+			"description": "Implementierung der Listenansicht für die Backlogs",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "4c3e1a55-facd-48aa-a32e-fcaeedd80401"
+		},
+		{
+			"taskId": "ec3d3e03-863b-48e0-981f-98dacfee701e",
+			"createdAt": 1548181740657,
+			"title": "Backend Klassenprogrammierung",
+			"description": "Programmierung der Klassen für das Backend",
+			"status": "to do",
+			"effort": 1,
+			"assignedTo": [],
+			"inBacklog": "4c3e1a55-facd-48aa-a32e-fcaeedd80401"
+		},
+		{
+			"taskId": "df17e20f-7e21-4c07-b268-66165e100e6a",
+			"createdAt": 1548181740657,
+			"title": "Estimate Implementierung",
+			"description": "Programmierung der estimate funktion für Sprints/Backlogs/Epics",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "4c3e1a55-facd-48aa-a32e-fcaeedd80401"
+		},
+		{
+			"taskId": "396c7958-ed59-4e7d-a83b-2e914b5e18e4",
+			"createdAt": 1548181740657,
+			"title": "Formular implementieren",
+			"description": "Formular für das Erstellen von Backlogs implementieren",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "ebee2087-f325-48cc-afe5-862b92556bf7"
+		},
+		{
+			"taskId": "65308ab0-ad78-4f88-bc31-57950a73437a",
+			"createdAt": 1548181740657,
+			"title": "Backend Anbindung implementieren",
+			"description": "Verbindung des Formulars zum Backend implementieren",
+			"status": "to do",
+			"effort": 3,
+			"assignedTo": [],
+			"inBacklog": "ebee2087-f325-48cc-afe5-862b92556bf7"
+		},
+		{
+			"taskId": "e067416c-4528-42cf-9b10-937e88e60431",
+			"createdAt": 1548181740657,
+			"title": "Persistenz implementieren",
+			"description": "Neu erstellte Daten persisitieren",
+			"status": "to do",
+			"effort": 4,
+			"assignedTo": [],
+			"inBacklog": "ebee2087-f325-48cc-afe5-862b92556bf7"
+		},
+		{
+			"taskId": "120671c9-cacb-47bd-a7d6-df82ee2ef130",
+			"createdAt": 1548181740657,
+			"title": "Ansicht implementieren",
+			"description": "Detailansicht für Backlogs etc programmieren",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "a8461cc1-46dc-4955-a7e9-bb33b2e4aa23"
+		},
+		{
+			"taskId": "dadfaedb-6efa-475b-b3e7-e626449da317",
+			"createdAt": 1548181740657,
+			"title": "Bearbeitungsmöglichkeit implementieren",
+			"description": "Bearbeitbarkeit der Backlogs programmieren",
+			"status": "to do",
+			"effort": 3,
+			"assignedTo": [],
+			"inBacklog": "a8461cc1-46dc-4955-a7e9-bb33b2e4aa23"
+		},
+		{
+			"taskId": "ed58b874-15f6-45b8-b4f0-c3b739ec20fa",
+			"createdAt": 1548181740657,
+			"title": "Sprint Ansicht",
+			"description": "Darstellung der Sprints in html implementieren",
+			"status": "to do",
+			"effort": 3,
+			"assignedTo": [],
+			"inBacklog": "512c1f5f-a6fe-470b-95a0-0bef5390100c"
+		},
+		{
+			"taskId": "138fdfb6-22c5-45d5-a31f-bd40306553c2",
+			"createdAt": 1548181740657,
+			"title": "Formular für Sprint-Erstellung",
+			"description": "Formular für das Anlegen eines neuen Sprints entwickeln",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "eca84e4f-dc4b-4fec-a44f-37a8303d66a7"
+		},
+		{
+			"taskId": "8276912f-aa52-47bf-b1df-4f63953b6f90",
+			"createdAt": 1548181740657,
+			"title": "Sprint Erstellung im Backend",
+			"description": "Backend Funktion für die Sprint Erstellung entwickeln",
+			"status": "to do",
+			"effort": 2,
+			"assignedTo": [],
+			"inBacklog": "eca84e4f-dc4b-4fec-a44f-37a8303d66a7"
+		},
+		{
+			"taskId": "6e56901a-46ec-4a8b-af0a-3341dbac2852",
+			"createdAt": 1548181740657,
+			"title": "Persistenz der Sprints",
+			"description": "Persistenz für neu erstellte Sprints möglich machen",
+			"status": "to do",
+			"effort": 1,
+			"assignedTo": [],
+			"inBacklog": "eca84e4f-dc4b-4fec-a44f-37a8303d66a7"
+		},
+		{
+			"taskId": "01df3a29-0ad7-4dea-b7a1-52fe7e49e1b0",
+			"createdAt": 1548181740657,
+			"title": "Formular entwickeln",
+			"description": "Entwickeln der Formulars für die Sprint Bearbeitung",
+			"status": "to do",
+			"effort": 1,
+			"assignedTo": [],
+			"inBacklog": "f46774da-4b71-4505-8feb-6d2d851b236b"
+		},
+		{
+			"taskId": "d1caa787-a9a1-4060-a5fb-678048c69649",
+			"createdAt": 1548181740657,
+			"title": "Formularlogik",
+			"description": "Entwickeln der Formularlogik",
+			"status": "to do",
+			"effort": 3,
+			"assignedTo": [],
+			"inBacklog": "f46774da-4b71-4505-8feb-6d2d851b236b"
+		},
+		{
+			"taskId": "b8617867-b8ba-47d1-8ec7-aeb6aae9784d",
+			"createdAt": 1548181740657,
+			"title": "Scrumboard entwerfen",
+			"description": "Html des Scrumboard entwickeln",
+			"status": "to do",
+			"effort": 5,
+			"assignedTo": [],
+			"inBacklog": "616636cd-90c3-40b0-b9fd-95aae86c6511"
+		},
+		{
+			"taskId": "4af51743-67f9-47c7-ac2f-832e9405d973",
+			"createdAt": 1548181740657,
+			"title": "Scrumboard Logik",
+			"description": "Logik des Scrumboards entwickeln",
+			"status": "to do",
+			"effort": 3,
+			"assignedTo": [],
+			"inBacklog": "616636cd-90c3-40b0-b9fd-95aae86c6511"
+		},
+		{
+			"taskId": "ee00fd62-61da-4c1b-94e7-d822f06b1ec5",
+			"createdAt": 1548181740657,
+			"title": "Drag & Drop",
+			"description": "Drag & Drop für Tasks implementieren",
+			"status": "to do",
+			"effort": 6,
+			"assignedTo": [],
+			"inBacklog": "616636cd-90c3-40b0-b9fd-95aae86c6511"
+		},
+		{
+			"taskId": "2b8d9114-369f-47b0-81ef-1150c150347a",
+			"createdAt": 1548181740657,
+			"title": "Scrumboard-Spalten",
+			"description": "Scrumboard-Spalten entwickeln",
+			"status": "to do",
+			"effort": 1,
+			"assignedTo": [],
+			"inBacklog": "c27fc7ef-6e5b-4e46-af43-ce4512ee0b7f"
+		},
+		{
+			"taskId": "0c881c85-f5bd-4802-a3b6-68d1fa20b720",
+			"createdAt": 1548181740657,
+			"title": "Implementieren der Effort-Estimation",
+			"description": "Implemntieren der Effort-Estimation",
+			"status": "to do",
+			"effort": 7,
+			"assignedTo": [],
+			"inBacklog": "70b7448a-8256-4b77-ba95-6fc9f9be9580"
+		},
+		{
+			"taskId": "55a7b4f0-9894-4e19-b444-779690978595",
+			"createdAt": 1548181740657,
+			"title": "Implementieren der Burn-Down-Chart",
+			"description": "Implementieren der Burn-Down-Chart",
+			"status": "to do",
+			"effort": 7,
+			"assignedTo": [],
+			"inBacklog": "f8b1b1ba-e817-4b94-b388-8db1d64dd5ea"
+		},
+		{
+			"taskId": "6921bedf-0066-4cf1-a40b-05e95c9285c5",
+			"createdAt": 1548181740657,
+			"title": "Implementieren der Roadmap",
+			"description": "Implementieren der Roadmap",
+			"status": "to do",
+			"effort": 6,
+			"assignedTo": [],
+			"inBacklog": "1fc0c434-7c11-47aa-880e-ba42106cba59"
+		}
+	]
+}

@@ -13,12 +13,11 @@ class Sprint {
         //referenz zu backlog?
         //this.backlogs = [];
 
-
-        /*
-        this.addBacklog = function (id){
-            this.backlogs.push(id);
+        this.addBacklog = function (newBacklog){
+            newBacklog.inSprint = this.sprintId;
+            this.backlogs.push(newBacklog.backlogId);
         }
-        */
+        
     }
 }
 
