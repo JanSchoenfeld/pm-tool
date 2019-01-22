@@ -55,8 +55,9 @@ function siteContent() {
         var panelBody = document.createElement('div');
         panelBody.className = 'panel-body';
         panel.appendChild(panelBody);
-
         for (let j = 0; j < project.sprints[i].backlogItemIds.length; j++) {
+            console.log(project.sprints[i].backlogItemIds[j]);
+       
             var panelBodyContent = document.createElement('div');
             panelBodyContent.className = 'content contentLeft';
             panelBody.appendChild(panelBodyContent);
