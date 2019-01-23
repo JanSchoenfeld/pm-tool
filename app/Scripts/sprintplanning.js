@@ -59,9 +59,6 @@ function siteContent() {
         var progressbar = document.createElement('div');
         progressbar.className='progress-bar progress-bar-striped bg-success progress-bar-animated';
         progressbar.setAttribute('role','progressbar');
-        progressbar.setAttribute('aria-valuenow', "0");
-        progressbar.setAttribute('aria-valuemin',"0");
-        progressbar.setAttribute('aria-valuemax',"100");
         var progress = 0
         for (let j = 0; j < project.backlogs.length; j++) {
            if (project.sprints[i].backlogs.includes(project.backlogs[j].backlogId) && project.sprints[i].backlogs != null) {
@@ -69,9 +66,13 @@ function siteContent() {
            }
             
         }
+        progressbar.setAttribute('aria-valuenow', progress.toString());
+        progressbar.setAttribute('aria-valuemin',"0");
+        progressbar.setAttribute('aria-valuemax',project.sprints[i].capacity.toString());
 
         
         progressbar.style.width = progress +"%";
+
         if (progress >=18) {
             progressbar.appendChild(document.createTextNode(" Der Sprint ist zu "+ progress+  "% voll"));
         }
@@ -79,9 +80,6 @@ function siteContent() {
             progressbar.appendChild(document.createTextNode(progress+'%'));
         }
         
-        //var currentProgress = document.createElement('span');
-        //currentProgress.id = progress;
-        //progressbar.appendChild(currentProgress);
         progressbarWrapper.appendChild(progressbar);
 
 
@@ -135,6 +133,14 @@ function siteContent() {
                 priority.appendChild(bold);
                 priority.appendChild(document.createTextNode(project.backlogs[j].priority));
                 backlog.appendChild(priority);
+
+                var estimated = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("Zeitaufwand: "))
+                estimated.appendChild(bold);
+                estimated.appendChild(document.createTextNode(project.backlogs[j].estimated));
+                backlog.appendChild(estimated);
 
                 var actionDiv = document.createElement('div');
                 infoDiv.appendChild(actionDiv);
@@ -217,6 +223,14 @@ function siteContent() {
                 priority.appendChild(bold);
                 priority.appendChild(document.createTextNode(project.backlogs[i].priority));
                 backlog.appendChild(priority);
+
+                var estimated = document.createElement('div')
+                var bold = document.createElement('b')
+                bold.className = 'font-weight-bold'
+                bold.appendChild(document.createTextNode("Zeitaufwand: "))
+                estimated.appendChild(bold);
+                estimated.appendChild(document.createTextNode(project.backlogs[i].estimated));
+                backlog.appendChild(estimated);
 
                 var actionDiv = document.createElement('div');
                 infoDiv.appendChild(actionDiv);

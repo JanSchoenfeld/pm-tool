@@ -33,7 +33,7 @@ ipcRenderer.send("reqPROJECTS");
 
 function siteContent() {
   //Sprint switch buttons
-  if (project.sprints.length > 1) {
+  if (project.sprints.length > 1 && project.sprints.length != 0) {
     //Create Actionrow
     var actionrow = document.createElement('div');
     actionrow.className = 'row';
