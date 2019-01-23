@@ -306,28 +306,29 @@ function siteContent() {
 
   }
 
-  function syncProjects() {
+}
+function syncProjects() {
 
-    ipcRenderer.send("PROJECTS", PROJECTS);
-  }
+  ipcRenderer.send("PROJECTS", PROJECTS);
+}
 
-  function calculateBacklogEffort(project) {
 
-    if (project.backlogs.length != 0) {
-      project.backlogs.forEach(iterateArray);
 
-      function iterateArray(value, index, array) {
-        let count = 0;
-        value.taskIds.forEach(aggregateEffort);
+function calculateBacklogEffort(project) {
+  if (project.backlogs.length != 0) {
+    project.backlogs.forEach(iterateArray);
 
-        function aggregateEffort(value, index, array) {
-          count = count + project.tasks.find(task => task.taskId === value).effort;
-        }
-        project.backlogs[index].estimated = count;
+    function iterateArray(value, index, array) {
+      let count = 0;
+      value.taskIds.forEach(aggregateEffort);
+
+      function aggregateEffort(value, index, array) {
+        count = count + project.tasks.find(task => task.taskId === value).effort;
       }
+      project.backlogs[index].estimated = count;
     }
-    else {
-      return;
-    }
+  }
+  else {
+    return;
   }
 }
