@@ -81,123 +81,123 @@ function siteContent() {
 
 
   //Loop for backlog array
-  //if (project.sprints.length > 0) {
+  if (project.sprints.length > 0) {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    if (project.sprints[sprintNumber].backlogs != null && project.sprints[sprintNumber].backlogs != 0 ) {
-    
+    if (project.sprints[sprintNumber].backlogs != null && project.sprints[sprintNumber].backlogs != 0) {
+
       for (let i = 0; i < project.backlogs.length; i++) {
-      //Is the current BacklogItem in the chosen sprint?
-      if (project.sprints[sprintNumber].backlogs.includes(project.backlogs[i].backlogId)) {
-        //Create new Row
-        var newRowDiv = document.createElement("div");
-        newRowDiv.className = 'row';
-        //Create new Columns
-        //Story Div
-        var newStoryDiv = document.createElement('div');
-        newStoryDiv.className = 'column col-md-3';
-        //Backlog Div
-        var newBacklogDiv = document.createElement('div');
-        newBacklogDiv.className = 'column col-md-3';
-        newBacklogDiv.id = 'backlog' + i;
-        newBacklogDiv.addEventListener('drop', drop);
-        newBacklogDiv.addEventListener('dragover', allowDrop);
-        //Doing Div
-        var newDoingDiv = document.createElement('div');
-        newDoingDiv.className = 'column col-md-3';
-        newDoingDiv.id = 'doing' + i;
-        newDoingDiv.addEventListener('drop', drop);
-        newDoingDiv.addEventListener('dragover', allowDrop);
-        //Done Div
-        var newDoneDiv = document.createElement('div');
-        newDoneDiv.className = 'column col-md-3';
-        newDoneDiv.id = 'done' + i;
-        newDoneDiv.addEventListener('drop', drop);
-        newDoneDiv.addEventListener('dragover', allowDrop);
+        //Is the current BacklogItem in the chosen sprint?
+        if (project.sprints[sprintNumber].backlogs.includes(project.backlogs[i].backlogId)) {
+          //Create new Row
+          var newRowDiv = document.createElement("div");
+          newRowDiv.className = 'row';
+          //Create new Columns
+          //Story Div
+          var newStoryDiv = document.createElement('div');
+          newStoryDiv.className = 'column col-md-3';
+          //Backlog Div
+          var newBacklogDiv = document.createElement('div');
+          newBacklogDiv.className = 'column col-md-3';
+          newBacklogDiv.id = 'backlog' + i;
+          newBacklogDiv.addEventListener('drop', drop);
+          newBacklogDiv.addEventListener('dragover', allowDrop);
+          //Doing Div
+          var newDoingDiv = document.createElement('div');
+          newDoingDiv.className = 'column col-md-3';
+          newDoingDiv.id = 'doing' + i;
+          newDoingDiv.addEventListener('drop', drop);
+          newDoingDiv.addEventListener('dragover', allowDrop);
+          //Done Div
+          var newDoneDiv = document.createElement('div');
+          newDoneDiv.className = 'column col-md-3';
+          newDoneDiv.id = 'done' + i;
+          newDoneDiv.addEventListener('drop', drop);
+          newDoneDiv.addEventListener('dragover', allowDrop);
 
-        //Create new ContentDiv
-        var newStoryContentDiv = document.createElement('div');
-        newStoryContentDiv.className = 'content';
-        //Create textdiv and actionDiv
-        var newTextDiv = document.createElement('div');
-        var newActionDiv = document.createElement('div');
-        //create action icons
+          //Create new ContentDiv
+          var newStoryContentDiv = document.createElement('div');
+          newStoryContentDiv.className = 'content';
+          //Create textdiv and actionDiv
+          var newTextDiv = document.createElement('div');
+          var newActionDiv = document.createElement('div');
+          //create action icons
 
-        var editIcon = document.createElement('i');
-        editIcon.className = "far fa-edit";
-        //editIcon.addEventListener(function_here);
-        var deleteIcon = document.createElement('i');
-        deleteIcon.className = "far fa-trash-alt";
-        //deleteIcon.addEventListener(function_here);
+          var editIcon = document.createElement('i');
+          editIcon.className = "far fa-edit";
+          //editIcon.addEventListener(function_here);
+          var deleteIcon = document.createElement('i');
+          deleteIcon.className = "far fa-trash-alt";
+          //deleteIcon.addEventListener(function_here);
 
-        //Set Content
-        var newStoryContent = document.createTextNode(project.backlogs[i].title);
+          //Set Content
+          var newStoryContent = document.createTextNode(project.backlogs[i].title);
 
-        //Add content to the div
-        newTextDiv.appendChild(newStoryContent);
-        newActionDiv.appendChild(editIcon);
-        newActionDiv.appendChild(deleteIcon);
-        newStoryContentDiv.appendChild(newTextDiv);
-        newStoryContentDiv.appendChild(newActionDiv);
-        newStoryDiv.appendChild(newStoryContentDiv);
-        newRowDiv.appendChild(newStoryDiv);
-        newRowDiv.appendChild(newBacklogDiv);
-        newRowDiv.appendChild(newDoingDiv);
-        newRowDiv.appendChild(newDoneDiv);
+          //Add content to the div
+          newTextDiv.appendChild(newStoryContent);
+          newActionDiv.appendChild(editIcon);
+          newActionDiv.appendChild(deleteIcon);
+          newStoryContentDiv.appendChild(newTextDiv);
+          newStoryContentDiv.appendChild(newActionDiv);
+          newStoryDiv.appendChild(newStoryContentDiv);
+          newRowDiv.appendChild(newStoryDiv);
+          newRowDiv.appendChild(newBacklogDiv);
+          newRowDiv.appendChild(newDoingDiv);
+          newRowDiv.appendChild(newDoneDiv);
 
-        //var tasks = project.backlogs[i].tasks;
-        //var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
+          //var tasks = project.backlogs[i].tasks;
+          //var sprintTasks = sprintBacklogItemIds[sprintArrayID].taskIds;
 
-        for (let j = 0; j < project.tasks.length; j++) {
-          if (project.tasks[j].inBacklog == project.backlogs[i].backlogId) {
-            //Task Content-Text
-            var newTaskContent = document.createTextNode(project.tasks[j].title)
-            //Content div
-            var newContentDiv = document.createElement('div');
-            newContentDiv.className = 'content';
-            newContentDiv.id = 'content' + i + j
-            newContentDiv.draggable = true;
-            newContentDiv.addEventListener('dragstart', drag);
-            newContentDiv.addEventListener('dragover', function () {
-              return false;
-            })
-            //Create textdiv and actionDiv
-            var newTextDiv = document.createElement('div');
-            var newActionDiv = document.createElement('div');
-            //create action icons
-            var editIcon = document.createElement('i');
-            editIcon.className = "far fa-edit";
-            //editIcon.addEventListener(function_here);
-            var deleteIcon = document.createElement('i');
-            deleteIcon.className = "far fa-trash-alt";
-            //deleteIcon.addEventListener(function_here);
+          for (let j = 0; j < project.tasks.length; j++) {
+            if (project.tasks[j].inBacklog == project.backlogs[i].backlogId) {
+              //Task Content-Text
+              var newTaskContent = document.createTextNode(project.tasks[j].title)
+              //Content div
+              var newContentDiv = document.createElement('div');
+              newContentDiv.className = 'content';
+              newContentDiv.id = 'content' + i + j
+              newContentDiv.draggable = true;
+              newContentDiv.addEventListener('dragstart', drag);
+              newContentDiv.addEventListener('dragover', function () {
+                return false;
+              })
+              //Create textdiv and actionDiv
+              var newTextDiv = document.createElement('div');
+              var newActionDiv = document.createElement('div');
+              //create action icons
+              var editIcon = document.createElement('i');
+              editIcon.className = "far fa-edit";
+              //editIcon.addEventListener(function_here);
+              var deleteIcon = document.createElement('i');
+              deleteIcon.className = "far fa-trash-alt";
+              //deleteIcon.addEventListener(function_here);
 
-            if (project.tasks[j].status == "to do") {
-              newTextDiv.appendChild(newTaskContent);
-              newActionDiv.appendChild(editIcon);
-              newActionDiv.appendChild(deleteIcon);
-              newContentDiv.appendChild(newTextDiv);
-              newContentDiv.appendChild(newActionDiv);
-              newBacklogDiv.appendChild(newContentDiv);
-              
-            } else if (project.tasks[j].status == "in progress") {
-              newTextDiv.appendChild(newTaskContent);
-              newActionDiv.appendChild(editIcon);
-              newActionDiv.appendChild(deleteIcon);
-              newContentDiv.appendChild(newTextDiv);
-              newContentDiv.appendChild(newActionDiv);
-              newDoingDiv.appendChild(newContentDiv);
-             
-            } else if (project.tasks[j].status == "done") {
-              newTextDiv.appendChild(newTaskContent);
-              newActionDiv.appendChild(editIcon);
-              newActionDiv.appendChild(deleteIcon);
-              newContentDiv.appendChild(newTextDiv);
-              newContentDiv.appendChild(newActionDiv);
-              newDoneDiv.appendChild(newContentDiv);
-              
-            }
+              if (project.tasks[j].status == "to do") {
+                newTextDiv.appendChild(newTaskContent);
+                newActionDiv.appendChild(editIcon);
+                newActionDiv.appendChild(deleteIcon);
+                newContentDiv.appendChild(newTextDiv);
+                newContentDiv.appendChild(newActionDiv);
+                newBacklogDiv.appendChild(newContentDiv);
+
+              } else if (project.tasks[j].status == "in progress") {
+                newTextDiv.appendChild(newTaskContent);
+                newActionDiv.appendChild(editIcon);
+                newActionDiv.appendChild(deleteIcon);
+                newContentDiv.appendChild(newTextDiv);
+                newContentDiv.appendChild(newActionDiv);
+                newDoingDiv.appendChild(newContentDiv);
+
+              } else if (project.tasks[j].status == "done") {
+                newTextDiv.appendChild(newTaskContent);
+                newActionDiv.appendChild(editIcon);
+                newActionDiv.appendChild(deleteIcon);
+                newContentDiv.appendChild(newTextDiv);
+                newContentDiv.appendChild(newActionDiv);
+                newDoneDiv.appendChild(newContentDiv);
+
+              }
 
             }
           }
@@ -207,10 +207,7 @@ function siteContent() {
         }
       }
     }
-<<<<<<< HEAD
-  
-=======
->>>>>>> 124ce8777221cb19489dbd286d95444184ce8f78
+
 
     if (contentWasWriten == false) {
       var newErrorRowDiv = document.createElement('div');
@@ -239,97 +236,98 @@ function siteContent() {
     newErrorRowDiv.appendChild(newErrorDiv);
     scrumDiv.appendChild(newErrorRowDiv);
   }
-}
 
-/*
- * Switcher Buttons
- */
 
-function sprintBack() {
-  if ((sprintNumber - 1) < 0) {
-    sprintNumber = (project.sprints.length - 1);
-  } else {
-    sprintNumber--;
+  /*
+   * Switcher Buttons
+   */
+
+  function sprintBack() {
+    if ((sprintNumber - 1) < 0) {
+      sprintNumber = (project.sprints.length - 1);
+    } else {
+      sprintNumber--;
+    }
+    var removeRow = document.getElementById('action_Row');
+    scrumDiv.removeChild(removeRow);
+    removeRow = document.getElementById('pageContentDiv');
+    scrumDiv.removeChild(removeRow);
+    siteContent();
   }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
 
-function sprintForward() {
-  if ((sprintNumber + 1) >= project.sprints.length) {
-    sprintNumber = 0;
-  } else {
-    sprintNumber++;
+  function sprintForward() {
+    if ((sprintNumber + 1) >= project.sprints.length) {
+      sprintNumber = 0;
+    } else {
+      sprintNumber++;
+    }
+    var removeRow = document.getElementById('action_Row');
+    scrumDiv.removeChild(removeRow);
+    removeRow = document.getElementById('pageContentDiv');
+    scrumDiv.removeChild(removeRow);
+    siteContent();
   }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
 
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  if (ev.target.id != '') {
-    if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-      var taskID = data.substring(data.length - 1, data.length)
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    if (ev.target.id != '') {
+      if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
+        var taskID = data.substring(data.length - 1, data.length)
 
 
-      if (ev.target.id.startsWith('backlog')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "to do";
-        syncProjects();
-      } else if (ev.target.id.startsWith('doing')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "in progress";
-        syncProjects();
-      } else if (ev.target.id.startsWith('done')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "done";
-        syncProjects();
+        if (ev.target.id.startsWith('backlog')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "to do";
+          syncProjects();
+        } else if (ev.target.id.startsWith('doing')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "in progress";
+          syncProjects();
+        } else if (ev.target.id.startsWith('done')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "done";
+          syncProjects();
+        }
+      } else {
+        alert('The task you wanna move is assign to another row.')
       }
     } else {
-      alert('The task you wanna move is assign to another row.')
+      alert('Not a valid target!')
     }
-  } else {
-    alert('Not a valid target!')
+
   }
 
-}
+  function syncProjects() {
 
-function syncProjects() {
+    ipcRenderer.send("PROJECTS", PROJECTS);
+  }
 
-  ipcRenderer.send("PROJECTS", PROJECTS);
-}
+  function calculateBacklogEffort(project) {
 
-function calculateBacklogEffort(project) {
+    if (project.backlogs.length != 0) {
+      project.backlogs.forEach(iterateArray);
 
-  if (project.backlogs.length != 0) {
-    project.backlogs.forEach(iterateArray);
+      function iterateArray(value, index, array) {
+        let count = 0;
+        value.taskIds.forEach(aggregateEffort);
 
-    function iterateArray(value, index, array) {
-      let count = 0;
-      value.taskIds.forEach(aggregateEffort);
-
-      function aggregateEffort(value, index, array) {
-        count = count + project.tasks.find(task => task.taskId === value).effort;
+        function aggregateEffort(value, index, array) {
+          count = count + project.tasks.find(task => task.taskId === value).effort;
+        }
+        project.backlogs[index].estimated = count;
       }
-      project.backlogs[index].estimated = count;
     }
-  }
-  else{
-    return;
+    else {
+      return;
+    }
   }
 }
