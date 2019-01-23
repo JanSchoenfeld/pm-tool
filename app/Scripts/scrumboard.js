@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const {
-  remote, ipcRenderer
+  remote,
+  ipcRenderer
 } = require('electron');
 
 //currentWindow.loadURL(`file://${__dirname}/app/intro.html`)
@@ -21,6 +22,8 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
   PROJECTS = projects;
   project = PROJECTS[POSITION]
+  calculateBacklogEffort(project);
+  syncProjects();
   siteContent();
 })
 
@@ -196,14 +199,18 @@ function siteContent() {
               
             }
 
+            }
           }
-        }
 
-        pageContentDiv.appendChild(newRowDiv);
-        contentWasWriten = true;
+          pageContentDiv.appendChild(newRowDiv);
+          contentWasWriten = true;
+        }
       }
     }
+<<<<<<< HEAD
   
+=======
+>>>>>>> 124ce8777221cb19489dbd286d95444184ce8f78
 
     if (contentWasWriten == false) {
       var newErrorRowDiv = document.createElement('div');
@@ -276,36 +283,53 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   if (ev.target.id != '') {
-  if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-    var taskID = data.substring(data.length - 1, data.length)
+    if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
+      var taskID = data.substring(data.length - 1, data.length)
 
 
       if (ev.target.id.startsWith('backlog')) {
         ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status= "to do";
+        project.tasks[taskID].status = "to do";
+        syncProjects();
+      } else if (ev.target.id.startsWith('doing')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.tasks[taskID].status = "in progress";
+        syncProjects();
+      } else if (ev.target.id.startsWith('done')) {
+        ev.target.appendChild(document.getElementById(data));
+        project.tasks[taskID].status = "done";
         syncProjects();
       }
-      else if (ev.target.id.startsWith('doing')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status= "in progress";
-       syncProjects();
-      }
-      else if (ev.target.id.startsWith('done')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status="done";
-        syncProjects();
-      }
+    } else {
+      alert('The task you wanna move is assign to another row.')
+    }
+  } else {
+    alert('Not a valid target!')
   }
-  else {
-    alert('The task you wanna move is assign to another row.')
-  }
-}
-else{
-  alert('Not a valid target!')
-}
 
 }
+
 function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
+}
+
+function calculateBacklogEffort(project) {
+
+  if (project.backlogs.length != 0) {
+    project.backlogs.forEach(iterateArray);
+
+    function iterateArray(value, index, array) {
+      let count = 0;
+      value.taskIds.forEach(aggregateEffort);
+
+      function aggregateEffort(value, index, array) {
+        count = count + project.tasks.find(task => task.taskId === value).effort;
+      }
+      project.backlogs[index].estimated = count;
+    }
+  }
+  else{
+    return;
+  }
 }

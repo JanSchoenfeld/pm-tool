@@ -29,15 +29,6 @@
         
     ipcRenderer.send("reqPROJECTS");
 
-
-        //document.getElementsByClassName('start-menu')[0].appendChild('')
-
-
-
-
-
-
-    // console.log(global.POSITION);
     /*
     button.addEventListener('click', e => {
 
