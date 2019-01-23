@@ -63,7 +63,6 @@ function siteContent() {
         progressbar.setAttribute('aria-valuemin',"0");
         progressbar.setAttribute('aria-valuemax',"100");
         var progress = 0
-        console.log(project.sprints)
         for (let j = 0; j < project.backlogs.length; j++) {
            if (project.sprints[i].backlogs.includes(project.backlogs[j].backlogId) && project.sprints[i].backlogs != null) {
                progress += project.backlogs[j].estimated;
