@@ -79,7 +79,6 @@ let sprint1 = new Sprint("Sprint 1", "22-01-2019", "31-01-2019", 20);
 let sprint2 = new Sprint("Sprint 2", "01-02-2019", "10-02-2019", 20);
 let sprint3 = new Sprint("Sprint 3", "11-02-2019", "21-02-2019", 25);
 //tasks zu backlogs hinzufügen
-//backlog1.addTask([task1, task2, task3]);
 backlog1.addTask(task1);
 backlog1.addTask(task2);
 backlog1.addTask(task3);
@@ -217,23 +216,6 @@ function initGlobalsExchange(){
        event.sender.send("reqPROJECTSRenderer", projects)
         
     })
-}
-
-//no idea if it works
-function calculateEffort(project){
-
-    project.backlogs.forEach(iterateArray);
-
-    function iterateArray(value, index, array){
-        let count = 0;
-
-        value.taskIds.forEach(aggregateEffort);
-
-        function aggregateEffort(value, index, array){
-            count = count + project.tasks.find(task => task.taskId === value).effort;
-        }
-        project.backlogs[index].estimated = count;
-    }
 }
 
 module.exports.run = run;
