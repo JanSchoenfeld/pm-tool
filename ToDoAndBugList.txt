@@ -1,17 +1,9 @@
 PM TODO:
-+ Tasks hinzufügen
++ Tasks hinzufï¿½gen
 + "+" Button in Navbar? anstatt "Choose item to add"
 + Formular/Fenster zum erstellen eines neuen Projekts
-+ Datum bei Sprints implementieren!
-+ Summe von estimate der Tasks / Backlogs = Estimate der Backlogs / Sprints
-	- (Überprüfen ob estimate der hinzugefügten Backlogs in einem Sprint die Kapazität
-		überschreiten)
 + Effort Estimation
 + Burn Down Chart
-+ bei syncProjects() Änderungen in JsonFile übernehmen
-+ Sinnvolle Beispielprojektdaten mit der neuen ID Generierung
++ bei syncProjects() ï¿½nderungen in JsonFile ï¿½bernehmen
 
 BUGS:
-+ Neue Backlogs erscheinen nicht im Scrumboard
-+ Wenn neuer Sprint hinzugefügt wird und dann von dem aus im Element ein Sprint nach hinten
-	gescrollt wird ist Scrumboard leer
