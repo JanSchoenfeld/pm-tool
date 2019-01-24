@@ -45,10 +45,10 @@ function listEpicCapturesWithBacklogs() {
     let epic;
     let backlogTable = document.getElementById("productbacklog_table");
 
-    console.log("EpicCaptures Länge " + jsonFile.epics.length);
+    //console.log("EpicCaptures Länge " + jsonFile.epics.length);
     for (let i = 0; i < jsonFile.epics.length; i++) {
         epic = jsonFile.epics[i];
-        console.log("Epic " + epic.epicId + " on Position " + i);
+        //console.log("Epic " + epic.epicId + " on Position " + i);
         let backlog;
 
         let epicRow = document.createElement("tr");
@@ -92,11 +92,11 @@ function listEpicCapturesWithBacklogs() {
         epicRow.appendChild(colStatus);
 
         backlogTable.appendChild(epicRow);
-        console.log("Backlogs in Epic Länge " + jsonFile.backlogs.length);
+        //console.log("Backlogs in Epic Länge " + jsonFile.backlogs.length);
         for (let b = 0; jsonFile.backlogs.length > b; b++) {
-            console.log("Backlog ID " + jsonFile.backlogs[b].backlogId + " Position: " + b);
+            //console.log("Backlog ID " + jsonFile.backlogs[b].backlogId + " Position: " + b);
             if (jsonFile.backlogs[b].inEpic === jsonFile.epics[i].epicId) {
-                console.log("Epic mit Backlog ID gefunden " + jsonFile.backlogs[b].backlogId + " Position: " + b)
+                //console.log("Epic mit Backlog ID gefunden " + jsonFile.backlogs[b].backlogId + " Position: " + b)
                 let backlogRow = document.createElement("tr");
                 backlogRow.onclick = function () {
                     displayEditBacklogItem(b);
