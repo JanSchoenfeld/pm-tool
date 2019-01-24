@@ -226,6 +226,21 @@
             <input type="hidden" id="edit_b_item_epicId">
             <input type="hidden" id="edit_b_item_sprintId">
             <br>
+            <label for="task_table">Task</label>
+              <table class="table table-bordered table-hover" id="task_table">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Effort</th>
+                </tr>
+                </thead>
+                <tbody id="task_table_body">
+                </tbody>
+
+              </table>
+
+            <br>
             <button type="button" onclick="saveBacklogItem()" class="btn-primary">Save</button>
             <button type="button" onclick="deleteBacklog()" class="btn-danger">Delete</button>
             <button type="button" onclick="closeEditBacklogItem()" class="btn-secondary">Close</button>
@@ -289,8 +304,8 @@
               <input type="text" class="form-control" id="edit_e_item_description" placeholder="Description">
             </div>
             <div class="form-group">
-              <label for="edit_e_item_estimate_time">Estimate time</label>
-              <input readonly type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Estimate time">
+              <label for="edit_e_item_estimate_time">Effort</label>
+              <input readonly type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Effort">
             </div>
             <input type="hidden" id="edit_e_item_id">
             <br>
@@ -334,6 +349,9 @@
             <select class="form-control form-control-sm" id="t_item_assign_to_user">
               <option value=""></option>
             </select>
+            <label for="t_item_status">Status</label>
+            <select class="form-control form-control-sm" id="t_item_status">
+            </select>
             <br>
             <button type="button" onclick="addTask()" class="btn-primary">Save</button>
             <button type="button" onclick="closeAddTask()" class="btn-secondary">Close</button>
@@ -364,14 +382,17 @@
               <input type="text" class="form-control" id="edit_t_item_description" placeholder="Description">
             </div>
             <div class="form-group">
-              <label for="edit_t_item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="edit_t_item_estimate_time" placeholder="Estimate time">
+              <label for="edit_t_item_estimate_time">Effort</label>
+              <input type="number" class="form-control" id="edit_t_item_estimate_time" placeholder="Effort">
             </div>
             <label for="edit_t_item_assign_to_backlog">Assign to Backlog</label>
             <select class="form-control form-control-sm" id="edit_t_item_assign_to_backlog">
             </select>
             <label for="edit_t_item_assign_to_user">Assign to User</label>
             <select class="form-control form-control-sm" id="edit_t_item_assign_to_user">
+            </select>
+            <label for="edit_t_item_status">Status</label>
+            <select class="form-control form-control-sm" id="edit_t_item_status">
             </select>
             <input type="hidden" id="edit_t_item_id">
             <input type="hidden" id="edit_t_item_userId">
@@ -397,7 +418,6 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Category</th>
-            <th scope="col">ID</th>
             <th scope="col">Title</th>
             <th scope="col">Estimate Time</th>
             <th scope="col">Status</th>
