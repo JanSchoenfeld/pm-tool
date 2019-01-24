@@ -71,6 +71,7 @@
         <div class="modal-body">
           <button type="button" onclick="displayAddEpicCapture()" class="btn btn-primary">Epic-Capture</button>
           <button type="button" onclick="displayAddBacklogItem()" class="btn btn-primary">Backlog-Item</button>
+          <button type="button" onclick="displayAddTask()" class="btn btn-primary">Task</button>
           <button type="button" onclick="displayAddSprint()" class="btn btn-primary">Sprint</button>
         </div>
       </div>
@@ -173,7 +174,7 @@
             </div>
             <div class="form-group">
               <label for="b_item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="b_item_estimate_time" placeholder="Estimate time">
+              <input readonly type="number" class="form-control" id="b_item_estimate_time" placeholder="Estimate time">
             </div>
             <label for="b_item_assign_to_sprint">Assign to sprint</label>
             <select class="form-control form-control-sm" id="b_item_assign_to_sprint">
@@ -213,7 +214,7 @@
             </div>
             <div class="form-group">
               <label for="edit_b_item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="edit_b_item_estimate_time" placeholder="Estimate time">
+              <input readonly type="number" class="form-control" id="edit_b_item_estimate_time" placeholder="Estimate time">
             </div>
             <label for="edit_b_item_assign_to_sprint">Assign to sprint</label>
             <select class="form-control form-control-sm" id="edit_b_item_assign_to_sprint">
@@ -255,7 +256,7 @@
             </div>
             <div class="form-group">
               <label for="e_item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="e_item_estimate_time" placeholder="Estimate time">
+              <input readonly type="number" class="form-control" id="e_item_estimate_time" placeholder="Estimate time">
             </div>
             <br>
             <button type="button" onclick="addEpicCapture()" class="btn-primary">Save</button>
@@ -289,13 +290,96 @@
             </div>
             <div class="form-group">
               <label for="edit_e_item_estimate_time">Estimate time</label>
-              <input type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Estimate time">
+              <input readonly type="number" class="form-control" id="edit_e_item_estimate_time" placeholder="Estimate time">
             </div>
             <input type="hidden" id="edit_e_item_id">
             <br>
             <button type="button" onclick="saveEpicCapture()" class="btn-primary">Save</button>
             <button type="button" onclick="deleteEpicCapture()" class="btn-danger">Delete</button>
             <button type="button" onclick="closeEditEpicCapture()" class="btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal_add_task">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Add Task</b></h5>
+          <button type="button" class="close" onclick="closeAddTask()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_addTask">
+            <div class="form-group">
+              <label for="t_item_name">Name</label>
+              <input type="text" class="form-control" id="t_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="t_item_description">Description</label>
+              <input type="text" class="form-control" id="t_item_description" placeholder="Description">
+            </div>
+            <div class="form-group">
+              <label for="t_item_estimate_time">Estimate time</label>
+              <input type="number" class="form-control" id="t_item_estimate_time" placeholder="Estimate time">
+            </div>
+            <label for="t_item_assign_to_backlog">Assign to Backlog</label>
+            <select required class="form-control form-control-sm" id="t_item_assign_to_backlog">
+              <option value=""></option>
+            </select>
+            <label for="t_item_assign_to_user">Assign to User</label>
+            <select class="form-control form-control-sm" id="t_item_assign_to_user">
+              <option value=""></option>
+            </select>
+            <br>
+            <button type="button" onclick="addTask()" class="btn-primary">Save</button>
+            <button type="button" onclick="closeAddTask()" class="btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal_edit_task">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Edit Task</b></h5>
+          <button type="button" class="close" onclick="closeEditTask() " aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_edit_task">
+            <div class="form-group">
+              <label for="edit_b_item_name">Name</label>
+              <input type="text" class="form-control" id="edit_t_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="edit_t_item_description">Description</label>
+              <input type="text" class="form-control" id="edit_t_item_description" placeholder="Description">
+            </div>
+            <div class="form-group">
+              <label for="edit_t_item_estimate_time">Estimate time</label>
+              <input type="number" class="form-control" id="edit_t_item_estimate_time" placeholder="Estimate time">
+            </div>
+            <label for="edit_t_item_assign_to_backlog">Assign to Backlog</label>
+            <select class="form-control form-control-sm" id="edit_t_item_assign_to_backlog">
+            </select>
+            <label for="edit_t_item_assign_to_user">Assign to User</label>
+            <select class="form-control form-control-sm" id="edit_t_item_assign_to_user">
+            </select>
+            <input type="hidden" id="edit_t_item_id">
+            <input type="hidden" id="edit_t_item_userId">
+            <input type="hidden" id="edit_t_item_backlogId">
+            <br>
+            <button type="button" onclick="saveTask()" class="btn-primary">Save</button>
+            <button type="button" onclick="deleteTask()" class="btn-danger">Delete</button>
+            <button type="button" onclick="closeEditTask()" class="btn-secondary">Close</button>
           </form>
         </div>
       </div>
