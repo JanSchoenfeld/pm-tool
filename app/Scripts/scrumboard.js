@@ -159,8 +159,6 @@ function siteContent() {
               //Content div
               var newContentDiv = document.createElement('div');
               newContentDiv.className = 'content';
-              console.log("Backlog Array ID = " + i);
-              console.log("Task Array ID = " + j);
               newContentDiv.id = i.toString() + j.toString()
               newContentDiv.draggable = true;
               newContentDiv.addEventListener('dragstart', drag);

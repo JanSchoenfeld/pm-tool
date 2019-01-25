@@ -488,7 +488,7 @@ function addSprint() {
     syncProjects();
     reload();
     closeAddSprint();
-    displayEditSprint(project.sprints.length-1);
+    displayEditSprint(project.sprints.length - 1);
 }
 
 function displayEditSprint(s) {
@@ -670,7 +670,7 @@ function addTask() {
     let item_assign_to_user = document.getElementById("t_item_assign_to_user").value;
 
 
-    let newTask = new Task (item_name, item_description, item_estimate_time);
+    let newTask = new Task(item_name, item_description, item_estimate_time);
     if (item_assign_to_backlog === "") {
         alert("Please Select Backlog");
         return;
@@ -763,8 +763,8 @@ function saveTask() {
     let item_assign_to_user = document.getElementById("edit_t_item_assign_to_user").value;
     let item_id = document.getElementById("edit_t_item_id").value;
 
-    console.log("Backlog "+ item_assign_to_backlog);
-    console.log("User "+ item_assign_to_user);
+    console.log("Backlog " + item_assign_to_backlog);
+    console.log("User " + item_assign_to_user);
     for (let i = 0; i < project.backlogs.length; i++) {
 
         if (project.tasks[i].taskId === item_id) {
