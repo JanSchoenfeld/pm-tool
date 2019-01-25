@@ -24,6 +24,9 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
   project = PROJECTS[POSITION]
   calculateBacklogEffort(project);
   syncProjects();
+  calculateEpicEffort(project);
+  syncProjects();
+  console.log((JSON.stringify(project, null, 2)));
   siteContent();
 })
 
@@ -329,6 +332,25 @@ function calculateBacklogEffort(project) {
     }
   }
   else {
+    return;
+  }
+}
+
+function calculateEpicEffort(project){
+  if(project.epics.length != 0){
+    project.epics.forEach(iterateEpics);
+    
+    function iterateEpics(value, index, array){
+      let count = 0;
+      value.backlogs.forEach(aggregateEffort);
+
+      function aggregateEffort(value, index, array){
+        count = count + project.backlogs.find(backlog => backlog.backlogId === value).estimated;
+      }
+    project.epics[index].estimated = count;
+  }
+}
+  else{
     return;
   }
 }
