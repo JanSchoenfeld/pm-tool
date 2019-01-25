@@ -36,7 +36,7 @@ ipcRenderer.send("reqPROJECTS");
 
 function siteContent() {
   //Sprint switch buttons
-  if (project.sprints.length > 1) {
+  if (project.sprints.length > 1 && project.sprints.length != 0) {
     //Create Actionrow
     var actionrow = document.createElement('div');
     actionrow.className = 'row';
@@ -88,22 +88,9 @@ function siteContent() {
     var contentWasWriten = false;
     var pageContentDiv = document.createElement('div');
     pageContentDiv.id = 'pageContentDiv';
-    if (project.sprints[sprintNumber].backlogs != 0) {
+    if (project.sprints[sprintNumber].backlogs != null && project.sprints[sprintNumber].backlogs != 0) {
 
       for (let i = 0; i < project.backlogs.length; i++) {
-        //Get Array with alle Backlogs in Sprint
-        /*
-                                                                                            sprintBacklogItemIds = project.sprints[sprintNumber].backlogItemIds
-
-                                                                                            var useBacklogItem = false;
-                                                                                            var sprintArrayID;
-
-                                                                                            for (let j = 0; j < sprintBacklogItemIds.length; j++) {
-                                                                                              if (project.backlogs[i].backlogId == sprintBacklogItemIds[j].backlogID) {
-                                                                                                useBacklogItem = true;
-                                                                                                sprintArrayID = j;
-                                                                                              }
-                                                                                            }*/
         //Is the current BacklogItem in the chosen sprint?
         if (project.sprints[sprintNumber].backlogs.includes(project.backlogs[i].backlogId)) {
           //Create new Row
@@ -224,6 +211,7 @@ function siteContent() {
       }
     }
 
+
     if (contentWasWriten == false) {
       var newErrorRowDiv = document.createElement('div');
       newErrorRowDiv.className = 'row';
@@ -251,83 +239,85 @@ function siteContent() {
     newErrorRowDiv.appendChild(newErrorDiv);
     scrumDiv.appendChild(newErrorRowDiv);
   }
-}
 
-/*
- * Switcher Buttons
- */
 
-function sprintBack() {
-  if ((sprintNumber - 1) < 0) {
-    sprintNumber = (project.sprints.length - 1);
-  } else {
-    sprintNumber--;
+  /*
+   * Switcher Buttons
+   */
+
+  function sprintBack() {
+    if ((sprintNumber - 1) < 0) {
+      sprintNumber = (project.sprints.length - 1);
+    } else {
+      sprintNumber--;
+    }
+    var removeRow = document.getElementById('action_Row');
+    scrumDiv.removeChild(removeRow);
+    removeRow = document.getElementById('pageContentDiv');
+    scrumDiv.removeChild(removeRow);
+    siteContent();
   }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
 
-function sprintForward() {
-  if ((sprintNumber + 1) >= project.sprints.length) {
-    sprintNumber = 0;
-  } else {
-    sprintNumber++;
+  function sprintForward() {
+    if ((sprintNumber + 1) >= project.sprints.length) {
+      sprintNumber = 0;
+    } else {
+      sprintNumber++;
+    }
+    var removeRow = document.getElementById('action_Row');
+    scrumDiv.removeChild(removeRow);
+    removeRow = document.getElementById('pageContentDiv');
+    scrumDiv.removeChild(removeRow);
+    siteContent();
   }
-  var removeRow = document.getElementById('action_Row');
-  scrumDiv.removeChild(removeRow);
-  removeRow = document.getElementById('pageContentDiv');
-  scrumDiv.removeChild(removeRow);
-  siteContent();
-}
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
 
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  if (ev.target.id != '') {
-    if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-      var taskID = data.substring(data.length - 1, data.length)
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    if (ev.target.id != '') {
+      if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
+        var taskID = data.substring(data.length - 1, data.length)
 
 
-      if (ev.target.id.startsWith('backlog')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "to do";
-        syncProjects();
-      } else if (ev.target.id.startsWith('doing')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "in progress";
-        syncProjects();
-      } else if (ev.target.id.startsWith('done')) {
-        ev.target.appendChild(document.getElementById(data));
-        project.tasks[taskID].status = "done";
-        syncProjects();
+        if (ev.target.id.startsWith('backlog')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "to do";
+          syncProjects();
+        } else if (ev.target.id.startsWith('doing')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "in progress";
+          syncProjects();
+        } else if (ev.target.id.startsWith('done')) {
+          ev.target.appendChild(document.getElementById(data));
+          project.tasks[taskID].status = "done";
+          syncProjects();
+        }
+      } else {
+        alert('The task you wanna move is assign to another row.')
       }
     } else {
-      alert('The task you wanna move is assign to another row.')
+      alert('Not a valid target!')
     }
-  } else {
-    alert('Not a valid target!')
+
   }
 
 }
-
 function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
 }
 
-function calculateBacklogEffort(project) {
 
+
+function calculateBacklogEffort(project) {
   if (project.backlogs.length != 0) {
     project.backlogs.forEach(iterateArray);
 
@@ -341,7 +331,7 @@ function calculateBacklogEffort(project) {
       project.backlogs[index].estimated = count;
     }
   }
-  else{
+  else {
     return;
   }
 }
