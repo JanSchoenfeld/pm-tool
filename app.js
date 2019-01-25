@@ -47,7 +47,7 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
     mainWindow.maximize();
     mainWindow.show()
   })

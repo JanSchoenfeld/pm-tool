@@ -88,11 +88,8 @@ function siteContent() {
         panel.addEventListener('dragover', allowDrop);
         panelBody.className = 'panel-body';
         panel.appendChild(panelBody);
-
-
         for (let j = 0; j < project.backlogs.length; j++) {
             if (project.backlogs[j].inSprint == project.sprints[i].sprintId) {
-
                 var panelBodyContent = document.createElement('div');
                 panelBodyContent.className = 'content contentLeft';
                 panelBodyContent.id = i.toString() + j.toString();
@@ -275,26 +272,44 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    console.log(data);
-    console.log(ev.target.id)
     if (ev.target.id != '') {
-        var backlogID = data.substring(data.length - (data.length-1), data.length);;
-        var targetSprint = ev.target.id;
-        ev.target.appendChild(document.getElementById(data));
+        if(data.length > 1)
+        {
+            var backlogIndex = data.substring(data.length - (data.length-1), data.length);
+        }
+        else{
+            var backlogIndex = data;
+        }
+        
+        let sprintIndex = data.substring(data.length - (data.length),data.length-(data.length-1))
+        let targetSprintIndex = ev.target.id;
 
-        if (targetSprint != 'backlog') {
-            project.sprints[targetSprint].backlogs.push(project.backlogs[backlogID].backlogId);
-            project.backlogs[backlogID].inSprint = project.sprints[targetSprint].sprintId;     
+        if (targetSprintIndex != 'backlog') {
+            console.log(backlogIndex);
+            console.log(project.backlogs[backlogIndex].backlogId)
+            project.sprints[targetSprintIndex].backlogs.push(project.backlogs[backlogIndex].backlogId);
+            project.backlogs[backlogIndex].inSprint = project.sprints[targetSprintIndex].sprintId;
+
+            ev.target.appendChild(document.getElementById(data));     
             syncProjects();
         }
         else {
-            for (let i = 0; i < project.sprints[targetSprint].backlogs.length; i++) {
-                if(project.sprints[targetSprint].backlogs[i] == project.backlogs[backlogID].backlogId)
+            let del; 
+            for (let i = 0; i < project.sprints[sprintIndex].backlogs.length; i++) {
+                console.log("BacklogID Sprint: " + project.sprints[sprintIndex].backlogs[i])
+                console.log("BacklogID Backlog: " + project.backlogs[backlogIndex].backlogId)
+                if(project.sprints[sprintIndex].backlogs[i] == project.backlogs[backlogIndex].backlogId)
                 {
-                    project.backlogs[backlogID].backlogId == null;
-                    project.sprints[targetSprint].backlogs.splice(i,1);
+                    project.backlogs[backlogIndex].inSprint = null;
+                    del = i;
+                    ev.target.appendChild(document.getElementById(data));   
+                    syncProjects();
                 }
             }
+            project.sprints[sprintIndex].backlogs.splice(del,1);
+            syncProjects();
+            siteContent()
+
                 }
         
     } else {
