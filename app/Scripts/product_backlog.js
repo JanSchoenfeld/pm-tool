@@ -539,7 +539,9 @@ function deleteBacklog() {
 
     for (let i = 0; i < project.backlogs.length; i++) {
         if (id === project.backlogs[i].backlogId) {
+            console.log("deleteTasksinBacklog aufgerufen für Backlog ID" + id);
             deleteTasksInBacklog(id);
+            console.log("Delete Backlog Item mit Backlog ID " + id);
             delete project.backlogs[i];
         }
     }
@@ -560,8 +562,10 @@ function deleteBacklogsInEpic(epicId) {
     for (let i = 0; i < counter; i++) {
         console.log("INFO: Backlog mit ID " + project.backlogs[i].backlogId + " is in Epic: " + project.backlogs[i].inEpic);
         if (epicId === project.backlogs[i].inEpic) {
+            console.log("delete Tasks in Backlog ID" + project.backlogs[i].backlogId);
             deleteTasksInBacklog(project.backlogs[i].backlogId);
             //toDelete.append(project.backlogs[i].backlogId);
+            console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
             delete project.backlogs[i];
             //i = i - 2;
             //counter = counter - 2;
@@ -579,11 +583,13 @@ function deleteEpicCapture() {
     console.log("Delete Epic ID " + id);
     for (let i = 0; i < project.epics.length; i++) {
         if (id === project.epics[i].epicId) {
+            console.log("Delete Backlogs in Epic mit ID " + project.backlogs[i].backlogId);
             deleteBacklogsInEpic(id);
+            console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
         }
     }
-    deleteBacklogsInEpic(id);
+    //deleteBacklogsInEpic(id);
 
     PROJECTS[POSITION] = project;
 
@@ -593,10 +599,11 @@ function deleteEpicCapture() {
 
 function deleteSprint() {
     let id = document.getElementById("edit_s_item_id").value;
-    console.log("Delete Sprint ID " + id);
+
     for (let i = 0; i < project.sprints.length; i++) {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
+            console.log("Delete Sprint ID " + id);
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -612,11 +619,13 @@ function deleteSprint() {
 }
 
 function deleteTasksInBacklog(backlogId) {
-    console.log("Delete Task in Backlog ID " + backlogId);
+    console.log("Methode deleteTaskinBacklog aufgerufen " + backlogId);
 
     for (let i = 0; i < project.tasks.length; i++) {
         if (backlogId === project.tasks[i].inBacklog) {
-            delete project.tasks[i];
+            console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
+            //delete project.tasks[i];
+            project.tasks.splice(i, 1);
         }
     }
 
@@ -628,9 +637,9 @@ function deleteTasksInBacklog(backlogId) {
 
 function deleteTask() {
     let id = document.getElementById("edit_t_item_id").value;
-    console.log("Delete Task " + id);
-    for (let i = 0; i < project.tasks.length; i++) {
+        for (let i = 0; i < project.tasks.length; i++) {
         if (id === project.tasks[i].taskId) {
+            console.log("Delete Task mit " + id);
             delete project.tasks[i];
         }
     }
