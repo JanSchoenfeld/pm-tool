@@ -6,12 +6,10 @@ class Sprint {
         this.sprintId = uuidv4();
         this.createdAt = Date.now();
         this.name = name;
-        //wie date bei sprintanlegung feststellen?
         this.startdate = startdate;
         this.enddate = enddate;
         this.capacity = capacity;
-        //referenz zu backlog?
-        //this.backlogs = [];
+        this.backlogs = [];
 
         this.addBacklog = function (newBacklog){
             newBacklog.inSprint = this.sprintId;

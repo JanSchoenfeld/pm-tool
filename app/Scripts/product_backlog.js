@@ -370,19 +370,17 @@ function saveBacklogItem() {
             } else {
                 //Sprint zugewiesen
                 project.backlogs[i].inSprint = item_assign_to_sprint;
-                //project.epics.find(x => x.epicId === item_assign_to_epic).backlogs.push(tmpBLitem.backlogId);
-
+                project.sprints.find(x => x.sprintId === item_assign_to_sprint).backlogs.push(item_id);
             }
 
             if (item_assign_to_epic === "") {
                 //Kein Epic zugewiesen
                 project.backlogs[i].inEpic = null;
-                //TODO: Backlog Item Referenzen suchen und updaten
 
             } else {
                 //Epic zugewiesen
                 project.backlogs[i].inEpic = item_assign_to_epic;
-                //TODO: Backlog Item Referenzen suchen und updaten
+                project.epics.find(x => x.epicId === item_assign_to_epic).backlogs.push(item_id);
             }
         }
     }
@@ -410,9 +408,7 @@ function addEpicCapture() {
     let item_description = document.getElementById("e_item_description").value;
     let item_estimate_time = document.getElementById("e_item_estimate_time").value;
 
-    //console.log("The Epic Capture was added! " + item_name + " " + item_description + " " + item_estimate_time);
     let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
-    //console.log(epicCapture);
 
     project.epics.push(epicCapture);
 
@@ -447,11 +443,9 @@ function saveEpicCapture() {
 
     for (let i = 0; i < project.epics.length; i++) {
         if (project.epics[i].epicId == item_id) {
-            //console.log("Item gefunden");
             project.epics[i].title = item_name;
             project.epics[i].description = item_description;
             project.epics[i].estimated = item_estimate_time;
-            //console.log("Item Edited" + project.epics[i]);
             reload();
         }
     }
@@ -492,7 +486,6 @@ function addSprint() {
     PROJECTS[POSITION] = project;
 
     syncProjects();
-    //console.log(sprint1);
     reload();
     closeAddSprint();
     displayEditSprint(project.sprints.length-1);
@@ -523,7 +516,6 @@ function saveSprint() {
             project.sprints[i].enddate = sprint_enddate;
 
             project.sprints[i].capacity = sprint_capacity;
-            //console.log("Item Edited" + project.sprints[i]);
 
         }
     }
@@ -680,7 +672,6 @@ function addTask() {
 
     let newTask = new Task (item_name, item_description, item_estimate_time);
     if (item_assign_to_backlog === "") {
-        //newTask.inBacklog = null;
         alert("Please Select Backlog");
         return;
 
@@ -706,18 +697,13 @@ function addTask() {
     //funktioniert
     for (let i = 0; i < project.backlogs.length; i++) {
         if (project.backlogs[i].backlogId === newTask.inBacklog) {
-            //project.backlogs[i].addTask(newTask);
             project.backlogs[i].taskIds.push(newTask.taskId);
-            //console.log((JSON.stringify(project, null, 2)));
         }
     }
 
     PROJECTS[POSITION] = project;
 
     syncProjects();
-
-    //console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
-
     closeAddTask();
 
     reload();
@@ -812,7 +798,6 @@ function saveTask() {
     PROJECTS[POSITION] = project;
 
     syncProjects();
-    //listEpicCapturesWithBacklogs();
     reload();
     closeEditTask();
 }
