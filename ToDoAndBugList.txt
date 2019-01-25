@@ -1,5 +1,12 @@
 PM TODO:
+<<<<<<< HEAD
 + Tasks hinzuf�gen
+=======
+<<<<<<< HEAD
+=======
++ Tasks hinzuf�gen
+>>>>>>> origin/scrum-board---marvin
+>>>>>>> origin/development_luc
 + "+" Button in Navbar? anstatt "Choose item to add"
 + Formular/Fenster zum erstellen eines neuen Projekts
 + Effort Estimation
@@ -7,3 +14,10 @@ PM TODO:
 + bei syncProjects() �nderungen in JsonFile �bernehmen
 
 BUGS:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
++ Wenn neuer Task hinzugefügt wird und im Scrumboard verschoben wird, kommt Fehlermeldung:"The Task you want to move is assigne(d) to another row".
+=======
+>>>>>>> origin/scrum-board---marvin
+>>>>>>> origin/development_luc

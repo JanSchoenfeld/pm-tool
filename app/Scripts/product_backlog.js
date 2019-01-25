@@ -728,6 +728,12 @@ function addTask() {
     } else {
         newTask.assignedTo = item_assign_to_user;
     }
+    if (item_estimate_time === "") {
+        alert("Please Select Effort");
+        return;
+    } else {
+        newTask.effort = parseInt(item_estimate_time);
+    }
 
     console.log("The task was added! " + item_name + " " + item_description + " " + item_estimate_time);
     jsonFile.tasks.push(newTask);
@@ -746,7 +752,7 @@ function addTask() {
 
     //console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
 
-    closeAddBacklogItem();
+    closeAddTask();
 
     reload();
 }
@@ -828,6 +834,12 @@ function saveTask() {
 
             } else {
                 jsonFile.tasks[i].assignedTo = "" + item_assign_to_user;
+            }
+            if (item_estimate_time === "") {
+                alert("Please Select Effort");
+                return;
+            } else {
+                jsonFile.tasks[i].effort = parseInt(item_estimate_time);
             }
         }
     }
