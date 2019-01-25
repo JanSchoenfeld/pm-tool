@@ -11,7 +11,7 @@ class Sprint {
         this.enddate = enddate;
         this.capacity = capacity;
         //referenz zu backlog?
-        //this.backlogs = [];
+        this.backlogs = [];
 
         this.addBacklog = function (newBacklog){
             newBacklog.inSprint = this.sprintId;
