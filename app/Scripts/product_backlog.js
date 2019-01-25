@@ -543,6 +543,7 @@ function deleteBacklog() {
             deleteTasksInBacklog(id);
             console.log("Delete Backlog Item mit Backlog ID " + id);
             delete project.backlogs[i];
+            //TODO: DELETE Referenz voom zu löschenden Backlog
         }
     }
 
@@ -555,7 +556,6 @@ function deleteBacklog() {
 
 
 function deleteBacklogsInEpic(epicId) {
-    //TODO: Safe Delete
     console.log("Delete Backlogs in Epic ID " + epicId);
     let counter = project.backlogs.length;
     //let toDelete = [];
@@ -564,11 +564,10 @@ function deleteBacklogsInEpic(epicId) {
         if (epicId === project.backlogs[i].inEpic) {
             console.log("delete Tasks in Backlog ID" + project.backlogs[i].backlogId);
             deleteTasksInBacklog(project.backlogs[i].backlogId);
-            //toDelete.append(project.backlogs[i].backlogId);
             console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
             delete project.backlogs[i];
-            //i = i - 2;
-            //counter = counter - 2;
+            //TODO: DELETE Referenz voom zu löschenden Backlog
+
         }
     }
 
@@ -587,6 +586,7 @@ function deleteEpicCapture() {
             deleteBacklogsInEpic(id);
             console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
+            //TODO: DELETE Referenz vom zu löschenden Epic
         }
     }
     //deleteBacklogsInEpic(id);
@@ -626,6 +626,7 @@ function deleteTasksInBacklog(backlogId) {
             console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
             //delete project.tasks[i];
             project.tasks.splice(i, 1);
+            //TODO: DELETE Referenz vom zu löschenden Task
         }
     }
 
@@ -641,6 +642,7 @@ function deleteTask() {
         if (id === project.tasks[i].taskId) {
             console.log("Delete Task mit " + id);
             delete project.tasks[i];
+            //TODO: DELETE Referenz vom zu löschenden Task
         }
     }
 
