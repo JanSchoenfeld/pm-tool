@@ -11,7 +11,6 @@ class Project {
         this.backlogs = [];
         this.assignedUsers = [];
         this.sprints = [];
-        this.epicCaptures = [];
         this.tasks = [];
 
         this.addEpic = function(newEpic){

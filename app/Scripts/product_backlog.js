@@ -731,13 +731,12 @@ function addTask() {
 
     console.log("The task was added! " + item_name + " " + item_description + " " + item_estimate_time);
     jsonFile.tasks.push(newTask);
-
-    //TODO: JAN: Bitte mal nachschauen, habe versucht die zweit Referenz zu setzten...
+    //funktioniert
     for (let i = 0; i < jsonFile.backlogs.length; i++) {
         if (jsonFile.backlogs[i].backlogId === newTask.inBacklog) {
             //jsonFile.backlogs[i].addTask(newTask);
             jsonFile.backlogs[i].taskIds.push(newTask.taskId);
-            console.log("Task in Backlogs Array geschrieben")
+            //console.log((JSON.stringify(jsonFile, null, 2)));
         }
     }
 
@@ -745,7 +744,7 @@ function addTask() {
 
     syncProjects();
 
-    console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
+    //console.log(JSON.stringify(PROJECTS[POSITION].backlogs[PROJECTS[POSITION].backlogs.length - 1], null, 2))
 
     closeAddBacklogItem();
 
