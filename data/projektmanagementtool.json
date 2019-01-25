@@ -2,6 +2,7 @@
 	"projectId": "f0886f1f-243f-4929-88c2-0727419bb803",
 	"title": "Projektmanagement Tool",
 	"description": "Ein Tool für das agile Projektmanagement auf SCRUM Basis",
+	"projectEstimate": null,
 	"epics": [
 		{
 			"epicId": "5616b1e3-5318-4de9-a8c9-58db88b23c40",

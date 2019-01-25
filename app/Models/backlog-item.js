@@ -12,12 +12,9 @@ class BacklogItem {
             this.backlog_status = "to do"
             this.priority = backlog_item_priority
             this.estimated = null;
-            //Wie handlen von Sprint, Tasks und Project bei der Übergabe?
-            this.taskIds = [];
-            //this.isInSprint = false;
-            //this.isInEpic = false;
             this.inSprint = null;
             this.inEpic = null;
+            this.taskIds = [];
 
             this.addTask = function (newTask){
                 newTask.inBacklog = this.backlogId;

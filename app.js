@@ -10,23 +10,13 @@ const config = require(path.join(__dirname, 'package.json'))
 const BrowserWindow = electron.BrowserWindow
 const logic = require(path.join(__dirname, 'logic.js'))
 
-/*
-global.sharedObject = {
-  PROJECTS: [],
-  POSITION: undefined
-}
-*/
-
 app.setName(config.productName)
 
 var mainWindow = null
 
 app.on('ready', function () {
 
-  // Load application logic here
-
   logic.run();
-  //console.log("Location of the log: app.js " + global.PROJECTS[0].title);
 
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
@@ -57,7 +47,8 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    //mainWindow.setMenu(null)
+    mainWindow.setMenu(null)
+    mainWindow.maximize();
     mainWindow.show()
   })
 

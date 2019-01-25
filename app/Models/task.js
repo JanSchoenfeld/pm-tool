@@ -13,7 +13,6 @@ class Task {
         this.description = description;
         this.status = "to do"
         this.effort = effort;
-        //user aus project.users auslesen und als dropdown präsentieren
         this.assignedTo = null;
         this.inBacklog = null;
 

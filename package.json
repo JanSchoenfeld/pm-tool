@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
+    "chart.js": "^2.7.3",
     "electron": "^4.0.0",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",

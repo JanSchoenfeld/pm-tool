@@ -25,8 +25,8 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
   calculateBacklogEffort(project);
   syncProjects();
   calculateEpicEffort(project);
+  calculateProjectEffort(project);
   syncProjects();
-  //console.log((JSON.stringify(project, null, 2)));
   siteContent();
 })
 
@@ -283,8 +283,8 @@ function siteContent() {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     if (ev.target.id != '') {
-      var taskID = data.substring(data.length - (data.length-1), data.length);
-      var dataRow =  data.substring(data.length - data.length, (data.length - data.length) +1)
+      var taskID = data.substring(data.length - (data.length - 1), data.length);
+      var dataRow = data.substring(data.length - data.length, (data.length - data.length) + 1)
 
       if (dataRow == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
 
@@ -312,6 +312,7 @@ function siteContent() {
   }
 
 }
+
 function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
@@ -332,8 +333,7 @@ function calculateBacklogEffort(project) {
       }
       project.backlogs[index].estimated = count;
     }
-  }
-  else {
+  } else {
     return;
   }
 }
@@ -351,8 +351,22 @@ function calculateEpicEffort(project) {
       }
       project.epics[index].estimated = count;
     }
+  } else {
+    return;
   }
-  else {
+}
+
+function calculateProjectEffort(project) {
+  if (project.backlogs.length != 0) {
+    let count = 0;
+    project.backlogs.forEach(aggregateEffort);
+
+    function aggregateEffort(value, index, array) {
+      count = value.estimated + count;
+    }
+    project.projectEstimate = count;
+    console.log(project.projectEstimate);
+  } else {
     return;
   }
 }
