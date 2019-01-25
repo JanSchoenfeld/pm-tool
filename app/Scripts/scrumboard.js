@@ -365,7 +365,6 @@ function calculateProjectEffort(project) {
       count = value.estimated + count;
     }
     project.projectEstimate = count;
-    console.log(project.projectEstimate);
   } else {
     return;
   }
