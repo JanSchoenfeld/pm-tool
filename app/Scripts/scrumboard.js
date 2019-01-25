@@ -26,7 +26,7 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
   syncProjects();
   calculateEpicEffort(project);
   syncProjects();
-  console.log((JSON.stringify(project, null, 2)));
+  //console.log((JSON.stringify(project, null, 2)));
   siteContent();
 })
 
