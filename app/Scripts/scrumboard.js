@@ -159,7 +159,9 @@ function siteContent() {
               //Content div
               var newContentDiv = document.createElement('div');
               newContentDiv.className = 'content';
-              newContentDiv.id = 'content' + i + j
+              console.log("Backlog Array ID = " + i);
+              console.log("Task Array ID = " + j);
+              newContentDiv.id = i.toString() + j.toString()
               newContentDiv.draggable = true;
               newContentDiv.addEventListener('dragstart', drag);
               newContentDiv.addEventListener('dragover', function () {
@@ -283,8 +285,10 @@ function siteContent() {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     if (ev.target.id != '') {
-      if (data.substring(data.length - 2, data.length - 1) == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
-        var taskID = data.substring(data.length - 1, data.length)
+      var taskID = data.substring(data.length - (data.length-1), data.length);
+      var dataRow =  data.substring(data.length - data.length, (data.length - data.length) +1)
+
+      if (dataRow == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)) {
 
 
         if (ev.target.id.startsWith('backlog')) {
@@ -336,21 +340,21 @@ function calculateBacklogEffort(project) {
   }
 }
 
-function calculateEpicEffort(project){
-  if(project.epics.length != 0){
+function calculateEpicEffort(project) {
+  if (project.epics.length != 0) {
     project.epics.forEach(iterateEpics);
-    
-    function iterateEpics(value, index, array){
+
+    function iterateEpics(value, index, array) {
       let count = 0;
       value.backlogs.forEach(aggregateEffort);
 
-      function aggregateEffort(value, index, array){
+      function aggregateEffort(value, index, array) {
         count = count + project.backlogs.find(backlog => backlog.backlogId === value).estimated;
       }
-    project.epics[index].estimated = count;
+      project.epics[index].estimated = count;
+    }
   }
-}
-  else{
+  else {
     return;
   }
 }
