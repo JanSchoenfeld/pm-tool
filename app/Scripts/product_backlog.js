@@ -366,6 +366,7 @@ function saveBacklogItem() {
             if (item_assign_to_sprint === "") {
                 //Kein Sprint zugewiesen
                 project.backlogs[i].inSprint = null;
+                //TODO: Zweit Referenz löschen
 
             } else {
                 //Sprint zugewiesen
@@ -376,6 +377,7 @@ function saveBacklogItem() {
             if (item_assign_to_epic === "") {
                 //Kein Epic zugewiesen
                 project.backlogs[i].inEpic = null;
+                //TODO: Zweit Referenz löschen
 
             } else {
                 //Epic zugewiesen
@@ -513,7 +515,6 @@ function saveSprint() {
             project.sprints[i].name = sprint_name;
             project.sprints[i].startdate = sprint_startdate;
             project.sprints[i].enddate = sprint_enddate;
-
             project.sprints[i].capacity = sprint_capacity;
 
         }
@@ -542,7 +543,7 @@ function deleteBacklog() {
             deleteTasksInBacklog(id);
             console.log("Delete Backlog Item mit Backlog ID " + id);
             delete project.backlogs[i];
-            //TODO: DELETE Referenz voom zu löschenden Backlog
+            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
         }
     }
 
@@ -565,7 +566,7 @@ function deleteBacklogsInEpic(epicId) {
             deleteTasksInBacklog(project.backlogs[i].backlogId);
             console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
             delete project.backlogs[i];
-            //TODO: DELETE Referenz voom zu löschenden Backlog
+            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
 
         }
     }
@@ -585,7 +586,7 @@ function deleteEpicCapture() {
             deleteBacklogsInEpic(id);
             console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
-            //TODO: DELETE Referenz vom zu löschenden Epic
+            //TODO: DELETE Zweit Referenz vom zu löschenden Epic
         }
     }
     //deleteBacklogsInEpic(id);
@@ -603,6 +604,7 @@ function deleteSprint() {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
             console.log("Delete Sprint ID " + id);
+            //TODO: Zweit Referenz löschen?
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -625,7 +627,7 @@ function deleteTasksInBacklog(backlogId) {
             console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
             //delete project.tasks[i];
             project.tasks.splice(i, 1);
-            //TODO: DELETE Referenz vom zu löschenden Task
+            //TODO: DELETE Zweit Referenz vom zu löschenden Task
         }
     }
 
@@ -641,7 +643,7 @@ function deleteTask() {
         if (id === project.tasks[i].taskId) {
             console.log("Delete Task mit " + id);
             delete project.tasks[i];
-            //TODO: DELETE Referenz vom zu löschenden Task
+            //TODO: DELETE Zweit Referenz vom zu löschenden Task
         }
     }
 
@@ -695,6 +697,7 @@ function addTask() {
 
     } else {
         newTask.inBacklog = item_assign_to_backlog;
+        //TODO: Zweit Referenz setzen
     }
 
     if (item_assign_to_user === "") {
@@ -702,6 +705,7 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
+        //TODO: Zweit Referenz setzen
     }
     if (item_estimate_time === "") {
         alert("Please Select Effort");
@@ -787,8 +791,6 @@ function displayEditTask(i) {
     }
 
 
-    //TODO: LUC: Status Select dynamisch Füllen
-
     $("#modal_edit_task").modal("show");
 }
 
@@ -820,13 +822,16 @@ function saveTask() {
 
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                //TODO: Zweit Referenz setzen
             }
 
             if (item_assign_to_user === "") {
                 project.tasks[i].assignedTo = null;
+                //TODO: Zweit Referenz setzen
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
+                //TODO: Zweit Referenz setzen
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
