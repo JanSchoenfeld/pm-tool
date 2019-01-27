@@ -7,6 +7,7 @@ class Project {
         this.projectId = uuidv4();
         this.title = title;
         this.description = description;
+        this.projectEstimate = null;
         this.epics = [];
         this.backlogs = [];
         this.assignedUsers = [];
