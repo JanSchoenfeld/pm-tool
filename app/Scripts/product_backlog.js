@@ -488,7 +488,6 @@ function addSprint() {
     syncProjects();
     reload();
     closeAddSprint();
-    displayEditSprint(project.sprints.length - 1);
 }
 
 function displayEditSprint(s) {
@@ -503,10 +502,10 @@ function displayEditSprint(s) {
 }
 
 function saveSprint() {
-    let sprint_name = document.getElementById("s_name").value;
-    let sprint_startdate = document.getElementById("s_startdate").value;
-    let sprint_enddate = document.getElementById("s_enddate").value;
-    let sprint_capacity = document.getElementById("s_capacity").value;
+    let sprint_name = document.getElementById("edit_s_name").value;
+    let sprint_startdate = document.getElementById("edit_s_startdate").value;
+    let sprint_enddate = document.getElementById("edit_s_enddate").value;
+    let sprint_capacity = document.getElementById("edit_s_capacity").value;
     let sprint_id = document.getElementById("edit_s_item_id").value;
 
     for (let i = 0; i < project.sprints.length; i++) {
@@ -668,6 +667,12 @@ function displayAddTask() {
         let id = project.backlogs[i].backlogId;
         selectBacklog.options[selectBacklog.options.length] = new Option("Backlog: " + project.backlogs[i].title, id);
     }
+    let selectStatus = document.getElementById("t_item_status");
+    $("#t_item_status").empty();
+    selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do", true, true);
+    selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+    selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+
     //TODO: LUC: Status Select dynamisch Füllen
     closeChooseItem();
     $("#modal_add_task").modal("show");
@@ -679,9 +684,11 @@ function addTask() {
     let item_estimate_time = document.getElementById("t_item_estimate_time").value;
     let item_assign_to_backlog = document.getElementById("t_item_assign_to_backlog").value;
     let item_assign_to_user = document.getElementById("t_item_assign_to_user").value;
+    let selectStatus = document.getElementById("t_item_status").value;
 
 
     let newTask = new Task(item_name, item_description, item_estimate_time);
+    newTask.status = selectStatus;
     if (item_assign_to_backlog === "") {
         alert("Please Select Backlog");
         return;
@@ -760,6 +767,25 @@ function displayEditTask(i) {
             selectUser.options[selectUser.options.length] = new Option("User: " + project.assignedUsers[i].name, id);
         }
     }
+    //document.getElementById("edit_t_item_status").value = project.tasks[i].status;
+    let selectStatus = document.getElementById("edit_t_item_status");
+    $("#edit_t_item_status").empty();
+    if (project.tasks[i].status === "to do") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do", true, true);
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+    }
+    if (project.tasks[i].status === "in progress") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do");
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress", true, true);
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+    }
+    if (project.tasks[i].status === "done") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do");
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done", true, true);
+    }
+
 
     //TODO: LUC: Status Select dynamisch Füllen
 
@@ -773,16 +799,20 @@ function saveTask() {
     let item_assign_to_backlog = document.getElementById("edit_t_item_assign_to_backlog").value;
     let item_assign_to_user = document.getElementById("edit_t_item_assign_to_user").value;
     let item_id = document.getElementById("edit_t_item_id").value;
+    let item_status = document.getElementById("edit_t_item_status").value;
 
-    console.log("Backlog " + item_assign_to_backlog);
-    console.log("User " + item_assign_to_user);
-    for (let i = 0; i < project.backlogs.length; i++) {
+    //console.log("Item ID " + item_id);
+    //console.log("Backlog " + item_assign_to_backlog);
+    //console.log("User " + item_assign_to_user);
+    for (let i = 0; i < project.tasks.length; i++) {
+        //console.log("Item suchen an position" + i + " mit ID " + project.tasks[i].taskId);
 
-        if (project.tasks[i].taskId === item_id) {
+        if (project.tasks[i].taskId == item_id) {
             console.log("Item gefunden");
             project.tasks[i].title = item_name;
             project.tasks[i].description = item_description;
             project.tasks[i].effort = item_estimate_time;
+            project.tasks[i].status = item_status;
             if (item_assign_to_backlog === "") {
                 //project.tasks[i].inBacklog = null;
                 alert("Please Select Backlog");
