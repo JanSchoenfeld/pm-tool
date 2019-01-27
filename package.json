@@ -4,19 +4,22 @@
   "version": "1.0.0",
   "description": "Electron application for a scrumorienented planning tool",
   "main": "app.js",
-  "repository": "",
-  "author": "Jan Beautyfield",
+  "repository": "https://github.com/JanSchoenfeld/pm-tool/",
+  "author": "Jan Schönfeld",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "^4.0.0",
+    "electron-packager": "^13.0.1"
+  },
   "scripts": {
     "start": "electron .",
     "test": "electron . --enable-logging",
-    "start-mac": "/Applications/Electron.app/Contents/MacOS/Electron ."
-  },
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+},
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
     "chart.js": "^2.7.3",
-    "electron": "^4.0.0",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
@@ -26,6 +29,12 @@
     "globals": [
       "$"
     ]
+  },
+  "build" : {
+    "appId" : "de.jnschnfld.pm-tool",
+    "mac" : {
+      "category" : "Project-Planning"
+    }
   },
   "bugs": {
     "url": "https://github.com/JanSchoenfeld/pm-tool/issues"

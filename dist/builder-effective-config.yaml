@@ -1,0 +1,7 @@
+directories:
+  output: dist
+  buildResources: build
+appId: de.jnschnfld.pm-tool
+mac:
+  category: Project-Planning
+electronVersion: 4.0.0
