@@ -5,9 +5,12 @@ const {
     remote,
     ipcRenderer
 } = require('electron');
+
+//TODO: Maybe Copy References, i have an error by require sprint, because its somewhere already declared
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 const Task = require('../app/Models/task');
+//const Sprint = require('../app/Models/sprint');
 
 let PROJECTS;
 let project;
@@ -240,6 +243,14 @@ function listTasksOfBacklog(backlogId) {
     }
 
 }
+
+function syncProjects() {
+
+    ipcRenderer.send("PROJECTS", PROJECTS);
+
+}
+
+//TODO: Copy all the following Methods from this to your js
 
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
@@ -532,7 +543,6 @@ function closeEditSprint() {
     $("#modal_edit_sprint").modal("hide");
 }
 
-
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id").value;
     console.log("Delete Backlogs ID " + id);
@@ -552,8 +562,6 @@ function deleteBacklog() {
     syncProjects();
     reload();
 }
-
-
 
 function deleteBacklogsInEpic(epicId) {
     console.log("Delete Backlogs in Epic ID " + epicId);
@@ -853,25 +861,4 @@ function closeEditTask() {
     $("#modal_edit_task").modal("hide");
 }
 
-function syncProjects() {
-
-    ipcRenderer.send("PROJECTS", PROJECTS);
-
-}
-//https://discuss.atom.io/t/how-to-set-global-variable-of-main-process/24833/11
-
-//=========================================================================================================
-//Code
-/*
-var data = {}
-data.okay = []
-for (i = 0; i < 26; i++) {
-  var obj = {
-    id: i,
-    square: i * i
-  }
-  data.okay.push(obj)
-}
-
-
-*/
+//Copy to this

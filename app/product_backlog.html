@@ -48,19 +48,19 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="planning_poker.html">Planning Poker <i class="fas fa-chalkboard-teacher"></i></a>
-          </li>          
+          </li>
+          <!-- TODO: You have to copy from this !-->
+          <li class="nav-item">
+            <a class="nav-link" onclick="displayChooseItem()">Add <i class="far fa-plus-square"></i></a>
+          </li>
+          <!-- You have to copy to this !-->
         </ul>
       </div>
     </nav>
   </header>
 
+<!--TODO:  You have to copy from this !-->
 <div class="container-fluid" id="modal">
-
-  <button id="btn_displayChooseItem" onclick="displayChooseItem()" type="button" class="btn btn-info btn-lg" >Choose Item to add</button>
-  <!--
-  <button id="btn_editBacklogItem" onclick="displayEditBacklogItem()" type="button" class="btn btn-info btn-lg" >Edit Backlog Item</button>
-  <button id="btn_editEpicCapture" onclick="displayEditEpicCapture()" type="button" class="btn btn-info btn-lg" >Edit Epic Capture</button>
--->
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_chooseItem">
     <div class="modal-dialog" role="document">
@@ -364,7 +364,6 @@
     </div>
   </div>
 
-
   <div class="modal" tabindex="-1" role="dialog" id="modal_edit_task">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -410,10 +409,7 @@
     </div>
   </div>
 </div>
-
-
-
-
+<!-- You have to copy to this !-->
 
 
   <div class="container-fluid" id="div_backlog">
