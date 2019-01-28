@@ -9,32 +9,36 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^4.0.0",
-    "electron-packager": "^13.0.1"
+    "electron-packager": "^13.0.1",
+    "electron-builder": "next"
   },
   "scripts": {
     "start": "electron .",
     "test": "electron . --enable-logging",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
-},
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
     "chart.js": "^2.7.3",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
-    "tether": "^1.4.0"
+    "tether": "^1.4.0",
+    "uuid": "^3.3.2"
   },
   "standard": {
     "globals": [
       "$"
     ]
   },
-  "build" : {
-    "appId" : "de.jnschnfld.pm-tool",
-    "mac" : {
-      "category" : "Project-Planning"
-    }
+  "build": {
+    "appId": "de.jnschnfld.pm-tool",
+    "mac": {
+      "category": "Project-Planning"
+    },
+    "files" : ["app/**", "data/**", "*.*"]
   },
   "bugs": {
     "url": "https://github.com/JanSchoenfeld/pm-tool/issues"
