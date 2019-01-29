@@ -1,8 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const {
-    BrowserWindow,
-    remote,
     ipcRenderer
 } = require('electron');
 
@@ -250,7 +248,7 @@ function syncProjects() {
 
 }
 
-//TODO: Copy all the following Methods from this to your js
+//Copy all the following Methods from this to your js
 
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
