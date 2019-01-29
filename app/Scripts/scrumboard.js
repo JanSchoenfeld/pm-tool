@@ -379,11 +379,6 @@ function reload() {
 
 }
 
-function syncProjects() {
-
-    ipcRenderer.send("PROJECTS", PROJECTS);
-
-}
 
 
 function displayChooseItem() {
