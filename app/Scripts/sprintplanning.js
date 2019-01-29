@@ -38,7 +38,7 @@ function siteContent() {
 
     var leftPanelGroup = document.createElement('div');
     leftPanelGroup.className = 'panel-group';
-
+    leftCol.appendChild(leftPanelGroup);
     for (let i = 0; i < project.sprints.length; i++) {
         var panel = document.createElement('div');
         panel.className = 'sprintContent';
@@ -59,27 +59,17 @@ function siteContent() {
         var progressbar = document.createElement('div');
         progressbar.className = 'progress-bar progress-bar-striped bg-success progress-bar-animated';
         progressbar.setAttribute('role', 'progressbar');
-        var progress = 0
-        for (let j = 0; j < project.backlogs.length; j++) {
-            if ( project.sprints[i].backlogs != null && project.sprints[i].backlogs.includes(project.backlogs[j].backlogId)) {
-                progress += project.backlogs[j].estimated;
-            }
-        }
+        progressbar.id = "progressBar" + i;
+        progressbarWrapper.appendChild(progressbar);
+        var progress = progressBarWidth(i);
+
+
+        /*
         progressbar.setAttribute('aria-valuenow', progress.toString());
         progressbar.setAttribute('aria-valuemin', "0");
         progressbar.setAttribute('aria-valuemax', project.sprints[i].capacity.toString());
+        */
 
-
-        progressbar.style.width = ((progress / project.sprints[i].capacity) * 100) + "%";
-
-        if (((progress / project.sprints[i].capacity) * 100) >= 18) {
-            progressbar.appendChild(document.createTextNode("Der Sprint ist zu " + ((progress / project.sprints[i].capacity) * 100) + "% voll"));
-        }
-        else {
-            progressbar.appendChild(document.createTextNode(((progress / project.sprints[i].capacity) * 100) + '%'));
-        }
-
-        progressbarWrapper.appendChild(progressbar);
 
 
         var panelBody = document.createElement('div');
@@ -183,7 +173,7 @@ function siteContent() {
     panel.appendChild(panelHead);
 
     var panelBody = document.createElement('div');
-   
+
     panelBody.className = 'panel-body';
     panel.appendChild(panelBody);
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -267,57 +257,92 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
+    console.log(ev.dataTransfer.data);
 }
 
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    let targetSprintIndex = ev.target.id;
     if (ev.target.id != '') {
-        if(data.length > 1)
-        {
-            var backlogIndex = data.substring(data.length - (data.length-1), data.length);
+        if (targetSprintIndex == 'backlog') {
+            if (data.length > 1) {
+                var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
+            }
+            else {
+                var backlogIndex = data;
+            }
         }
-        else{
+        else {
+            if (data.length > 1) {
+            var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
+        }
+        else {
             var backlogIndex = data;
         }
-        
-        let sprintIndex = data.substring(data.length - (data.length),data.length-(data.length-1))
-        let targetSprintIndex = ev.target.id;
+        }
+        let sprintIndex = data.substring(data.length - (data.length), data.length - (data.length - 1))
+
 
         if (targetSprintIndex != 'backlog') {
-            console.log(backlogIndex);
-            console.log(project.backlogs[backlogIndex].backlogId)
+            console.log(document.getElementById(data));
             project.sprints[targetSprintIndex].backlogs.push(project.backlogs[backlogIndex].backlogId);
             project.backlogs[backlogIndex].inSprint = project.sprints[targetSprintIndex].sprintId;
-
-            ev.target.appendChild(document.getElementById(data));     
             syncProjects();
         }
         else {
-            let del; 
+            let del;
             for (let i = 0; i < project.sprints[sprintIndex].backlogs.length; i++) {
-                console.log("BacklogID Sprint: " + project.sprints[sprintIndex].backlogs[i])
-                console.log("BacklogID Backlog: " + project.backlogs[backlogIndex].backlogId)
-                if(project.sprints[sprintIndex].backlogs[i] == project.backlogs[backlogIndex].backlogId)
-                {
+                if (project.sprints[sprintIndex].backlogs[i] == project.backlogs[backlogIndex].backlogId) {
+
                     project.backlogs[backlogIndex].inSprint = null;
                     del = i;
-                    ev.target.appendChild(document.getElementById(data));   
                     syncProjects();
                 }
             }
-            project.sprints[sprintIndex].backlogs.splice(del,1);
+            project.sprints[sprintIndex].backlogs.splice(del, 1);
             syncProjects();
             siteContent()
 
-                }
-        
+        }
+
     } else {
         alert('Not a valid target!')
     }
 
+    while (pageContent.firstChild) {
+        pageContent.removeChild(pageContent.firstChild);
+    }
+    siteContent();
 }
 function syncProjects() {
 
     ipcRenderer.send("PROJECTS", PROJECTS);
-  }
+}
+
+function progressBarWidth(SprintIndex, ) {
+    let progress = 0;
+
+    for (let j = 0; j < project.backlogs.length; j++) {
+        if (project.sprints[SprintIndex].backlogs != null && project.sprints[SprintIndex].backlogs.includes(project.backlogs[j].backlogId)) {
+            progress += project.backlogs[j].estimated;
+        }
+    }
+    progress = Math.round(((progress / project.sprints[SprintIndex].capacity) * 100));
+    let progressbar = document.getElementById(("progressBar" + SprintIndex));
+    if (progress >= 18) {
+        while (progressbar.firstChild) {
+            progressbar.removeChild(progressbar.firstChild);
+        }
+        progressbar.appendChild(document.createTextNode("Der Sprint ist zu " + progress + "% voll"));
+    }
+    else {
+        while (progressbar.firstChild) {
+            progressbar.removeChild(progressbar.firstChild);
+        }
+        progressbar.appendChild(document.createTextNode(progress + '%'));
+    }
+
+    progressbar.style.width = progress + "%";
+    return progress;
+}
