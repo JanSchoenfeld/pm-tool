@@ -12,7 +12,7 @@ const Task = require('../app/Models/task');
 
 let PROJECTS;
 let project;
-let POSITION = fs.readFileSync('data/global/POSITION.json');
+let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
 
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {

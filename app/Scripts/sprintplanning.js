@@ -9,7 +9,7 @@ const Task = require('../app/Models/task');
 const Sprint = require('../app/Models/sprint');
 let PROJECTS;
 let project;
-let POSITION = JSON.parse(fs.readFileSync('data/global/POSITION.json'));
+let POSITION = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json')));
 var pageContent = document.getElementById('sprintplanning');
 
 
