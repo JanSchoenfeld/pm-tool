@@ -235,7 +235,6 @@ function siteContent() {
             var editIcon = document.createElement('i');
             editIcon.className = "far fa-edit";
             actionDiv.appendChild(editIcon);
-            actionDiv.appendChild(deleteIcon);
         }
 
 
