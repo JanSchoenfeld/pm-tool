@@ -2,7 +2,7 @@
     const path = require('path')
     const {
         remote,
-        ipcRenderer
+        ipcRenderer,
     } = require('electron');
 
     //lad das globale array der projekte
@@ -49,13 +49,15 @@
 
     //Add new Project to DataStore
     function addProject() {
+        alert("Das neue Projekt wird nach Neustart der Anwendung angezeigt!")
         let item_name = document.getElementById("p_name").value;
         let item_description = document.getElementById("p_description").value;
         let newProject = new Project(item_name, item_description);
         console.log(newProject);
 
         //TODO: Jan: Hier Project anlegen, Objekt ist erstellt
-        //project.backlogs.push(tmpBLitem);
+        let json = JSON.stringify(newProject, null, '\t');
+        fs.writeFileSync(path.join(__dirname,'../data/') + newProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 
         syncProjects();
         closeAddProject();
@@ -64,7 +66,7 @@
 
     //Close Modal to add a Project
     function closeAddProject() {
-        document.getElementById("form_addPorject").reset();
+        document.getElementById("form_addProject").reset();
         $("#modal_add_project").modal('hide');
     }
 
