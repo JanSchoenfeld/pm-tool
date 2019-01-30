@@ -167,18 +167,9 @@ fs.writeFileSync('./data/' + testProject.title.replace(/\s+/g, '').toLowerCase()
 */
 let projects = [];
 
-function test() {
-
-    let deine_mudder = 'erfolgreich!';
-    console.log(`Test ${deine_mudder}`);
-
-}
-
 function run() {
 
-    test();
     loadProjects();
-    //console.log(global.PROJECTS.length);
     initGlobalsExchange();
 
 

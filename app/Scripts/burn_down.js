@@ -4,7 +4,6 @@ const path = require("path");
 const {
     ipcRenderer
 } = require("electron");
-
 let PROJECTS;
 let project;
 let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
@@ -53,5 +52,17 @@ function siteContent() {
             
         }
     }
-    
-    )}
+    )
+}
+
+function reload() {
+    location.reload();
+
+}
+
+function syncProjects() {
+
+    ipcRenderer.send("PROJECTS", PROJECTS);
+
+}
+

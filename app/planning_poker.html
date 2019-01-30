@@ -48,8 +48,66 @@
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="planning_poker.html">Planning Poker <i class="fas fa-chalkboard-teacher"></i></a>
-          </li>          
+          </li>
         </ul>
       </div>
     </nav>
   </header>
+
+<div class="container-fluid" align="center">
+    <br><br>
+    <img src="./icons/card-game.png">
+    <br>
+  <button type="button" class="btn btn-success" onclick="startPoker()">Start Planning Poker</button>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal_planningPoker">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><b>Planning Poker</b></h5>
+                <button type="button" class="close" onclick="closePoker()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_planningPoker">
+                    <div class="form-group">
+                        <label for="edit_t_p_item_name">Name</label>
+                        <input readonly type="text" class="form-control" id="edit_t_p_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_t_p_item_description">Description</label>
+                        <input readonly type="text" class="form-control" id="edit_t_p_item_description" placeholder="Description">
+                    </div>
+                    <label for="edit_t_p_item_assign_to_backlog">Assign to Backlog</label>
+                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_backlog">
+                    </select>
+                    <label for="edit_t_p_item_assign_to_user">Assign to User</label>
+                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_user">
+                    </select>
+                    <label for="edit_t_p_item_status">Status</label>
+                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_status">
+                    </select>
+                    <div class="form-group">
+                        <label for="edit_t_p_item_estimate_time">Effort</label>
+                        <input required type="number" class="form-control" id="edit_t_p_item_estimate_time" placeholder="Effort">
+                    </div>
+                    <input type="hidden" id="edit_t_p_item_id">
+                    <input type="hidden" id="edit_t_p_item_position">
+                    <br>
+                    <button type="button" onclick="saveTaskPoker()" class="btn-primary">Save</button>
+                    <button type="button" id="btn_previous" class="btn">Previous</button>
+                    <button type="button" id="btn_next" class="btn">Next</button>
+                    <button type="button" onclick="closePoker()" class="btn-secondary">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="renderer.js"></script>
+
+<script src="Scripts/planning_poker.js"></script>
+</body>
+</html>

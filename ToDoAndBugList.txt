@@ -1,0 +1,22 @@
+PM TODO:
+<<<<<<< HEAD
++ Tasks hinzuf�gen
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/scrum-board---marvin
+>>>>>>> origin/development_luc
++ Wahl zwischen Benutzer Rollen & demententsprechend Zugriffsbegränzung
++ Burn Down Chart
++ bei syncProjects() �nderungen in JsonFile �bernehmen
+
+BUGS:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
++ Wenn neuer Task hinzugefügt wird und im Scrumboard verschoben wird, kommt Fehlermeldung:"The Task you want to move is assigne(d) to another row".
++ Function benötigt zweit referenz aktualisierung: saveBacklog 4x, deleteBacklog 1x, deleteBacklogInEpic 1x, deleteSprint 1x, SaveTask 3x
+=======
+>>>>>>> origin/scrum-board---marvin
+>>>>>>> origin/development_luc

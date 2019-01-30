@@ -16,12 +16,8 @@
     "start": "electron .",
     "test": "electron . --enable-logging",
     "pack": "electron-builder --dir",
-<<<<<<< HEAD
-    "dist": "electron-builder"
-=======
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
->>>>>>> bc6f80d6e5fd9cb48867eb98057e191aed7edca0
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
@@ -41,12 +37,12 @@
     "appId": "de.jnschnfld.pm-tool",
     "mac": {
       "category": "Project-Planning"
-<<<<<<< HEAD
-    }
-=======
     },
-    "files" : ["app/**", "data/**", "*.*"]
->>>>>>> bc6f80d6e5fd9cb48867eb98057e191aed7edca0
+    "files": [
+      "app/**",
+      "data/**",
+      "*.*"
+    ]
   },
   "bugs": {
     "url": "https://github.com/JanSchoenfeld/pm-tool/issues"
