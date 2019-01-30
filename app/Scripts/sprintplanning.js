@@ -693,7 +693,6 @@ function deleteBacklog() {
             deleteTasksInBacklog(id);
             console.log("Delete Backlog Item mit Backlog ID " + id);
             delete project.backlogs[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
         }
     }
 
@@ -714,8 +713,6 @@ function deleteBacklogsInEpic(epicId) {
             deleteTasksInBacklog(project.backlogs[i].backlogId);
             console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
             delete project.backlogs[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
-
         }
     }
 
@@ -734,7 +731,6 @@ function deleteEpicCapture() {
             deleteBacklogsInEpic(id);
             console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Epic
         }
     }
     //deleteBacklogsInEpic(id);
@@ -752,7 +748,6 @@ function deleteSprint() {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
             console.log("Delete Sprint ID " + id);
-            //TODO: Zweit Referenz löschen
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -978,18 +973,15 @@ function saveTask() {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
                 //luc hat probiert
                 //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
-                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufpgen
             }
 
             if (item_assign_to_user === "") {
                 project.tasks[i].assignedTo = null;
-                //TODO: Zweit Referenz löschen
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
                 //luc hat probiert
                 // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
-                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufügen
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
