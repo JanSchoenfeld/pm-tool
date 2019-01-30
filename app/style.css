@@ -51,6 +51,7 @@ h3 {
   border-radius: 8px;
   text-align: center;
 }
+
 .sprintContent {
   width: 100%;
   height: auto;
@@ -77,7 +78,7 @@ h3 {
   text-align: left;
 }
 
-.alert-success{
+.alert-success {
   background: #017A74;
   color: white;
 }
@@ -97,64 +98,72 @@ h3 {
   position: absolute;
   top: 25%;
   left: 25%;
-  }
-  .btn-primary {
-    background-color: #017A74;
-  }
-  .btn:hover {
-    background-color: rgb(0, 97, 92);
-  }
-  /*========================================================*/
-  /*--------------------Fontawsom Icons---------------------*/
+}
 
-  /*Right icon setting*/
-  .fa-chevron-circle-right{
-    color: #017A74;
-    font-size: 20px;
-  }
-  .fa-chevron-circle-right:hover{
-    color: rgb(0, 97, 92);
-    cursor: pointer;
-  }
+.btn-primary {
+  background-color: #017A74;
+}
 
-  /*Left icon setting*/
-  .fa-chevron-circle-left{
-    color: #017A74;
-    font-size: 20px;
-  }
-  .fa-chevron-circle-left:hover{
-    color: rgb(0, 97, 92);
-    cursor: pointer;
-  }
+.btn:hover {
+  background-color: rgb(0, 97, 92);
+}
 
-  /*edit icon setting*/
-  .fa-edit{
-    color: #017A74;
-    padding: 3px;
-  }
-  .fa-edit:hover{
-    color: rgb(0, 97, 92);
-    cursor: pointer;
-  }
-  /*delte icon setting*/
-  .fa-trash-alt{
-    color: #017A74;
-    padding: 3px;
-  }
-  .fa-trash-alt:hover{
-    color: rgb(0, 97, 92);
-    cursor: pointer;
-  }
+/*========================================================*/
+/*--------------------Fontawsom Icons---------------------*/
 
-  /*Sprintplanning*/
+/*Right icon setting*/
+.fa-chevron-circle-right {
+  color: #017A74;
+  font-size: 20px;
+}
 
-  .leftCol{
-    height: 95vh; 
-    overflow-y: scroll;
+.fa-chevron-circle-right:hover {
+  color: rgb(0, 97, 92);
+  cursor: pointer;
+}
 
-  }
+/*Left icon setting*/
+.fa-chevron-circle-left {
+  color: #017A74;
+  font-size: 20px;
+}
 
-  /*Burn-Down-Chart*/
-  .bdChart{
-    height: 90vh
-  }
+.fa-chevron-circle-left:hover {
+  color: rgb(0, 97, 92);
+  cursor: pointer;
+}
+
+/*edit icon setting*/
+.fa-edit {
+  color: #017A74;
+  padding: 3px;
+}
+
+.fa-edit:hover {
+  color: rgb(0, 97, 92);
+  cursor: pointer;
+}
+
+/*delte icon setting*/
+.fa-trash-alt {
+  color: #017A74;
+  padding: 3px;
+}
+
+.fa-trash-alt:hover {
+  color: rgb(0, 97, 92);
+  cursor: pointer;
+}
+
+/*Sprintplanning*/
+
+.leftCol {
+  height: 95vh;
+  overflow-y: scroll;
+
+}
+
+/*Burn-Down-Chart*/
+.bdChart {
+  height: 90vh
+}

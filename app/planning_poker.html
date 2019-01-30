@@ -7,14 +7,15 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
   <title>SCRUM Tool</title>
   <script src="Models/sprint.js"></script>
 </head>
 
 <body>
-<!--
+  <!--
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
@@ -54,60 +55,62 @@
     </nav>
   </header>
 
-<div class="container-fluid" align="center">
+  <div class="container-fluid" align="center">
     <br><br>
     <img src="./icons/card-game.png">
     <br>
-  <button type="button" class="btn btn-success" onclick="startPoker()">Start Planning Poker</button>
-</div>
+    <button type="button" class="btn btn-success" onclick="startPoker()">Start Planning Poker</button>
+  </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modal_planningPoker">
+  <div class="modal" tabindex="-1" role="dialog" id="modal_planningPoker">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><b>Planning Poker</b></h5>
-                <button type="button" class="close" onclick="closePoker()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form_planningPoker">
-                    <div class="form-group">
-                        <label for="edit_t_p_item_name">Name</label>
-                        <input readonly type="text" class="form-control" id="edit_t_p_item_name" aria-describedby="item_name" placeholder="Enter Item Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_t_p_item_description">Description</label>
-                        <input readonly type="text" class="form-control" id="edit_t_p_item_description" placeholder="Description">
-                    </div>
-                    <label for="edit_t_p_item_assign_to_backlog">Assign to Backlog</label>
-                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_backlog">
-                    </select>
-                    <label for="edit_t_p_item_assign_to_user">Assign to User</label>
-                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_user">
-                    </select>
-                    <label for="edit_t_p_item_status">Status</label>
-                    <select readonly class="form-control form-control-sm" id="edit_t_p_item_status">
-                    </select>
-                    <div class="form-group">
-                        <label for="edit_t_p_item_estimate_time">Effort</label>
-                        <input required type="number" class="form-control" id="edit_t_p_item_estimate_time" placeholder="Effort">
-                    </div>
-                    <input type="hidden" id="edit_t_p_item_id">
-                    <input type="hidden" id="edit_t_p_item_position">
-                    <br>
-                    <button type="button" onclick="saveTaskPoker()" class="btn-primary">Save</button>
-                    <button type="button" id="btn_previous" class="btn">Previous</button>
-                    <button type="button" id="btn_next" class="btn">Next</button>
-                    <button type="button" onclick="closePoker()" class="btn-secondary">Close</button>
-                </form>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Planning Poker</b></h5>
+          <button type="button" class="close" onclick="closePoker()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <form id="form_planningPoker">
+            <div class="form-group">
+              <label for="edit_t_p_item_name">Name</label>
+              <input readonly type="text" class="form-control" id="edit_t_p_item_name" aria-describedby="item_name"
+                placeholder="Enter Item Name" required>
+            </div>
+            <div class="form-group">
+              <label for="edit_t_p_item_description">Description</label>
+              <input readonly type="text" class="form-control" id="edit_t_p_item_description" placeholder="Description">
+            </div>
+            <label for="edit_t_p_item_assign_to_backlog">Assign to Backlog</label>
+            <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_backlog">
+            </select>
+            <label for="edit_t_p_item_assign_to_user">Assign to User</label>
+            <select readonly class="form-control form-control-sm" id="edit_t_p_item_assign_to_user">
+            </select>
+            <label for="edit_t_p_item_status">Status</label>
+            <select readonly class="form-control form-control-sm" id="edit_t_p_item_status">
+            </select>
+            <div class="form-group">
+              <label for="edit_t_p_item_estimate_time">Effort</label>
+              <input required type="number" class="form-control" id="edit_t_p_item_estimate_time" placeholder="Effort">
+            </div>
+            <input type="hidden" id="edit_t_p_item_id">
+            <input type="hidden" id="edit_t_p_item_position">
+            <br>
+            <button type="button" onclick="saveTaskPoker()" class="btn-primary">Save</button>
+            <button type="button" id="btn_previous" class="btn">Previous</button>
+            <button type="button" id="btn_next" class="btn">Next</button>
+            <button type="button" onclick="closePoker()" class="btn-secondary">Close</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script src="renderer.js"></script>
+  <script src="renderer.js"></script>
 
-<script src="Scripts/planning_poker.js"></script>
+  <script src="Scripts/planning_poker.js"></script>
 </body>
+
 </html>

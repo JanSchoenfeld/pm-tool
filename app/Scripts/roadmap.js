@@ -17,6 +17,7 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 })
 
 ipcRenderer.send("reqPROJECTS");
+
 function reload() {
     location.reload();
 

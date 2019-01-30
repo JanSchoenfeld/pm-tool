@@ -11,11 +11,11 @@ class Sprint {
         this.capacity = capacity;
         this.backlogs = [];
 
-        this.addBacklog = function (newBacklog){
+        this.addBacklog = function (newBacklog) {
             newBacklog.inSprint = this.sprintId;
             this.backlogs.push(newBacklog.backlogId);
         }
-        
+
     }
 }
 

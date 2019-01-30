@@ -286,13 +286,12 @@ function siteContent() {
       if (data.length <= 3) {
         var taskID = data.substring(data.length - (data.length - 1), data.length);
         var dataRow = data.substring(data.length - data.length, (data.length - data.length) + 1)
-      }
-      else {
+      } else {
         var taskID = data.substring(data.length - (data.length - 2), data.length);
         var dataRow = data.substring(data.length - data.length, (data.length - data.length) + 2)
       }
-      
-      if (dataRow == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length)|| dataRow == ev.target.id.substring(ev.target.id.length - 2, ev.target.id.length)) {
+
+      if (dataRow == ev.target.id.substring(ev.target.id.length - 1, ev.target.id.length) || dataRow == ev.target.id.substring(ev.target.id.length - 2, ev.target.id.length)) {
 
 
         if (ev.target.id.startsWith('backlog')) {

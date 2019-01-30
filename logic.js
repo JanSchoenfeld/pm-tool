@@ -7,7 +7,8 @@ const EpicCapture = require('./app/Models/epic-capture');
 const fs = require('fs');
 const path = require('path');
 const {
-    remote, ipcMain
+    remote,
+    ipcMain
 } = require('electron');
 
 /*
@@ -180,22 +181,16 @@ function loadProjects() {
     fs.readdirSync(path.join(__dirname, '/data')).filter(fn => fn.endsWith('.json')).forEach(function (elem, idx) {
 
         // Load files from disk and load into global variable
-        
         projects.push(JSON.parse(fs.readFileSync(path.join(__dirname, '/data/') + elem)));
-        
-        /*
-        if(idx === fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).length-1){
-            ipcMain.send("loadProjects", projects);
-        }
-        */
+
     });
 }
 
 
-function initGlobalsExchange(){
+function initGlobalsExchange() {
 
     // setter for projects
-    ipcMain.on("PROJECTS", function(event, PROJECTS){
+    ipcMain.on("PROJECTS", function (event, PROJECTS) {
 
         projects = PROJECTS;
         console.log("SYNCED PROJECTS");
@@ -203,10 +198,10 @@ function initGlobalsExchange(){
     })
 
     // Getter for projects
-    ipcMain.on("reqPROJECTS", function(event){
+    ipcMain.on("reqPROJECTS", function (event) {
 
-       event.sender.send("reqPROJECTSRenderer", projects)
-        
+        event.sender.send("reqPROJECTSRenderer", projects)
+
     })
 }
 

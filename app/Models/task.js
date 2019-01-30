@@ -1,5 +1,3 @@
-const User = require('./user.js');
-const Status = require('./status.js')
 const uuidv4 = require('uuid/v4');
 
 
@@ -16,7 +14,7 @@ class Task {
         this.assignedTo = null;
         this.inBacklog = null;
 
-        this.addUser = function(newUser){
+        this.addUser = function (newUser) {
             newUser.assignedTasks.push(this.taskId);
             this.assignedTo.push(newUser.userId);
         }
@@ -26,4 +24,3 @@ class Task {
 }
 
 module.exports = Task;
-

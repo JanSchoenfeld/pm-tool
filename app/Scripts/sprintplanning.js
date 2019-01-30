@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const {
-    remote, ipcRenderer
+    remote,
+    ipcRenderer
 } = require('electron');
 
 let PROJECTS;
@@ -268,19 +269,15 @@ function drop(ev) {
         if (targetSprintIndex == 'backlog') {
             if (data.length > 1) {
                 var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
-            }
-            else {
+            } else {
                 var backlogIndex = data;
             }
-        }
-        else if (data.startsWith("backlog")) {
+        } else if (data.startsWith("backlog")) {
             var backlogIndex = data.split('-')[1];
-        }
-        else {
+        } else {
             if (data.length > 1) {
                 var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
-            }
-            else {
+            } else {
                 var backlogIndex = data;
             }
         }
@@ -300,12 +297,10 @@ function drop(ev) {
                 project.sprints[targetSprintIndex].backlogs.push(project.backlogs[backlogIndex].backlogId);
                 project.backlogs[backlogIndex].inSprint = project.sprints[targetSprintIndex].sprintId;
                 syncProjects();
-            }
-            else {
+            } else {
                 alert("Die Maximal Kapazität wurde überschritten \n")
             }
-        }
-        else {
+        } else {
             let del;
             for (let i = 0; i < project.sprints[sprintIndex].backlogs.length; i++) {
                 if (project.sprints[sprintIndex].backlogs[i] == project.backlogs[backlogIndex].backlogId) {
@@ -330,10 +325,11 @@ function drop(ev) {
     }
     siteContent();
 }
+
 function syncProjects() {
 
     ipcRenderer.send("PROJECTS", PROJECTS);
-  }
+}
 
 
 function progressBarWidth(SprintIndex, ) {
@@ -354,8 +350,7 @@ function progressBarWidth(SprintIndex, ) {
             progressbar.removeChild(progressbar.firstChild);
         }
         progressbar.appendChild(document.createTextNode("Der Sprint ist zu " + progress + "% voll"));
-    }
-    else {
+    } else {
         while (progressbar.firstChild) {
             progressbar.removeChild(progressbar.firstChild);
         }
@@ -365,9 +360,6 @@ function progressBarWidth(SprintIndex, ) {
     progressbar.style.width = progress + "%";
     return progress;
 }
-
-
-
 
 function reload() {
     location.reload();

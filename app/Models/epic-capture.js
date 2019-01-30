@@ -1,11 +1,6 @@
-const Priority = require('./priority');
-const Status = require('./status');
 const uuidv4 = require('uuid/v4');
 
-
-class EpicCapture{
-
-
+class EpicCapture {
 
     constructor(title, description, epic_priority) {
         this.epicId = uuidv4();
@@ -17,11 +12,11 @@ class EpicCapture{
         this.estimated = null;
         this.backlogs = [];
 
-        this.addBacklog = function (newBacklog){
+        this.addBacklog = function (newBacklog) {
             newBacklog.inEpic = this.epicId;
             this.backlogs.push(newBacklog.backlogId);
         }
-        
+
     }
 }
 

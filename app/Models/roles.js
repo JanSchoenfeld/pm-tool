@@ -1,6 +1,3 @@
-
-
-
 class Roles {
 
     constructor(role) {

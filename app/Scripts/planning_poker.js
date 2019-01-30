@@ -17,7 +17,6 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
     PROJECTS = projects;
     project = PROJECTS[POSITION]
-    //listEpicCapturesWithBacklogs();
 })
 
 ipcRenderer.send("reqPROJECTS");
@@ -59,9 +58,7 @@ function displayPoker(i) {
     document.getElementById("edit_t_p_item_description").value = project.tasks[i].description;
     document.getElementById("edit_t_p_item_estimate_time").value = project.tasks[i].effort;
     document.getElementById("edit_t_p_item_id").value = project.tasks[i].taskId;
-    //document.getElementById("edit_t_item_assign_to_backlog").value = project.tasks[i].inBacklog;
     let selectedBacklog = project.tasks[i].inBacklog;
-    //document.getElementById("edit_t_item_assign_to_user").value = project.tasks[i].assignedTo;
     let selectedUser = project.tasks[i].assignedTo;
 
     let selectBacklog = document.getElementById("edit_t_p_item_assign_to_backlog");
@@ -88,7 +85,6 @@ function displayPoker(i) {
             selectUser.options[selectUser.options.length] = new Option("User: " + project.assignedUsers[i].name, id);
         }
     }
-    //document.getElementById("edit_t_item_status").value = project.tasks[i].status;
     let selectStatus = document.getElementById("edit_t_p_item_status");
     $("#edit_t_item_status").empty();
     if (project.tasks[i].status === "to do") {
@@ -128,16 +124,14 @@ function saveTaskPoker() {
     let item_id = document.getElementById("edit_t_p_item_id").value;
     let item_position = document.getElementById("edit_t_p_item_position").value;
 
-            if (item_estimate_time === "") {
-                alert("Please Select Effort");
-                return;
-            } else {
-                project.tasks[item_position].effort = parseInt(item_estimate_time);
-            }
+    if (item_estimate_time === "") {
+        alert("Please Select Effort");
+        return;
+    } else {
+        project.tasks[item_position].effort = parseInt(item_estimate_time);
+    }
 
     PROJECTS[POSITION] = project;
 
     syncProjects();
 }
-
-

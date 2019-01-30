@@ -3,8 +3,7 @@
 	"title": "Projektmanagement Tool",
 	"description": "Ein Tool für das agile Projektmanagement auf SCRUM Basis",
 	"projectEstimate": null,
-	"epics": [
-		{
+	"epics": [{
 			"epicId": "5616b1e3-5318-4de9-a8c9-58db88b23c40",
 			"createdAt": 1548181740657,
 			"title": "Product Backlog",
@@ -46,8 +45,7 @@
 			]
 		}
 	],
-	"backlogs": [
-		{
+	"backlogs": [{
 			"backlogId": "4c3e1a55-facd-48aa-a32e-fcaeedd80401",
 			"createdAt": 1548181740656,
 			"title": "Backlog Liste",
@@ -212,8 +210,7 @@
 			"inEpic": null
 		}
 	],
-	"assignedUsers": [
-		{
+	"assignedUsers": [{
 			"userId": "69a9961c-913b-40d4-b6dc-ac95fbbdd903",
 			"createdAd": 1548181740656,
 			"name": "Marvin",
@@ -247,8 +244,7 @@
 			"assignedTasks": []
 		}
 	],
-	"sprints": [
-		{
+	"sprints": [{
 			"sprintId": "439d5580-8690-4f76-a3a6-10439303c294",
 			"createdAt": 1548181740657,
 			"name": "Sprint 1",
@@ -288,8 +284,7 @@
 			]
 		}
 	],
-	"tasks": [
-		{
+	"tasks": [{
 			"taskId": "413a13e8-f928-4458-822f-c5512e1f65b1",
 			"createdAt": 1548181740657,
 			"title": "Programmierung der Listenansicht",

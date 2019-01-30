@@ -9,7 +9,7 @@
     const Project = require('../app/Models/project');
 
     let PROJECTS;
-    ipcRenderer.on("reqPROJECTSRenderer", function(event, projects){
+    ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
         PROJECTS = projects;
 
@@ -27,7 +27,7 @@
             document.getElementsByClassName('start-menu')[0].insertBefore(button, document.getElementById('startNew'));
         });
     })
-        
+
     ipcRenderer.send("reqPROJECTS");
 
     function syncProjects() {
@@ -55,9 +55,8 @@
         let newProject = new Project(item_name, item_description);
         console.log(newProject);
 
-        //TODO: Jan: Hier Project anlegen, Objekt ist erstellt
         let json = JSON.stringify(newProject, null, '\t');
-        fs.writeFileSync(path.join(__dirname,'../data/') + newProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
+        fs.writeFileSync(path.join(__dirname, '../data/') + newProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 
         syncProjects();
         closeAddProject();
