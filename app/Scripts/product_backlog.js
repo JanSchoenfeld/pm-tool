@@ -357,8 +357,14 @@ function saveBacklogItem() {
             project.backlogs[i].estimated = item_estimate_time;
             if (item_assign_to_sprint === "") {
                 //Kein Sprint zugewiesen
-                project.backlogs[i].inSprint = null;
-                //TODO: Zweit Referenz löschen
+                if (project.backlogs[i].inSprint != null) {
+                    let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
+                    project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
+                    console.log("removed " + project.backlogs[i].backlogId + " from sprint");
+                    project.backlogs[i].inSprint = null;
+                } else {
+                    project.backlogs[i].inSprint = null;
+                }
 
             } else {
                 //Sprint zugewiesen
@@ -622,10 +628,10 @@ function deleteTasksInBacklog(backlogId) {
 
 function deleteTask() {
     let id = document.getElementById("edit_t_item_id").value;
-        for (let i = 0; i < project.tasks.length; i++) {
+    for (let i = 0; i < project.tasks.length; i++) {
         if (id === project.tasks[i].taskId) {
             console.log("Delete Task mit " + id);
-        //TODO: TESTEN LUC: DELETE Zweit Referenz vom zu löschenden Task - ich habs mal versucht
+            //TODO: TESTEN LUC: DELETE Zweit Referenz vom zu löschenden Task - ich habs mal versucht
             //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
             for (let b = 0; b < project.backlogs.length; b++) {
                 for (let t = 0; t < project.backlogs[b].length; t++) {
@@ -826,7 +832,7 @@ function saveTask() {
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
                 //luc hat probiert
-               // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
+                // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
                 //TODO: Alte zweitreferenzen löschen
             }
             if (item_estimate_time === "") {
