@@ -15,7 +15,6 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
     PROJECTS = projects;
     project = PROJECTS[POSITION]
     estimate = project.projectEstimate;
-    console.log(estimate)
     siteContent();
 })
 
