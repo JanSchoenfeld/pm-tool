@@ -319,6 +319,8 @@ function drop(ev) {
 function syncProjects() {
 
     ipcRenderer.send("PROJECTS", PROJECTS);
+    let json = JSON.stringify(project, null, '\t');
+    fs.writeFileSync(path.join(__dirname, '../data/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 }
 
 

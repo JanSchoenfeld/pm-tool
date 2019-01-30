@@ -21,7 +21,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
     title: config.productName,
-    show: false,
+    //show: false,
     webPreferences: {
       nodeIntegration: true,
       defaultEncoding: 'UTF-8'
