@@ -10,7 +10,7 @@ let project;
 let POSITION = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json')));
 var pageContent = document.getElementById('sprintplanning');
 
-
+//Test Änderung
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
