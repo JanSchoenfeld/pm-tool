@@ -133,14 +133,18 @@ function saveTaskPoker() {
                 return;
             } else {
                 project.tasks[item_position].effort = parseInt(item_estimate_time);
-                console.log("New Effort " + project.tasks[item_position].effort)
             }
 
     PROJECTS[POSITION] = project;
 
     syncProjects();
-    //reload();
 }
+
+
+
+
+
+
 
 
 function displayChooseItem() {
