@@ -123,14 +123,6 @@ function siteContent() {
                 description.appendChild(document.createTextNode(project.backlogs[j].description));
                 backlog.appendChild(description);
 
-                var priority = document.createElement('div')
-                var bold = document.createElement('b')
-                bold.className = 'font-weight-bold'
-                bold.appendChild(document.createTextNode("Priorität: "))
-                priority.appendChild(bold);
-                priority.appendChild(document.createTextNode(project.backlogs[j].priority));
-                backlog.appendChild(priority);
-
                 var estimated = document.createElement('div')
                 var bold = document.createElement('b')
                 bold.className = 'font-weight-bold'
@@ -146,10 +138,8 @@ function siteContent() {
                 editIcon.onclick = function () {
                     displayEditBacklogItem(i);
                 };
-                var deleteIcon = document.createElement('i');
-                deleteIcon.className = "far fa-trash-alt";
                 actionDiv.appendChild(editIcon);
-                actionDiv.appendChild(deleteIcon);
+
             }
 
 
