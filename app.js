@@ -13,7 +13,7 @@ const logic = require(path.join(__dirname, 'logic.js'))
 
 app.setName(config.productName)
 
-var mainWindow = null
+var mainWindow = null;
 
 app.on('ready', function () {
   if (!(fs.existsSync(os.homedir() + '/.pm-tool/'))) {
@@ -26,7 +26,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
     title: config.productName,
-    //show: false,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       defaultEncoding: 'UTF-8'
@@ -52,9 +52,9 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    //mainWindow.setMenu(null)
+    mainWindow.setMenu(null);
     mainWindow.maximize();
-    mainWindow.show()
+    mainWindow.show();
   })
 
   mainWindow.onbeforeunload = (e) => {
