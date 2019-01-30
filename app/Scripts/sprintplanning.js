@@ -413,6 +413,7 @@ function addBacklogItem() {
         tmpBLitem.inEpic = item_assign_to_epic;
         project.epics.find(x => x.epicId === item_assign_to_epic).backlogs.push(tmpBLitem.backlogId);
     }
+
     if (item_assign_to_sprint === "") {
         tmpBLitem.inSprint = null;
     } else {
@@ -420,10 +421,10 @@ function addBacklogItem() {
         project.sprints.find(x => x.sprintId === item_assign_to_sprint).backlogs.push(tmpBLitem.backlogId);
     }
 
-  
     project.backlogs.push(tmpBLitem);
-  
+
     PROJECTS[POSITION] = project;
+
     syncProjects();
     closeAddBacklogItem();
     reload();
@@ -437,11 +438,11 @@ function closeAddBacklogItem() {
 
 //Displays Modal to edit a Backlog Item, parameter is Array position
 function displayEditBacklogItem(i) {
-
     document.getElementById("form_edit_BacklogItem").reset();
     document.getElementById("edit_b_item_name").value = project.backlogs[i].title;
     document.getElementById("edit_b_item_description").value = project.backlogs[i].description;
     document.getElementById("edit_b_item_estimate_time").value = project.backlogs[i].estimated;
+    document.getElementById("edit_b_item_id").value = project.backlogs[i].backlogId;
     document.getElementById("edit_b_item_epicId").value = project.backlogs[i].inEpic;
     let selectedEpic = project.backlogs[i].inEpic;
     document.getElementById("edit_b_item_sprintId").value = project.backlogs[i].inSprint;
@@ -451,6 +452,7 @@ function displayEditBacklogItem(i) {
     selectSprint.options[selectSprint.options.length] = new Option("", "");
     for (let i = 0; i < project.sprints.length; i++) {
         let id = project.sprints[i].sprintId;
+
         if (selectedSprint === id) {
             selectSprint.options[selectSprint.options.length] = new Option("Sprint: " + project.sprints[i].name, id, false, true);
         } else {
@@ -462,6 +464,7 @@ function displayEditBacklogItem(i) {
     selectEpic.options[selectEpic.options.length] = new Option("", "");
     for (let i = 0; i < project.epics.length; i++) {
         let id = project.epics[i].epicId;
+
         if (selectedEpic === id) {
             selectEpic.options[selectEpic.options.length] = new Option("Epic: " + project.epics[i].title, id, false, true);
         } else {
@@ -497,6 +500,7 @@ function saveBacklogItem() {
                 } else {
                     project.backlogs[i].inSprint = null;
                 }
+
             } else {
                 //Sprint zugewiesen
                 if (project.backlogs[i].inSprint != null) {
@@ -510,6 +514,7 @@ function saveBacklogItem() {
                     project.sprints.find(x => x.sprintId === item_assign_to_sprint).backlogs.push(item_id);
                 }
             }
+
             if (item_assign_to_epic === "") {
                 if (project.backlogs[i].inEpic != null) {
                     let indexToRemove = project.epics.find(x => x.epicId === project.backlogs[i].inEpic).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
@@ -518,6 +523,7 @@ function saveBacklogItem() {
                 } else {
                     project.backlogs[i].inEpic = null;
                 }
+
             } else {
                 //Epic zugewiesen
                 //läuft
@@ -589,6 +595,7 @@ function saveEpicCapture() {
     let item_description = document.getElementById("edit_e_item_description").value;
     let item_estimate_time = document.getElementById("edit_e_item_estimate_time").value;
     let item_id = document.getElementById("edit_e_item_id").value;
+
     for (let i = 0; i < project.epics.length; i++) {
         if (project.epics[i].epicId == item_id) {
             project.epics[i].title = item_name;
@@ -597,10 +604,12 @@ function saveEpicCapture() {
             reload();
         }
     }
-    PROJECTS[POSITION] = project;  
+    PROJECTS[POSITION] = project;
+
     syncProjects();
     closeEditEpicCapture();
-  }
+}
+
 function closeEditEpicCapture() {
     document.getElementById("form_edit_epicCapture").reset();
     $("#modal_edit_epicCapture").modal("hide");
@@ -619,11 +628,11 @@ function closeAddSprint() {
 
 //Add new Sprint to Datastore
 function addSprint() {
-
     let sprint_name = document.getElementById("s_name").value;
     let sprint_startdate = document.getElementById("s_startdate").value;
     let sprint_enddate = document.getElementById("s_enddate").value;
     let sprint_capacity = document.getElementById("s_capacity").value;
+    let sprint1;
     sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
 
     project.sprints.push(sprint1);
@@ -652,6 +661,7 @@ function saveSprint() {
     let sprint_enddate = document.getElementById("edit_s_enddate").value;
     let sprint_capacity = document.getElementById("edit_s_capacity").value;
     let sprint_id = document.getElementById("edit_s_item_id").value;
+
     for (let i = 0; i < project.sprints.length; i++) {
         if (project.sprints[i].sprintId == sprint_id) {
             project.sprints[i].name = sprint_name;
@@ -895,11 +905,13 @@ function displayEditTask(i) {
     document.getElementById("edit_t_item_id").value = project.tasks[i].taskId;
     let selectedBacklog = project.tasks[i].inBacklog;
     let selectedUser = project.tasks[i].assignedTo;
+
     let selectBacklog = document.getElementById("edit_t_item_assign_to_backlog");
     $("#edit_t_item_assign_to_backlog").empty();
     selectBacklog.options[selectBacklog.options.length] = new Option("", "");
     for (let i = 0; i < project.backlogs.length; i++) {
         let id = project.backlogs[i].backlogId;
+
         if (selectedBacklog === id) {
             selectBacklog.options[selectBacklog.options.length] = new Option("Backlog: " + project.backlogs[i].title, id, false, true);
         } else {
@@ -911,6 +923,7 @@ function displayEditTask(i) {
     selectUser.options[selectUser.options.length] = new Option("", "");
     for (let i = 0; i < project.assignedUsers.length; i++) {
         let id = project.assignedUsers[i].userId;
+
         if (selectedUser === id) {
             selectUser.options[selectUser.options.length] = new Option("User: " + project.assignedUsers[i].name, id, false, true);
         } else {
@@ -960,6 +973,7 @@ function saveTask() {
             if (item_assign_to_backlog === "") {
                 alert("Please Select Backlog");
                 return;
+
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
                 //luc hat probiert
@@ -1008,14 +1022,17 @@ function listTasksOfBacklog(backlogId) {
             taskRow.onclick = function () {
                 displayEditTask(i);
             };
+
             let colTitle = document.createElement("td");
             let title = document.createTextNode(project.tasks[i].title);
             colTitle.appendChild(title);
             taskRow.appendChild(colTitle);
 
+
+            let colStatus = document.createElement("td");
+            let status = document.createTextNode(project.tasks[i].status);
             colStatus.appendChild(status);
             taskRow.appendChild(colStatus);
-
 
             let colEstimate = document.createElement("td");
             let estimate = document.createTextNode(project.tasks[i].effort);
