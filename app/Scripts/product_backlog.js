@@ -7,6 +7,7 @@ const {
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 const Task = require('../app/Models/task');
+const User = require('../app/Models/user');
 
 let PROJECTS;
 let project;
@@ -401,7 +402,7 @@ function addEpicCapture() {
     let item_name = document.getElementById("e_item_name").value;
     let item_description = document.getElementById("e_item_description").value;
     let item_estimate_time = document.getElementById("e_item_estimate_time").value;
-    let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
+    let epicCapture = new EpicCapture(item_name, item_description, "high");
 
     project.epics.push(epicCapture);
 
@@ -832,4 +833,28 @@ function saveTask() {
 function closeEditTask() {
     document.getElementById("form_edit_task").reset();
     $("#modal_edit_task").modal("hide");
+}
+
+function displayAddUser() {
+    document.getElementById("form_addUser").reset();
+    $("#modal_add_user").modal("show");
+}
+
+//Add new User to DataStore
+function addUser() {
+    let uName = document.getElementById("u_name").value;
+    let uRole = document.getElementById("u_role").value;
+    let newUser = new User(uName, uRole);
+
+    project.assignedUsers.push(newUser);
+
+    PROJECTS[POSITION] = project;
+
+    syncProjects();
+    closeAddUser();
+    reload();
+}
+
+function closeAddUser() {
+    $("#modal_add_user").modal('hide');
 }

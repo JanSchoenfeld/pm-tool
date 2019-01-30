@@ -55,7 +55,7 @@
     </nav>
   </header>
 
-  <!--You have to copy from this !-->
+
   <div class="container-fluid" id="modal">
 
     <div class="modal" tabindex="-1" role="dialog" id="modal_chooseItem">
@@ -72,6 +72,8 @@
             <button type="button" onclick="displayAddBacklogItem()" class="btn btn-primary">Backlog-Item</button>
             <button type="button" onclick="displayAddTask()" class="btn btn-primary">Task</button>
             <button type="button" onclick="displayAddSprint()" class="btn btn-primary">Sprint</button>
+            <button type="button" onclick="displayAddUser()" class="btn btn-primary">User</button>
+
           </div>
         </div>
       </div>
@@ -410,8 +412,41 @@
         </div>
       </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal_add_user">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Add User</b></h5>
+            <button type="button" class="close" onclick="closeAddUser()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form_addUser">
+              <div class="form-group">
+                <label for="u_name">Name</label>
+                <input type="text" class="form-control" id="u_name" aria-describedby="item_name" placeholder="Enter User Name"
+                       required>
+              </div>
+              <label for="u_role">Assign to a Role</label>
+              <select required class="form-control form-control-sm" id="u_role">
+                <option value="owner">Owner</option>
+                <option value="master">Master</option>
+                <option value="developer">Developer</option>
+              </select>
+              <br>
+              <button type="button" onclick="addUser()" class="btn-primary">Save</button>
+              <button type="button" onclick="closeAddUser()" class="btn-secondary">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
   </div>
-  <!-- You have to copy to this !-->
+
 
   <div class="container-fluid" id="div_backlog">
     <div align="center" posi>
