@@ -765,7 +765,7 @@ function displayEditTask(i) {
     $("#modal_edit_task").modal("show");
 }
 
-//TODO: Hier müssen noch Referenzen gesetzt werden
+
 function saveTask() {
     let item_name = document.getElementById("edit_t_item_name").value;
     let item_description = document.getElementById("edit_t_item_description").value;
@@ -788,18 +788,18 @@ function saveTask() {
 
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
-                let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
-                project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
-                project.backlogs[i].inSprint = item_assign_to_sprint;
-                project.sprints.find(x => x.sprintId === item_assign_to_sprint).backlogs.push(item_id);
-
+                //TODO: Hier müssen noch Referenzen gesetzt werden
+                //Nicht getetestet, war am probieren..
+                //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
             }
 
             if (item_assign_to_user === "") {
                 project.tasks[i].assignedTo = null;
+                //TODO: Hier müssen noch Referenzen gesetzt werden
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
+                //TODO: Hier müssen noch Referenzen gesetzt werden
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
