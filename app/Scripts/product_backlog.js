@@ -332,7 +332,6 @@ function saveBacklogItem() {
             if (item_assign_to_sprint === "") {
                 //Kein Sprint zugewiesen
                 if (project.backlogs[i].inSprint != null) {
-                    //läuft
                     let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
                     project.backlogs[i].inSprint = null;
@@ -343,7 +342,6 @@ function saveBacklogItem() {
             } else {
                 //Sprint zugewiesen
                 if (project.backlogs[i].inSprint != null) {
-                    //läuft
                     let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
                     project.backlogs[i].inSprint = item_assign_to_sprint;
@@ -365,7 +363,6 @@ function saveBacklogItem() {
 
             } else {
                 //Epic zugewiesen
-                //läuft
                 if (project.backlogs[i].inEpic != null) {
                     let indexToRemove = project.epics.find(x => x.epicId === project.backlogs[i].inEpic).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.epics.find(x => x.epicId === project.backlogs[i].inEpic).backlogs.splice(indexToRemove, 1);
@@ -524,15 +521,16 @@ function closeEditSprint() {
 
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id").value;
-    console.log("Delete Backlogs ID " + id);
 
     for (let i = 0; i < project.backlogs.length; i++) {
         if (id === project.backlogs[i].backlogId) {
-            console.log("deleteTasksinBacklog aufgerufen für Backlog ID" + id);
             deleteTasksInBacklog(id);
-            console.log("Delete Backlog Item mit Backlog ID " + id);
+            let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
+            project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
+
             delete project.backlogs[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
+
+
         }
     }
 
@@ -543,18 +541,13 @@ function deleteBacklog() {
 }
 
 function deleteBacklogsInEpic(epicId) {
-    console.log("Delete Backlogs in Epic ID " + epicId);
     let counter = project.backlogs.length;
-    //let toDelete = [];
     for (let i = 0; i < counter; i++) {
-        console.log("INFO: Backlog mit ID " + project.backlogs[i].backlogId + " is in Epic: " + project.backlogs[i].inEpic);
         if (epicId === project.backlogs[i].inEpic) {
-            console.log("delete Tasks in Backlog ID" + project.backlogs[i].backlogId);
             deleteTasksInBacklog(project.backlogs[i].backlogId);
-            console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
+            let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
+            project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
             delete project.backlogs[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
-
         }
     }
 
@@ -566,17 +559,12 @@ function deleteBacklogsInEpic(epicId) {
 
 function deleteEpicCapture() {
     let id = document.getElementById("edit_e_item_id").value;
-    console.log("Delete Epic ID " + id);
     for (let i = 0; i < project.epics.length; i++) {
         if (id === project.epics[i].epicId) {
-            console.log("Delete Backlogs in Epic mit ID " + project.backlogs[i].backlogId);
             deleteBacklogsInEpic(id);
-            console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Epic
         }
     }
-    //deleteBacklogsInEpic(id);
 
     PROJECTS[POSITION] = project;
 
@@ -590,8 +578,6 @@ function deleteSprint() {
     for (let i = 0; i < project.sprints.length; i++) {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
-            console.log("Delete Sprint ID " + id);
-            //TODO: Zweit Referenz löschen
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -609,9 +595,7 @@ function deleteSprint() {
 function deleteTasksInBacklog(backlogId) {
     for (let i = 0; i < project.tasks.length; i++) {
         if (backlogId === project.tasks[i].inBacklog) {
-            console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
             project.tasks.splice(i, 1);
-            //Hier müssen keine Referenzen gelöscht werden, da Backlog auch gellöscht wird
         }
     }
     PROJECTS[POSITION] = project;
@@ -626,12 +610,9 @@ function deleteTask() {
         if (id === project.tasks[i].taskId) {
             //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
             for (let b = 0; b < project.backlogs.length; b++) {
-                //console.log("backlog: " + b);
                 for (let t = 0; t < project.backlogs[b].taskIds.length; t++) {
-                    console.log("task: " + t);
                     if (project.backlogs[b].taskIds[t] === id) {
                         project.backlogs[b].taskIds.splice(t, 1);
-                        console.log("Spliced");
                     }
                 }
             }
@@ -695,8 +676,6 @@ function addTask() {
                 project.backlogs[i].taskIds.push(newTask.taskId);
             }
         }
-        //luc hat probiert
-        //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
     }
 
     if (item_assign_to_user === "") {
@@ -704,8 +683,6 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
-        //luc hat probiert
-        //project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
         for (let i = 0; i < project.assignedUsers.length; i++) {
             if (project.assignedUsers[i].userId === newTask.assignedTo) {
                 project.assignedUsers[i].assignedTasks.push(newTask.taskId);
@@ -719,10 +696,7 @@ function addTask() {
         newTask.effort = parseInt(item_estimate_time);
     }
 
-    console.log("The task was added! " + item_name + " " + item_description + " " + item_estimate_time);
     project.tasks.push(newTask);
-
-
     PROJECTS[POSITION] = project;
 
     syncProjects();
@@ -804,7 +778,6 @@ function saveTask() {
     for (let i = 0; i < project.tasks.length; i++) {
 
         if (project.tasks[i].taskId == item_id) {
-            console.log("Item gefunden");
             project.tasks[i].title = item_name;
             project.tasks[i].description = item_description;
             project.tasks[i].effort = item_estimate_time;
@@ -814,21 +787,33 @@ function saveTask() {
                 return;
 
             } else {
-                project.tasks[i].inBacklog = "" + item_assign_to_backlog;
-                //luc hat probiert
-                //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
-                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufpgen
+                //läuft?
+                //wenn inBacklog schon belegt ist, wird neuer wert zugewiesen und alte referenz gelöscht
+                if(project.tasks[i].inBacklog != null){
+                    let indexToRemove = project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.findIndex(x => x === project.tasks[i].taskId);
+                    project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.splice(indexToRemove, 1);
+                    project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                    project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                }else{
+                    project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                    project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                }
             }
 
             if (item_assign_to_user === "") {
-                project.tasks[i].assignedTo = null;
-                //TODO: Zweit Referenz löschen
+                //läuft?
+                if(project.tasks[i].assignedTo != null){
+                    let indexToRemove = project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.findIndex(x => x === project.tasks[i].assignedTo);
+                    project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.splice(indexToRemove, 1);
+                    project.tasks[i].assignedTo = null;
+                }else{
+                    project.tasks[i].assignedTo = null;
+                }
 
             } else {
+                //here
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
-                //luc hat probiert
-                // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
-                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufügen
+                project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.push(item_id);
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");

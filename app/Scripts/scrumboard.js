@@ -350,7 +350,7 @@ function syncProjects() {
 
 
 function calculateBacklogEffort(project) {
-  if (project.backlogs.length != 0) {
+  if (project.backlogs.length != 0 && project.tasks.length != 0) {
     project.backlogs.forEach(iterateArray);
 
     function iterateArray(value, index, array) {
