@@ -26,7 +26,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     backgroundColor: 'lightgray',
     title: config.productName,
-    //show: false,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       defaultEncoding: 'UTF-8'
@@ -52,7 +52,7 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    //mainWindow.setMenu(null)
+    mainWindow.setMenu(null);
     mainWindow.maximize();
     mainWindow.show()
   })
