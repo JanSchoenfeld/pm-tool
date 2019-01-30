@@ -345,11 +345,8 @@ function siteContent() {
 function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
-<<<<<<< HEAD
   let json = JSON.stringify(project, null, '\t');
   fs.writeFileSync(path.join(require('os').homedir() + '/.pm-tool/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
-=======
->>>>>>> origin/development_luc
 }
 
 
