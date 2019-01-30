@@ -4,7 +4,6 @@ const {
     ipcRenderer
 } = require('electron');
 
-//TODO: Maybe Copy References, i have an error by require sprint, because its somewhere already declared
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 const Task = require('../app/Models/task');
@@ -24,24 +23,12 @@ ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
 
 ipcRenderer.send("reqPROJECTS");
 
-/*
-ipcRenderer.on("loadProjects", function (event, projects) {
-    //PROJECTS = projects;
-    project = PROJECTS[POSITION];
-    console.log("got projects");
-
-
-})
-*/
-
-//HTML parent <table> ID
-var table = document.getElementById("productbacklog_table");
 
 function reload() {
     location.reload();
 
 }
-
+//Lists Site Content
 function listEpicCapturesWithBacklogs() {
     //$("#productbacklog_table").tbody.empty();
     //calculateEpicEffort(project);
@@ -199,17 +186,10 @@ function listEpicCapturesWithBacklogs() {
     }
 }
 
+//Lists Tasks of Backlog Item
 function listTasksOfBacklog(backlogId) {
     let taskTable = document.getElementById("task_table_body");
     taskTable.innerHTML = "";
-
-    /*
-    let columnRow = document.createElement("tr");
-    columnRow.appendChild(document.createTextNode("Title"));
-    columnRow.appendChild(document.createTextNode("Effort"));
-    columnRow.appendChild(document.createTextNode("Status"));
-    taskTable.appendChild(columnRow);
-    */
 
     for (let i = 0; i < project.tasks.length; i++) {
 
@@ -250,15 +230,18 @@ function syncProjects() {
 
 //Copy all the following Methods from this to your js
 
+//Displays Modal with Option to Add a Epic, Backlog, Task or Sprint
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
 
 }
 
+//Closed the Modal
 function closeChooseItem() {
     $("#modal_chooseItem").modal("hide");
 }
 
+//Displays Modal to add a Backlog Item
 function displayAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     let selectSprint = document.getElementById("b_item_assign_to_sprint");
@@ -279,14 +262,13 @@ function displayAddBacklogItem() {
     $("#modal_add_backlogItem").modal("show");
 }
 
+//Add new Backlog Item to DataStore
 function addBacklogItem() {
     let item_name = document.getElementById("b_item_name").value;
     let item_description = document.getElementById("b_item_description").value;
     let item_estimate_time = document.getElementById("b_item_estimate_time").value;
     let item_assign_to_sprint = document.getElementById("b_item_assign_to_sprint").value;
     let item_assign_to_epic = document.getElementById("b_item_assign_to_epic").value;
-    //console.log("The backlog item was added! " + item_name + " " + item_description + " " + item_estimate_time);
-
     let tmpBLitem = new BacklogItem(item_name, item_description, item_estimate_time);
 
     if (item_assign_to_epic === "") {
@@ -313,11 +295,13 @@ function addBacklogItem() {
     reload();
 }
 
+//Close Modal to add a Backlog Item
 function closeAddBacklogItem() {
     document.getElementById("form_addBacklogItem").reset();
     $("#modal_add_backlogItem").modal('hide');
 }
 
+//Displays Modal to edit a Backlog Item, parameter is Array position
 function displayEditBacklogItem(i) {
     document.getElementById("form_edit_BacklogItem").reset();
     document.getElementById("edit_b_item_name").value = project.backlogs[i].title;
@@ -328,7 +312,6 @@ function displayEditBacklogItem(i) {
     let selectedEpic = project.backlogs[i].inEpic;
     document.getElementById("edit_b_item_sprintId").value = project.backlogs[i].inSprint;
     let selectedSprint = project.backlogs[i].inSprint;
-
     let selectSprint = document.getElementById("edit_b_item_assign_to_sprint");
     $("#edit_b_item_assign_to_sprint").empty();
     selectSprint.options[selectSprint.options.length] = new Option("", "");
@@ -353,11 +336,11 @@ function displayEditBacklogItem(i) {
             selectEpic.options[selectEpic.options.length] = new Option("Epic: " + project.epics[i].title, id);
         }
     }
-
     listTasksOfBacklog(project.backlogs[i].backlogId);
     $("#modal_edit_backlogItem").modal("show");
 }
 
+//Save edited backlog item to datastore
 function saveBacklogItem() {
     let item_name = document.getElementById("edit_b_item_name").value;
     let item_description = document.getElementById("edit_b_item_description").value;
@@ -398,27 +381,28 @@ function saveBacklogItem() {
     PROJECTS[POSITION] = project;
 
     syncProjects();
-    //listEpicCapturesWithBacklogs();
     reload();
     closeEditBacklogItem();
 }
 
+//Close Modal to edit a Backlog Item
 function closeEditBacklogItem() {
     document.getElementById("form_edit_BacklogItem").reset();
     $("#modal_edit_backlogItem").modal("hide");
 }
 
+//Displays Modal to add a Epic Capture
 function displayAddEpicCapture() {
     document.getElementById("form_addEpicCapture").reset();
     closeChooseItem();
     $("#modal_add_epicCapture").modal("show");
 }
 
+//Add new Epic Capture to DataStore
 function addEpicCapture() {
     let item_name = document.getElementById("e_item_name").value;
     let item_description = document.getElementById("e_item_description").value;
     let item_estimate_time = document.getElementById("e_item_estimate_time").value;
-
     let epicCapture = new EpicCapture(item_name, item_description, "high", "high", item_estimate_time);
 
     project.epics.push(epicCapture);
@@ -426,8 +410,6 @@ function addEpicCapture() {
     PROJECTS[POSITION] = project;
 
     syncProjects();
-
-
     closeAddEpicCapture();
     reload();
 }
@@ -446,6 +428,7 @@ function displayEditEpicCapture(i) {
     $("#modal_edit_epicCapture").modal("show");
 }
 
+//Save edited Epic Capture to Datastore
 function saveEpicCapture() {
     let item_name = document.getElementById("edit_e_item_name").value;
     let item_description = document.getElementById("edit_e_item_description").value;
@@ -482,13 +465,12 @@ function closeAddSprint() {
     $("#modal_add_sprint").modal("hide");
 }
 
+//Add new Sprint to Datastore
 function addSprint() {
     let sprint_name = document.getElementById("s_name").value;
     let sprint_startdate = document.getElementById("s_startdate").value;
     let sprint_enddate = document.getElementById("s_enddate").value;
     let sprint_capacity = document.getElementById("s_capacity").value;
-
-    console.log("The Sprint was added! " + sprint_name + " " + sprint_startdate + " " + sprint_enddate + " " + sprint_capacity);
     let sprint1;
     sprint1 = new Sprint(sprint_name, sprint_startdate, sprint_enddate, sprint_capacity);
 
@@ -511,7 +493,7 @@ function displayEditSprint(s) {
 
     $("#modal_edit_sprint").modal("show");
 }
-
+//Save edit Sprint to Datastore
 function saveSprint() {
     let sprint_name = document.getElementById("edit_s_name").value;
     let sprint_startdate = document.getElementById("edit_s_startdate").value;
@@ -525,7 +507,6 @@ function saveSprint() {
             project.sprints[i].startdate = sprint_startdate;
             project.sprints[i].enddate = sprint_enddate;
             project.sprints[i].capacity = sprint_capacity;
-
         }
     }
 
@@ -626,17 +607,13 @@ function deleteSprint() {
 }
 
 function deleteTasksInBacklog(backlogId) {
-    console.log("Methode deleteTaskinBacklog aufgerufen " + backlogId);
-
     for (let i = 0; i < project.tasks.length; i++) {
         if (backlogId === project.tasks[i].inBacklog) {
             console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
-            //delete project.tasks[i];
             project.tasks.splice(i, 1);
-            //TODO: DELETE Zweit Referenz vom zu löschenden Task
+            //Hier müssen keine Referenzen gelöscht werden, da Backlog auch gellöscht wird
         }
     }
-
     PROJECTS[POSITION] = project;
 
     syncProjects();
@@ -648,8 +625,16 @@ function deleteTask() {
         for (let i = 0; i < project.tasks.length; i++) {
         if (id === project.tasks[i].taskId) {
             console.log("Delete Task mit " + id);
+        //TODO: TESTEN LUC: DELETE Zweit Referenz vom zu löschenden Task - ich habs mal versucht
+            //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
+            for (let b = 0; b < project.backlogs.length; b++) {
+                for (let t = 0; t < project.backlogs[b].length; t++) {
+                    if (project.backlogs[b].tasks[t] === id) {
+                        project.backlogs[b].tasks.splice(t, 1);
+                    }
+                }
+            }
             delete project.tasks[i];
-            //TODO: DELETE Zweit Referenz vom zu löschenden Task
         }
     }
 
@@ -681,10 +666,10 @@ function displayAddTask() {
     selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
     selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
 
-    //TODO: LUC: Status Select dynamisch Füllen
     closeChooseItem();
     $("#modal_add_task").modal("show");
 }
+
 
 function addTask() {
     let item_name = document.getElementById("t_item_name").value;
@@ -703,7 +688,8 @@ function addTask() {
 
     } else {
         newTask.inBacklog = item_assign_to_backlog;
-        //TODO: Zweit Referenz setzen
+        //läuft
+        project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
     }
 
     if (item_assign_to_user === "") {
@@ -711,7 +697,8 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
-        //TODO: Zweit Referenz setzen
+        //läuft
+        project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
     }
     if (item_estimate_time === "") {
         alert("Please Select Effort");
@@ -800,6 +787,7 @@ function displayEditTask(i) {
     $("#modal_edit_task").modal("show");
 }
 
+
 function saveTask() {
     let item_name = document.getElementById("edit_t_item_name").value;
     let item_description = document.getElementById("edit_t_item_description").value;
@@ -809,11 +797,7 @@ function saveTask() {
     let item_id = document.getElementById("edit_t_item_id").value;
     let item_status = document.getElementById("edit_t_item_status").value;
 
-    //console.log("Item ID " + item_id);
-    //console.log("Backlog " + item_assign_to_backlog);
-    //console.log("User " + item_assign_to_user);
     for (let i = 0; i < project.tasks.length; i++) {
-        //console.log("Item suchen an position" + i + " mit ID " + project.tasks[i].taskId);
 
         if (project.tasks[i].taskId == item_id) {
             console.log("Item gefunden");
@@ -828,16 +812,20 @@ function saveTask() {
 
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
-                //TODO: Zweit Referenz setzen
+                //läuft
+                project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt"
             }
 
             if (item_assign_to_user === "") {
                 project.tasks[i].assignedTo = null;
-                //TODO: Zweit Referenz setzen
+                //TODO: Zweit Referenz löschen
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
-                //TODO: Zweit Referenz setzen
+                //läuft
+                project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
+                //TODO: Alte zweitreferenzen löschen
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
