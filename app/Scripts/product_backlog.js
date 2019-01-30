@@ -7,7 +7,6 @@ const {
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 const Task = require('../app/Models/task');
-//const Sprint = require('../app/Models/sprint');
 
 let PROJECTS;
 let project;
@@ -30,15 +29,11 @@ function reload() {
 }
 //Lists Site Content
 function listEpicCapturesWithBacklogs() {
-    //$("#productbacklog_table").tbody.empty();
-    //calculateEpicEffort(project);
     let epic;
     let backlogTable = document.getElementById("productbacklog_table");
 
-    //console.log("EpicCaptures Länge " + project.epics.length);
     for (let i = 0; i < project.epics.length; i++) {
         epic = project.epics[i];
-        //console.log("Epic " + epic.epicId + " on Position " + i);
         let backlog;
 
         let epicRow = document.createElement("tr");
@@ -51,13 +46,6 @@ function listEpicCapturesWithBacklogs() {
         let isEpic = document.createTextNode("EPIC");
         colIsEpic.appendChild(isEpic);
         epicRow.appendChild(colIsEpic);
-
-        /*
-        let colId = document.createElement("td");
-        let id = document.createTextNode(project.epics[i].epicId);
-        colId.appendChild(id);
-        epicRow.appendChild(colId);
-        */
 
         let colTitle = document.createElement("td");
         let title = document.createTextNode(project.epics[i].title);
@@ -97,13 +85,6 @@ function listEpicCapturesWithBacklogs() {
                 let isEpic = document.createTextNode("");
                 colIsEpic.appendChild(isEpic);
                 backlogRow.appendChild(colIsEpic);
-
-                /*
-                let colId = document.createElement("td");
-                let id = document.createTextNode(project.backlogs[b].backlogId);
-                colId.appendChild(id);
-                backlogRow.appendChild(colId);
-                */
 
                 let colTitle = document.createElement("td");
                 let title = document.createTextNode(project.backlogs[b].title);
@@ -148,13 +129,6 @@ function listEpicCapturesWithBacklogs() {
             let isEpic = document.createTextNode("BACKLOG");
             colIsEpic.appendChild(isEpic);
             backlogRow.appendChild(colIsEpic);
-
-            /*
-            let colId = document.createElement("td");
-            let id = document.createTextNode(project.backlogs[i].backlogId);
-            colId.appendChild(id);
-            backlogRow.appendChild(colId);
-            */
 
             let colTitle = document.createElement("td");
             let title = document.createTextNode(project.backlogs[i].title);
