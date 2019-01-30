@@ -345,14 +345,12 @@ function siteContent() {
 function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
-  let json = JSON.stringify(project, null, '\t');
-  fs.writeFileSync(path.join(__dirname, '../data/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 }
 
 
 
 function calculateBacklogEffort(project) {
-  if (project.backlogs.length != 0 && project.tasks.length != 0) {
+  if (project.backlogs.length != 0) {
     project.backlogs.forEach(iterateArray);
 
     function iterateArray(value, index, array) {
@@ -386,7 +384,6 @@ function calculateEpicEffort(project) {
   }
 }
 
-
 function calculateProjectEffort(project) {
   if (project.backlogs.length != 0) {
     let count = 0;
@@ -400,6 +397,54 @@ function calculateProjectEffort(project) {
     return;
   }
 }
+
+function deleteBacklogFromBoard(i) {
+
+    let id = project.backlogs[i].backlogId;
+    console.log("Delete Backlogs ID " + id);
+
+    for (let i = 0; i < project.backlogs.length; i++) {
+        if (id === project.backlogs[i].backlogId) {
+            console.log("deleteTasksinBacklog aufgerufen für Backlog ID" + id);
+            deleteTasksInBacklog(id);
+            console.log("Delete Backlog Item mit Backlog ID " + id);
+            delete project.backlogs[i];
+
+        }
+    }
+
+    PROJECTS[POSITION] = project;
+
+    syncProjects();
+    reload();
+}
+
+function deleteTaskfromBoard(i) {
+    let id = project.tasks[i].taskId;
+    for (let i = 0; i < project.tasks.length; i++) {
+        if (id === project.tasks[i].taskId) {
+            //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
+            for (let b = 0; b < project.backlogs.length; b++) {
+                //console.log("backlog: " + b);
+                for (let t = 0; t < project.backlogs[b].taskIds.length; t++) {
+                    console.log("task: " + t);
+                    if (project.backlogs[b].taskIds[t] === id) {
+                        project.backlogs[b].taskIds.splice(t, 1);
+                        console.log("Spliced");
+                    }
+                }
+            }
+            delete project.tasks[i];
+        }
+    }
+
+    PROJECTS[POSITION] = project;
+
+    syncProjects();
+    reload();
+}
+
+
 
 //Displays Modal with Option to Add a Epic, Backlog, Task or Sprint
 function displayChooseItem() {
@@ -984,7 +1029,6 @@ function saveTask() {
                 return;
 
             } else {
-
                 //wenn inBacklog schon belegt ist, wird neuer wert zugewiesen und alte referenz gelöscht
                 if(project.tasks[i].inBacklog != null){
                     let indexToRemove = project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.findIndex(x => x === project.tasks[i].taskId);
@@ -1029,39 +1073,4 @@ function saveTask() {
 function closeEditTask() {
     document.getElementById("form_edit_task").reset();
     $("#modal_edit_task").modal("hide");
-}
-//Lists Tasks of Backlog Item
-function listTasksOfBacklog(backlogId) {
-  let taskTable = document.getElementById("task_table_body");
-  taskTable.innerHTML = "";
-
-  for (let i = 0; i < project.tasks.length; i++) {
-
-    if (project.tasks[i].inBacklog === backlogId) {
-      let taskRow = document.createElement("tr");
-      taskRow.onclick = function () {
-        displayEditTask(i);
-      };
-
-      let colTitle = document.createElement("td");
-      let title = document.createTextNode(project.tasks[i].title);
-      colTitle.appendChild(title);
-      taskRow.appendChild(colTitle);
-
-
-      let colStatus = document.createElement("td");
-      let status = document.createTextNode(project.tasks[i].status);
-      colStatus.appendChild(status);
-      taskRow.appendChild(colStatus);
-
-      let colEstimate = document.createElement("td");
-      let estimate = document.createTextNode(project.tasks[i].effort);
-      colEstimate.appendChild(estimate);
-      taskRow.appendChild(colEstimate);
-
-
-      taskTable.appendChild(taskRow);
-    }
-  }
-
 }
