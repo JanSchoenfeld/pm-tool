@@ -21,11 +21,13 @@
             button.addEventListener('click', e => {
                 //schreibe die position des projektes auf platte in POSITION.json damit die später in
                 //scrumboard.js ausgelesen werden kann (hier mit umweg gelöst, das schwierigkeiten vorlagen)
-                fs.writeFileSync(path.join(__dirname, '../data/global/POSITION.json'), idx);
+                fs.writeFileSync(path.join(require("os").homedir() + '/.pm-tool/global/POSITION.json'), idx);
                 window.location.href = 'scrumboard.html';
             })
             document.getElementsByClassName('start-menu')[0].insertBefore(button, document.getElementById('startNew'));
         });
+
+        // TODO: Mock button for predefined project here
     })
 
     ipcRenderer.send("reqPROJECTS");
@@ -56,7 +58,7 @@
         console.log(newProject);
 
         let json = JSON.stringify(newProject, null, '\t');
-        fs.writeFileSync(path.join(__dirname, '../data/') + newProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
+        fs.writeFileSync(path.join(require('os').homedir() + "/.pm-tool/") + newProject.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 
         syncProjects();
         closeAddProject();

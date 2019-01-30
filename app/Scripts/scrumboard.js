@@ -10,7 +10,7 @@ const {
 
 let PROJECTS;
 let project;
-let POSITION = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json')));
+let POSITION = JSON.parse(fs.readFileSync(path.join(require('os').homedir() + '/.pm-tool/global/POSITION.json')));
 
 
 var sprintNumber = 0;
@@ -346,7 +346,7 @@ function syncProjects() {
 
   ipcRenderer.send("PROJECTS", PROJECTS);
   let json = JSON.stringify(project, null, '\t');
-  fs.writeFileSync(path.join(__dirname, '../data/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
+  fs.writeFileSync(path.join(require('os').homedir() + '/.pm-tool/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 }
 
 

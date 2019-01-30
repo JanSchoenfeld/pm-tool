@@ -5,6 +5,7 @@ const url = require('url')
 const path = require('path')
 const app = electron.app
 const globalShortcut = electron.globalShortcut
+const fs = require('fs')
 const os = require('os')
 const config = require(path.join(__dirname, 'package.json'))
 const BrowserWindow = electron.BrowserWindow
@@ -15,6 +16,10 @@ app.setName(config.productName)
 var mainWindow = null
 
 app.on('ready', function () {
+  if (!(fs.existsSync(os.homedir() + '/.pm-tool/'))) {
+    fs.mkdirSync(os.homedir() + '/.pm-tool/');
+    fs.mkdirSync(os.homedir() + '/.pm-tool/global');
+  }
 
   logic.run();
 
@@ -47,7 +52,7 @@ app.on('ready', function () {
   }
 
   mainWindow.once('ready-to-show', () => {
-    mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
     mainWindow.maximize();
     mainWindow.show()
   })

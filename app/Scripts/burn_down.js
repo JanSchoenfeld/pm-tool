@@ -7,7 +7,7 @@ const {
 
 let PROJECTS;
 let project;
-let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
+let POSITION = fs.readFileSync(path.join(require('os').homedir() + '/.pm-tool/global/POSITION.json'));
 let estimate;
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {

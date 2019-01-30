@@ -10,7 +10,7 @@ const Task = require('../app/Models/task');
 
 let PROJECTS;
 let project;
-let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
+let POSITION = fs.readFileSync(path.join(require('os').homedir() + '/.pm-tool/global/POSITION.json'));
 
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
@@ -200,7 +200,7 @@ function syncProjects() {
 
     ipcRenderer.send("PROJECTS", PROJECTS);
     let json = JSON.stringify(project, null, '\t');
-    fs.writeFileSync(path.join(__dirname, '../data/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
+    fs.writeFileSync(path.join(require('os').homedir() + '/.pm-tool/') + project.title.replace(/\s+/g, '').toLowerCase() + '.json', json, 'utf-8');
 }
 
 //Copy all the following Methods from this to your js
