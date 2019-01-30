@@ -234,6 +234,9 @@ function siteContent() {
             infoDiv.appendChild(actionDiv);
             var editIcon = document.createElement('i');
             editIcon.className = "far fa-edit";
+            editIcon.onclick = function () {
+                displayEditBacklogItem(i);
+            };
             actionDiv.appendChild(editIcon);
         }
 
