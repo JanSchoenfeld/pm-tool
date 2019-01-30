@@ -366,6 +366,41 @@ function syncProjects() {
 
 }
 
+function listTasksOfBacklog(backlogId) {
+    let taskTable = document.getElementById("task_table_body");
+    taskTable.innerHTML = "";
+
+    for (let i = 0; i < project.tasks.length; i++) {
+
+        if (project.tasks[i].inBacklog === backlogId) {
+            let taskRow = document.createElement("tr");
+            taskRow.onclick = function () {
+                displayEditTask(i);
+            };
+
+            let colTitle = document.createElement("td");
+            let title = document.createTextNode(project.tasks[i].title);
+            colTitle.appendChild(title);
+            taskRow.appendChild(colTitle);
+
+
+            let colStatus = document.createElement("td");
+            let status = document.createTextNode(project.tasks[i].status);
+            colStatus.appendChild(status);
+            taskRow.appendChild(colStatus);
+
+            let colEstimate = document.createElement("td");
+            let estimate = document.createTextNode(project.tasks[i].effort);
+            colEstimate.appendChild(estimate);
+            taskRow.appendChild(colEstimate);
+
+
+            taskTable.appendChild(taskRow);
+        }
+    }
+}
+
+
 //Displays Modal with Option to Add a Epic, Backlog, Task or Sprint
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
@@ -494,7 +529,6 @@ function saveBacklogItem() {
             if (item_assign_to_sprint === "") {
                 //Kein Sprint zugewiesen
                 if (project.backlogs[i].inSprint != null) {
-                    //läuft
                     let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
                     project.backlogs[i].inSprint = null;
@@ -505,7 +539,6 @@ function saveBacklogItem() {
             } else {
                 //Sprint zugewiesen
                 if (project.backlogs[i].inSprint != null) {
-                    //läuft
                     let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
                     project.backlogs[i].inSprint = item_assign_to_sprint;
@@ -527,7 +560,6 @@ function saveBacklogItem() {
 
             } else {
                 //Epic zugewiesen
-                //läuft
                 if (project.backlogs[i].inEpic != null) {
                     let indexToRemove = project.epics.find(x => x.epicId === project.backlogs[i].inEpic).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
                     project.epics.find(x => x.epicId === project.backlogs[i].inEpic).backlogs.splice(indexToRemove, 1);
@@ -690,7 +722,12 @@ function deleteBacklog() {
     for (let i = 0; i < project.backlogs.length; i++) {
         if (id === project.backlogs[i].backlogId) {
             deleteTasksInBacklog(id);
+            let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
+            project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
+
             delete project.backlogs[i];
+
+
         }
     }
 
@@ -702,10 +739,11 @@ function deleteBacklog() {
 
 function deleteBacklogsInEpic(epicId) {
     let counter = project.backlogs.length;
-    //let toDelete = [];
     for (let i = 0; i < counter; i++) {
         if (epicId === project.backlogs[i].inEpic) {
             deleteTasksInBacklog(project.backlogs[i].backlogId);
+            let indexToRemove = project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.findIndex(x => x === project.backlogs[i].backlogId);
+            project.sprints.find(x => x.sprintId === project.backlogs[i].inSprint).backlogs.splice(indexToRemove, 1);
             delete project.backlogs[i];
         }
     }
@@ -724,7 +762,6 @@ function deleteEpicCapture() {
             delete project.epics[i];
         }
     }
-    //deleteBacklogsInEpic(id);
 
     PROJECTS[POSITION] = project;
 
@@ -756,7 +793,6 @@ function deleteTasksInBacklog(backlogId) {
     for (let i = 0; i < project.tasks.length; i++) {
         if (backlogId === project.tasks[i].inBacklog) {
             project.tasks.splice(i, 1);
-            //Hier müssen keine Referenzen gelöscht werden, da Backlog auch gellöscht wird
         }
     }
     PROJECTS[POSITION] = project;
@@ -837,8 +873,6 @@ function addTask() {
                 project.backlogs[i].taskIds.push(newTask.taskId);
             }
         }
-        //luc hat probiert
-        //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
     }
 
     if (item_assign_to_user === "") {
@@ -846,8 +880,6 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
-        //luc hat probiert
-        //project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
         for (let i = 0; i < project.assignedUsers.length; i++) {
             if (project.assignedUsers[i].userId === newTask.assignedTo) {
                 project.assignedUsers[i].assignedTasks.push(newTask.taskId);
@@ -862,8 +894,6 @@ function addTask() {
     }
 
     project.tasks.push(newTask);
-
-
     PROJECTS[POSITION] = project;
 
     syncProjects();
@@ -954,14 +984,31 @@ function saveTask() {
                 return;
 
             } else {
-                project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                //wenn inBacklog schon belegt ist, wird neuer wert zugewiesen und alte referenz gelöscht
+                if(project.tasks[i].inBacklog != null){
+                    let indexToRemove = project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.findIndex(x => x === project.tasks[i].taskId);
+                    project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.splice(indexToRemove, 1);
+                    project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                    project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                }else{
+                    project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                    project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                }
             }
 
             if (item_assign_to_user === "") {
-                project.tasks[i].assignedTo = null;
+                if(project.tasks[i].assignedTo != null){
+                    let indexToRemove = project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.findIndex(x => x === project.tasks[i].assignedTo);
+                    project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.splice(indexToRemove, 1);
+                    project.tasks[i].assignedTo = null;
+                }else{
+                    project.tasks[i].assignedTo = null;
+                }
 
             } else {
+                //here
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
+                project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.push(item_id);
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
@@ -981,39 +1028,4 @@ function saveTask() {
 function closeEditTask() {
     document.getElementById("form_edit_task").reset();
     $("#modal_edit_task").modal("hide");
-}
-
-function listTasksOfBacklog(backlogId) {
-    let taskTable = document.getElementById("task_table_body");
-    taskTable.innerHTML = "";
-
-    for (let i = 0; i < project.tasks.length; i++) {
-
-        if (project.tasks[i].inBacklog === backlogId) {
-            let taskRow = document.createElement("tr");
-            taskRow.onclick = function () {
-                displayEditTask(i);
-            };
-
-            let colTitle = document.createElement("td");
-            let title = document.createTextNode(project.tasks[i].title);
-            colTitle.appendChild(title);
-            taskRow.appendChild(colTitle);
-
-
-            let colStatus = document.createElement("td");
-            let status = document.createTextNode(project.tasks[i].status);
-            colStatus.appendChild(status);
-            taskRow.appendChild(colStatus);
-
-            let colEstimate = document.createElement("td");
-            let estimate = document.createTextNode(project.tasks[i].effort);
-            colEstimate.appendChild(estimate);
-            taskRow.appendChild(colEstimate);
-
-
-            taskTable.appendChild(taskRow);
-        }
-    }
-
 }

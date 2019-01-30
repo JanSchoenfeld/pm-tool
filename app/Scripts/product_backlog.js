@@ -788,7 +788,6 @@ function saveTask() {
                 return;
 
             } else {
-                //läuft?
                 //wenn inBacklog schon belegt ist, wird neuer wert zugewiesen und alte referenz gelöscht
                 if(project.tasks[i].inBacklog != null){
                     let indexToRemove = project.backlogs.find(x => x.backlogId === project.tasks[i].inBacklog).taskIds.findIndex(x => x === project.tasks[i].taskId);
@@ -802,7 +801,6 @@ function saveTask() {
             }
 
             if (item_assign_to_user === "") {
-                //läuft?
                 if(project.tasks[i].assignedTo != null){
                     let indexToRemove = project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.findIndex(x => x === project.tasks[i].assignedTo);
                     project.assignedUsers.find(x => x.userId === project.tasks[i].assignedTo).assignedTasks.splice(indexToRemove, 1);
