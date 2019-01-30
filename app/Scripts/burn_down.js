@@ -43,9 +43,3 @@ function siteContent() {
         }
     })
 }
-
-function syncProjects() {
-
-    ipcRenderer.send("PROJECTS", PROJECTS);
-
-}
