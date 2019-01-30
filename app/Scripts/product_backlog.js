@@ -688,8 +688,9 @@ function addTask() {
 
     } else {
         newTask.inBacklog = item_assign_to_backlog;
-        //läuft
-        project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
+        //luc hat probiert
+        //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
+        //TODO: Zeit Referenz setzten
     }
 
     if (item_assign_to_user === "") {
@@ -697,8 +698,9 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
-        //läuft
-        project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
+        //luc hat probiert
+        //project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
+        //TODO: Zeit Referenz setzten
     }
     if (item_estimate_time === "") {
         alert("Please Select Effort");
@@ -812,8 +814,8 @@ function saveTask() {
 
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
-                //läuft
-                project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
+                //luc hat probiert
+                //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
                 //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt"
             }
 
@@ -823,8 +825,8 @@ function saveTask() {
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
-                //läuft
-                project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
+                //luc hat probiert
+               // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
                 //TODO: Alte zweitreferenzen löschen
             }
             if (item_estimate_time === "") {
