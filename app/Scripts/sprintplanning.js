@@ -214,14 +214,6 @@ function siteContent() {
             description.appendChild(document.createTextNode(project.backlogs[i].description));
             backlog.appendChild(description);
 
-            var priority = document.createElement('div')
-            var bold = document.createElement('b')
-            bold.className = 'font-weight-bold'
-            bold.appendChild(document.createTextNode("Priorität: "))
-            priority.appendChild(bold);
-            priority.appendChild(document.createTextNode(project.backlogs[i].priority));
-            backlog.appendChild(priority);
-
             var estimated = document.createElement('div')
             var bold = document.createElement('b')
             bold.className = 'font-weight-bold'
