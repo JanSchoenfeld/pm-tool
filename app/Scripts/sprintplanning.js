@@ -324,7 +324,7 @@ function syncProjects() {
 
     ipcRenderer.send("PROJECTS", PROJECTS);
   }
-}
+
 
 
 function reload() {
