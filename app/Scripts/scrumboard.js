@@ -139,8 +139,11 @@ function siteContent() {
           var deleteIcon = document.createElement('i');
           deleteIcon.className = "far fa-trash-alt";
           deleteIcon.onclick = function () {
-
-            deleteBacklogFromBoard(i);
+            if (confirm('Wollen Sie das Element wirklich löschen?')) {
+              deleteBacklogFromBoard(i);
+          } else {
+              // Do nothing!
+          }
           }
           //deleteIcon.addEventListener(function_here);
 
@@ -188,7 +191,12 @@ function siteContent() {
               var deleteIcon = document.createElement('i');
               deleteIcon.className = "far fa-trash-alt";
               deleteIcon.onclick = function () {
-                deleteTaskfromBoard(j);
+                if (confirm('Wollen Sie das Element wirklich löschen?')) {
+                  deleteTaskfromBoard(j);
+              } else {
+                  // Do nothing!
+              }
+                
             };
               //deleteIcon.addEventListener(function_here);
 
