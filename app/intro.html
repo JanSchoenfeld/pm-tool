@@ -14,9 +14,38 @@
 </head>
 <body>
     <div class="start-menu">
-        <button type="button"  id="startNew" class="btn btn-danger btn-lg btn-block">start new project!</button>
+        <button type="button"  id="startNew" onclick="displayAddProject()" class="btn btn-danger btn-lg btn-block">start new project!</button>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal_add_project">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Add Project</b></h5>
+                    <button type="button" class="close" onclick="closeAddProject()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_addProject">
+                        <div class="form-group">
+                            <label for="p_name">Name</label>
+                            <input type="text" class="form-control" id="p_name" placeholder="Enter Project Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p_description">Description</label>
+                            <input type="text" class="form-control" id="p_description" placeholder="Enter Project Description" required>
+                        </div>
+
+                        <br>
+                        <button type="button" onclick="addProject()" class="btn-primary">Save</button>
+                        <button type="button" onclick="closeAddProject()" class="btn-secondary">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+<script src="renderer.js"></script>
 <script src="Scripts/intro.js"></script>
 
 

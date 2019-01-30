@@ -6,7 +6,7 @@
     } = require('electron');
 
     //lad das globale array der projekte
-
+    const Project = require('../app/Models/project');
 
     let PROJECTS;
     ipcRenderer.on("reqPROJECTSRenderer", function(event, projects){
@@ -30,6 +30,45 @@
     })
         
     ipcRenderer.send("reqPROJECTS");
+
+    function syncProjects() {
+
+        ipcRenderer.send("PROJECTS", PROJECTS);
+
+    }
+
+    function reload() {
+        location.reload();
+
+    }
+
+    //Displays Modal to add a Project
+    function displayAddProject() {
+        document.getElementById("form_addProject").reset();
+        $("#modal_add_project").modal("show");
+    }
+
+    //Add new Project to DataStore
+    function addProject() {
+        let item_name = document.getElementById("p_name").value;
+        let item_description = document.getElementById("p_description").value;
+        let newProject = new Project(item_name, item_description);
+        console.log(newProject);
+
+        //TODO: Jan: Hier Project anlegen, Objekt ist erstellt
+        //project.backlogs.push(tmpBLitem);
+
+        syncProjects();
+        closeAddProject();
+        reload();
+    }
+
+    //Close Modal to add a Project
+    function closeAddProject() {
+        document.getElementById("form_addPorject").reset();
+        $("#modal_add_project").modal('hide');
+    }
+
 
     /*
     button.addEventListener('click', e => {
