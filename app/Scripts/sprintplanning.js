@@ -234,8 +234,6 @@ function siteContent() {
             infoDiv.appendChild(actionDiv);
             var editIcon = document.createElement('i');
             editIcon.className = "far fa-edit";
-            var deleteIcon = document.createElement('i');
-            deleteIcon.className = "far fa-trash-alt";
             actionDiv.appendChild(editIcon);
             actionDiv.appendChild(deleteIcon);
         }
