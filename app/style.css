@@ -153,3 +153,8 @@ h3 {
     overflow-y: scroll;
 
   }
+
+  /*Burn-Down-Chart*/
+  .bdChart{
+    height: 90vh
+  }

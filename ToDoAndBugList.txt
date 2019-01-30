@@ -4,12 +4,10 @@ PM TODO:
 =======
 <<<<<<< HEAD
 =======
-+ Tasks hinzuf�gen
 >>>>>>> origin/scrum-board---marvin
 >>>>>>> origin/development_luc
-+ "+" Button in Navbar? anstatt "Choose item to add"
 + Formular/Fenster zum erstellen eines neuen Projekts
-+ Effort Estimation
++ Wahl zwischen Benutzer Rollen & demententsprechend Zugriffsbegränzung
 + Burn Down Chart
 + bei syncProjects() �nderungen in JsonFile �bernehmen
 
@@ -18,6 +16,7 @@ BUGS:
 =======
 <<<<<<< HEAD
 + Wenn neuer Task hinzugefügt wird und im Scrumboard verschoben wird, kommt Fehlermeldung:"The Task you want to move is assigne(d) to another row".
++ Wenn neuer Task hinzugefügt wird und im Scrumboard verschoben wird, kommt Fehlermeldung "Cannot set property 'status' of undefined" in Zeile 297,301, 305
 =======
 >>>>>>> origin/scrum-board---marvin
 >>>>>>> origin/development_luc

@@ -1,4 +1,5 @@
     const fs = require('fs');
+    const path = require('path')
     const {
         remote,
         ipcRenderer
@@ -20,7 +21,8 @@
             button.addEventListener('click', e => {
                 //schreibe die position des projektes auf platte in POSITION.json damit die später in
                 //scrumboard.js ausgelesen werden kann (hier mit umweg gelöst, das schwierigkeiten vorlagen)
-                fs.writeFileSync('data/global/POSITION.json', idx);
+                console.log(__dirname);
+                fs.writeFileSync(path.join(__dirname, '../data/global/POSITION.json'), idx);
                 window.location.href = 'scrumboard.html';
             })
             document.getElementsByClassName('start-menu')[0].insertBefore(button, document.getElementById('startNew'));

@@ -1,17 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 const {
-    BrowserWindow,
-    remote,
     ipcRenderer
 } = require('electron');
+
+//TODO: Maybe Copy References, i have an error by require sprint, because its somewhere already declared
 const BacklogItem = require('../app/Models/backlog-item.js');
 const EpicCapture = require('../app/Models/epic-capture');
 const Task = require('../app/Models/task');
+//const Sprint = require('../app/Models/sprint');
 
 let PROJECTS;
 let project;
-let POSITION = fs.readFileSync('data/global/POSITION.json');
+let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
 
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
@@ -241,6 +242,14 @@ function listTasksOfBacklog(backlogId) {
 
 }
 
+function syncProjects() {
+
+    ipcRenderer.send("PROJECTS", PROJECTS);
+
+}
+
+//Copy all the following Methods from this to your js
+
 function displayChooseItem() {
     $("#modal_chooseItem").modal("show");
 
@@ -366,6 +375,7 @@ function saveBacklogItem() {
             if (item_assign_to_sprint === "") {
                 //Kein Sprint zugewiesen
                 project.backlogs[i].inSprint = null;
+                //TODO: Zweit Referenz löschen
 
             } else {
                 //Sprint zugewiesen
@@ -376,6 +386,7 @@ function saveBacklogItem() {
             if (item_assign_to_epic === "") {
                 //Kein Epic zugewiesen
                 project.backlogs[i].inEpic = null;
+                //TODO: Zweit Referenz löschen
 
             } else {
                 //Epic zugewiesen
@@ -488,7 +499,6 @@ function addSprint() {
     syncProjects();
     reload();
     closeAddSprint();
-    displayEditSprint(project.sprints.length - 1);
 }
 
 function displayEditSprint(s) {
@@ -503,10 +513,10 @@ function displayEditSprint(s) {
 }
 
 function saveSprint() {
-    let sprint_name = document.getElementById("s_name").value;
-    let sprint_startdate = document.getElementById("s_startdate").value;
-    let sprint_enddate = document.getElementById("s_enddate").value;
-    let sprint_capacity = document.getElementById("s_capacity").value;
+    let sprint_name = document.getElementById("edit_s_name").value;
+    let sprint_startdate = document.getElementById("edit_s_startdate").value;
+    let sprint_enddate = document.getElementById("edit_s_enddate").value;
+    let sprint_capacity = document.getElementById("edit_s_capacity").value;
     let sprint_id = document.getElementById("edit_s_item_id").value;
 
     for (let i = 0; i < project.sprints.length; i++) {
@@ -514,7 +524,6 @@ function saveSprint() {
             project.sprints[i].name = sprint_name;
             project.sprints[i].startdate = sprint_startdate;
             project.sprints[i].enddate = sprint_enddate;
-
             project.sprints[i].capacity = sprint_capacity;
 
         }
@@ -532,15 +541,17 @@ function closeEditSprint() {
     $("#modal_edit_sprint").modal("hide");
 }
 
-
 function deleteBacklog() {
     let id = document.getElementById("edit_b_item_id").value;
     console.log("Delete Backlogs ID " + id);
 
     for (let i = 0; i < project.backlogs.length; i++) {
         if (id === project.backlogs[i].backlogId) {
+            console.log("deleteTasksinBacklog aufgerufen für Backlog ID" + id);
             deleteTasksInBacklog(id);
+            console.log("Delete Backlog Item mit Backlog ID " + id);
             delete project.backlogs[i];
+            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
         }
     }
 
@@ -550,21 +561,19 @@ function deleteBacklog() {
     reload();
 }
 
-
-
 function deleteBacklogsInEpic(epicId) {
-    //TODO: Safe Delete
     console.log("Delete Backlogs in Epic ID " + epicId);
     let counter = project.backlogs.length;
     //let toDelete = [];
     for (let i = 0; i < counter; i++) {
         console.log("INFO: Backlog mit ID " + project.backlogs[i].backlogId + " is in Epic: " + project.backlogs[i].inEpic);
         if (epicId === project.backlogs[i].inEpic) {
+            console.log("delete Tasks in Backlog ID" + project.backlogs[i].backlogId);
             deleteTasksInBacklog(project.backlogs[i].backlogId);
-            //toDelete.append(project.backlogs[i].backlogId);
+            console.log("Delete Backlog Item mit Backlog ID " + project.backlogs[i].backlogId);
             delete project.backlogs[i];
-            //i = i - 2;
-            //counter = counter - 2;
+            //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
+
         }
     }
 
@@ -579,11 +588,14 @@ function deleteEpicCapture() {
     console.log("Delete Epic ID " + id);
     for (let i = 0; i < project.epics.length; i++) {
         if (id === project.epics[i].epicId) {
+            console.log("Delete Backlogs in Epic mit ID " + project.backlogs[i].backlogId);
             deleteBacklogsInEpic(id);
+            console.log("Delete Epic mit ID" + id);
             delete project.epics[i];
+            //TODO: DELETE Zweit Referenz vom zu löschenden Epic
         }
     }
-    deleteBacklogsInEpic(id);
+    //deleteBacklogsInEpic(id);
 
     PROJECTS[POSITION] = project;
 
@@ -593,10 +605,12 @@ function deleteEpicCapture() {
 
 function deleteSprint() {
     let id = document.getElementById("edit_s_item_id").value;
-    console.log("Delete Sprint ID " + id);
+
     for (let i = 0; i < project.sprints.length; i++) {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
+            console.log("Delete Sprint ID " + id);
+            //TODO: Zweit Referenz löschen?
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -612,11 +626,14 @@ function deleteSprint() {
 }
 
 function deleteTasksInBacklog(backlogId) {
-    console.log("Delete Task in Backlog ID " + backlogId);
+    console.log("Methode deleteTaskinBacklog aufgerufen " + backlogId);
 
     for (let i = 0; i < project.tasks.length; i++) {
         if (backlogId === project.tasks[i].inBacklog) {
-            delete project.tasks[i];
+            console.log("Delete Tasks mit ID" + project.tasks[i].taskId);
+            //delete project.tasks[i];
+            project.tasks.splice(i, 1);
+            //TODO: DELETE Zweit Referenz vom zu löschenden Task
         }
     }
 
@@ -628,10 +645,11 @@ function deleteTasksInBacklog(backlogId) {
 
 function deleteTask() {
     let id = document.getElementById("edit_t_item_id").value;
-    console.log("Delete Task " + id);
-    for (let i = 0; i < project.tasks.length; i++) {
+        for (let i = 0; i < project.tasks.length; i++) {
         if (id === project.tasks[i].taskId) {
+            console.log("Delete Task mit " + id);
             delete project.tasks[i];
+            //TODO: DELETE Zweit Referenz vom zu löschenden Task
         }
     }
 
@@ -657,6 +675,12 @@ function displayAddTask() {
         let id = project.backlogs[i].backlogId;
         selectBacklog.options[selectBacklog.options.length] = new Option("Backlog: " + project.backlogs[i].title, id);
     }
+    let selectStatus = document.getElementById("t_item_status");
+    $("#t_item_status").empty();
+    selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do", true, true);
+    selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+    selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+
     //TODO: LUC: Status Select dynamisch Füllen
     closeChooseItem();
     $("#modal_add_task").modal("show");
@@ -668,15 +692,18 @@ function addTask() {
     let item_estimate_time = document.getElementById("t_item_estimate_time").value;
     let item_assign_to_backlog = document.getElementById("t_item_assign_to_backlog").value;
     let item_assign_to_user = document.getElementById("t_item_assign_to_user").value;
+    let selectStatus = document.getElementById("t_item_status").value;
 
 
     let newTask = new Task(item_name, item_description, item_estimate_time);
+    newTask.status = selectStatus;
     if (item_assign_to_backlog === "") {
         alert("Please Select Backlog");
         return;
 
     } else {
         newTask.inBacklog = item_assign_to_backlog;
+        //TODO: Zweit Referenz setzen
     }
 
     if (item_assign_to_user === "") {
@@ -684,6 +711,7 @@ function addTask() {
 
     } else {
         newTask.assignedTo = item_assign_to_user;
+        //TODO: Zweit Referenz setzen
     }
     if (item_estimate_time === "") {
         alert("Please Select Effort");
@@ -749,8 +777,25 @@ function displayEditTask(i) {
             selectUser.options[selectUser.options.length] = new Option("User: " + project.assignedUsers[i].name, id);
         }
     }
+    //document.getElementById("edit_t_item_status").value = project.tasks[i].status;
+    let selectStatus = document.getElementById("edit_t_item_status");
+    $("#edit_t_item_status").empty();
+    if (project.tasks[i].status === "to do") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do", true, true);
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+    }
+    if (project.tasks[i].status === "in progress") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do");
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress", true, true);
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done");
+    }
+    if (project.tasks[i].status === "done") {
+        selectStatus.options[selectStatus.options.length] = new Option("To Do", "to do");
+        selectStatus.options[selectStatus.options.length] = new Option("In Progress", "in progress");
+        selectStatus.options[selectStatus.options.length] = new Option("Done", "done", true, true);
+    }
 
-    //TODO: LUC: Status Select dynamisch Füllen
 
     $("#modal_edit_task").modal("show");
 }
@@ -762,16 +807,20 @@ function saveTask() {
     let item_assign_to_backlog = document.getElementById("edit_t_item_assign_to_backlog").value;
     let item_assign_to_user = document.getElementById("edit_t_item_assign_to_user").value;
     let item_id = document.getElementById("edit_t_item_id").value;
+    let item_status = document.getElementById("edit_t_item_status").value;
 
-    console.log("Backlog " + item_assign_to_backlog);
-    console.log("User " + item_assign_to_user);
-    for (let i = 0; i < project.backlogs.length; i++) {
+    //console.log("Item ID " + item_id);
+    //console.log("Backlog " + item_assign_to_backlog);
+    //console.log("User " + item_assign_to_user);
+    for (let i = 0; i < project.tasks.length; i++) {
+        //console.log("Item suchen an position" + i + " mit ID " + project.tasks[i].taskId);
 
-        if (project.tasks[i].taskId === item_id) {
+        if (project.tasks[i].taskId == item_id) {
             console.log("Item gefunden");
             project.tasks[i].title = item_name;
             project.tasks[i].description = item_description;
             project.tasks[i].effort = item_estimate_time;
+            project.tasks[i].status = item_status;
             if (item_assign_to_backlog === "") {
                 //project.tasks[i].inBacklog = null;
                 alert("Please Select Backlog");
@@ -779,13 +828,16 @@ function saveTask() {
 
             } else {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
+                //TODO: Zweit Referenz setzen
             }
 
             if (item_assign_to_user === "") {
                 project.tasks[i].assignedTo = null;
+                //TODO: Zweit Referenz setzen
 
             } else {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
+                //TODO: Zweit Referenz setzen
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
@@ -807,25 +859,4 @@ function closeEditTask() {
     $("#modal_edit_task").modal("hide");
 }
 
-function syncProjects() {
-
-    ipcRenderer.send("PROJECTS", PROJECTS);
-
-}
-//https://discuss.atom.io/t/how-to-set-global-variable-of-main-process/24833/11
-
-//=========================================================================================================
-//Code
-/*
-var data = {}
-data.okay = []
-for (i = 0; i < 26; i++) {
-  var obj = {
-    id: i,
-    square: i * i
-  }
-  data.okay.push(obj)
-}
-
-
-*/
+//Copy to this
