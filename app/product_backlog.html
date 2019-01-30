@@ -49,11 +49,6 @@
           <li class="nav-item">
             <a class="nav-link" href="planning_poker.html">Planning Poker <i class="fas fa-chalkboard-teacher"></i></a>
           </li>
-          <!-- You have to copy from this !-->
-          <li class="nav-item">
-            <a class="nav-link" onclick="displayChooseItem()">Add <i class="far fa-plus-square"></i></a>
-          </li>
-          <!-- You have to copy to this !-->
         </ul>
       </div>
     </nav>
@@ -411,9 +406,11 @@
 </div>
 <!-- You have to copy to this !-->
 
-
   <div class="container-fluid" id="div_backlog">
-      <table class="table table-bordered table-hover" id="productbacklog_table">
+    <div align="center" posi>
+      <button type="button" class="btn btn-success" onclick="displayChooseItem()"><i class="far fa-plus-square fa-3x"></i></button>
+    </div>
+    <table class="table table-bordered table-hover" id="productbacklog_table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Category</th>
