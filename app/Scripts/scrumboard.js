@@ -139,7 +139,8 @@ function siteContent() {
           var deleteIcon = document.createElement('i');
           deleteIcon.className = "far fa-trash-alt";
           deleteIcon.onclick = function () {
-            displayEditBacklogItem(i);
+
+            deleteBacklogFromBoard(i);
           }
           //deleteIcon.addEventListener(function_here);
 
@@ -355,19 +356,13 @@ function calculateBacklogEffort(project) {
 function calculateEpicEffort(project) {
   if (project.epics.length != 0) {
     for (let i = 0; i < project.epics.length; i++) {
-      console.log(project.epics[i])
-      console.log("=====================")
       let count = 0;
-
       for (let j = 0; j < project.backlogs.length; j++) {
-        console.log(project.backlogs[j])
-        console.log(project.backlogs[j].estimated)
-        console.log("----------------------------------")
         if (project.epics[i].backlogs.includes(project.backlogs[j].backlogId))
           count += project.backlogs[j].estimated
       }
       project.epics[i].estimated = count;
-      console.log("////////////////////////////////////////")
+
     }
   }
   else {
@@ -708,6 +703,27 @@ function saveSprint() {
 function closeEditSprint() {
   document.getElementById("form_editSprint").reset();
   $("#modal_edit_sprint").modal("hide");
+}
+
+function deleteBacklogFromBoard(i) {
+ 
+  let id = project.backlogs[i].backlogId;
+  console.log("Delete Backlogs ID " + id);
+
+  for (let i = 0; i < project.backlogs.length; i++) {
+    if (id === project.backlogs[i].backlogId) {
+      console.log("deleteTasksinBacklog aufgerufen für Backlog ID" + id);
+      deleteTasksInBacklog(id);
+      console.log("Delete Backlog Item mit Backlog ID " + id);
+      delete project.backlogs[i];
+      //TODO: DELETE Zweit Referenz vom zu löschenden Backlog
+    }
+  }
+
+  PROJECTS[POSITION] = project;
+
+  syncProjects();
+  reload();
 }
 
 function deleteBacklog() {
