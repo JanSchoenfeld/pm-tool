@@ -5,6 +5,7 @@ const Sprint = require('./app/Models/sprint');
 const BacklogItem = require('./app/Models/backlog-item');
 const EpicCapture = require('./app/Models/epic-capture');
 const fs = require('fs');
+const path = require('path');
 const {
     remote, ipcMain
 } = require('electron');
@@ -185,11 +186,11 @@ function run() {
 
 function loadProjects() {
 
-    fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).forEach(function (elem, idx) {
+    fs.readdirSync(path.join(__dirname, '/data')).filter(fn => fn.endsWith('.json')).forEach(function (elem, idx) {
 
         // Load files from disk and load into global variable
         
-        projects.push(JSON.parse(fs.readFileSync('./data/' + elem)));
+        projects.push(JSON.parse(fs.readFileSync(path.join(__dirname, '/data/') + elem)));
         
         /*
         if(idx === fs.readdirSync('./data/').filter(fn => fn.endsWith('.json')).length-1){

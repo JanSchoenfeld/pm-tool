@@ -1,12 +1,13 @@
 const Chart = require("chart.js");
 const fs = require("fs");
+const path = require("path");
 const {
     ipcRenderer
 } = require("electron");
 
 let PROJECTS;
 let project;
-let POSITION = fs.readFileSync('data/global/POSITION.json');
+let POSITION = fs.readFileSync(path.join(__dirname, '../data/global/POSITION.json'));
 let estimate;
 
 ipcRenderer.on("reqPROJECTSRenderer", function (event, projects) {
