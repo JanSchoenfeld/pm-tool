@@ -49,8 +49,9 @@ function siteContent() {
 
         var panelHead = document.createElement('div');
         panelHead.className = 'alert alert-success';
-        var headline = document.createTextNode('Sprint: ' + project.sprints[i].name);
+        var headline = document.createTextNode('Sprint: ' + project.sprints[i].name + " ");
         var headlineWrapper = document.createElement('h5');
+        headlineWrapper.id = "headlineWrapper" + i;
         headlineWrapper.appendChild(headline);
         panelHead.appendChild(headlineWrapper);
         panel.appendChild(panelHead);
@@ -186,7 +187,7 @@ function siteContent() {
             var panelBodyContent = document.createElement('div');
             panelBodyContent.className = 'content contentLeft';
             panelBody.appendChild(panelBodyContent);
-            panelBodyContent.id = i;
+            panelBodyContent.id = "backlog-" + i;
             panelBodyContent.draggable = true;
             panelBodyContent.addEventListener('dragstart', drag);
             panelBodyContent.addEventListener('dragover', function () {
@@ -260,7 +261,6 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
-    console.log(ev.dataTransfer.data);
 }
 
 function drop(ev) {
@@ -276,22 +276,37 @@ function drop(ev) {
                 var backlogIndex = data;
             }
         }
+        else if (data.startsWith("backlog")) {
+            var backlogIndex = data.split('-')[1];
+        }
         else {
             if (data.length > 1) {
-            var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
-        }
-        else {
-            var backlogIndex = data;
-        }
+                var backlogIndex = data.substring(data.length - (data.length - 1), data.length);
+            }
+            else {
+                var backlogIndex = data;
+            }
         }
         let sprintIndex = data.substring(data.length - (data.length), data.length - (data.length - 1))
 
 
         if (targetSprintIndex != 'backlog') {
-            console.log(document.getElementById(data));
-            project.sprints[targetSprintIndex].backlogs.push(project.backlogs[backlogIndex].backlogId);
-            project.backlogs[backlogIndex].inSprint = project.sprints[targetSprintIndex].sprintId;
-            syncProjects();
+            let progress = 0;
+            for (let i = 0; i < project.backlogs.length; i++) {
+                if (project.sprints[targetSprintIndex].backlogs != null && project.sprints[targetSprintIndex].backlogs.includes(project.backlogs[i].backlogId)) {
+                    progress += project.backlogs[i].estimated;
+                }
+
+            }
+            if ((progress + project.backlogs[backlogIndex].estimated) <= project.sprints[targetSprintIndex].capacity) {
+
+                project.sprints[targetSprintIndex].backlogs.push(project.backlogs[backlogIndex].backlogId);
+                project.backlogs[backlogIndex].inSprint = project.sprints[targetSprintIndex].sprintId;
+                syncProjects();
+            }
+            else {
+                alert("Die Maximal Kapazität wurde überschritten \n")
+            }
         }
         else {
             let del;
@@ -331,6 +346,9 @@ function progressBarWidth(SprintIndex, ) {
             progress += project.backlogs[j].estimated;
         }
     }
+    var headlineWrapper = document.getElementById("headlineWrapper" + SprintIndex);
+    var headlineCapacity = document.createTextNode("(" + progress + "/" + project.sprints[SprintIndex].capacity + ")");
+    headlineWrapper.appendChild(headlineCapacity);
     progress = Math.round(((progress / project.sprints[SprintIndex].capacity) * 100));
     let progressbar = document.getElementById(("progressBar" + SprintIndex));
     if (progress >= 18) {
