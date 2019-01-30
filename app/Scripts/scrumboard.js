@@ -181,9 +181,15 @@ function siteContent() {
               //create action icons
               var editIcon = document.createElement('i');
               editIcon.className = "far fa-edit";
+              editIcon.onclick = function () {
+                displayEditTask(j);
+            };
               //editIcon.addEventListener(function_here);
               var deleteIcon = document.createElement('i');
               deleteIcon.className = "far fa-trash-alt";
+              deleteIcon.onclick = function () {
+                deleteTaskfromBoard(j);
+            };
               //deleteIcon.addEventListener(function_here);
 
               if (project.tasks[j].status == "to do") {
@@ -818,6 +824,30 @@ function deleteTasksInBacklog(backlogId) {
       //Hier müssen keine Referenzen gelöscht werden, da Backlog auch gellöscht wird
     }
   }
+  PROJECTS[POSITION] = project;
+
+  syncProjects();
+  reload();
+}
+function deleteTaskfromBoard(i) {
+  let id = project.tasks[i].taskId;
+  for (let i = 0; i < project.tasks.length; i++) {
+    if (id === project.tasks[i].taskId) {
+      //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
+      for (let b = 0; b < project.backlogs.length; b++) {
+        //console.log("backlog: " + b);
+        for (let t = 0; t < project.backlogs[b].taskIds.length; t++) {
+          console.log("task: " + t);
+          if (project.backlogs[b].taskIds[t] === id) {
+            project.backlogs[b].taskIds.splice(t, 1);
+            console.log("Spliced");
+          }
+        }
+      }
+      delete project.tasks[i];
+    }
+  }
+
   PROJECTS[POSITION] = project;
 
   syncProjects();
