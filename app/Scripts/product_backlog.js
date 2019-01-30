@@ -364,6 +364,7 @@ function saveBacklogItem() {
                 //Sprint zugewiesen
                 project.backlogs[i].inSprint = item_assign_to_sprint;
                 project.sprints.find(x => x.sprintId === item_assign_to_sprint).backlogs.push(item_id);
+                //TODO: Alt Referenz löschen
             }
 
             if (item_assign_to_epic === "") {
@@ -375,6 +376,7 @@ function saveBacklogItem() {
                 //Epic zugewiesen
                 project.backlogs[i].inEpic = item_assign_to_epic;
                 project.epics.find(x => x.epicId === item_assign_to_epic).backlogs.push(item_id);
+                //TODO: Alt Referenz löschen
             }
         }
     }
@@ -591,7 +593,7 @@ function deleteSprint() {
         if (id === project.sprints[i].sprintId) {
             delete project.sprints[i];
             console.log("Delete Sprint ID " + id);
-            //TODO: Zweit Referenz löschen?
+            //TODO: Zweit Referenz löschen
         }
     }
     for (let i = 0; i < project.backlogs.length; i++) {
@@ -624,13 +626,15 @@ function deleteTask() {
     let id = document.getElementById("edit_t_item_id").value;
         for (let i = 0; i < project.tasks.length; i++) {
         if (id === project.tasks[i].taskId) {
-            console.log("Delete Task mit " + id);
-        //TODO: TESTEN LUC: DELETE Zweit Referenz vom zu löschenden Task - ich habs mal versucht
+            //console.log("Delete Task mit " + id);
             //durchsuche alle tasks von allen Backlogs um die zweitreferenz zu löschen
             for (let b = 0; b < project.backlogs.length; b++) {
-                for (let t = 0; t < project.backlogs[b].length; t++) {
-                    if (project.backlogs[b].tasks[t] === id) {
-                        project.backlogs[b].tasks.splice(t, 1);
+                //console.log("backlog: " + b);
+                for (let t = 0; t < project.backlogs[b].taskIds.length; t++) {
+                    console.log("task: " + t);
+                    if (project.backlogs[b].taskIds[t] === id) {
+                        project.backlogs[b].taskIds.splice(t, 1);
+                        console.log("Spliced");
                     }
                 }
             }
@@ -688,9 +692,14 @@ function addTask() {
 
     } else {
         newTask.inBacklog = item_assign_to_backlog;
+
+        for (let i = 0; i < project.backlogs.length; i++) {
+            if (project.backlogs[i].backlogId === newTask.inBacklog) {
+                project.backlogs[i].taskIds.push(newTask.taskId);
+            }
+        }
         //luc hat probiert
         //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(newTask.taskId);
-        //TODO: Zeit Referenz setzten
     }
 
     if (item_assign_to_user === "") {
@@ -700,7 +709,11 @@ function addTask() {
         newTask.assignedTo = item_assign_to_user;
         //luc hat probiert
         //project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(newTask.taskId);
-        //TODO: Zeit Referenz setzten
+        for (let i = 0; i < project.assignedUsers.length; i++) {
+            if (project.assignedUsers[i].userId === newTask.assignedTo) {
+                project.assignedUsers[i].assignedTasks.push(newTask.taskId);
+            }
+        }
     }
     if (item_estimate_time === "") {
         alert("Please Select Effort");
@@ -711,12 +724,7 @@ function addTask() {
 
     console.log("The task was added! " + item_name + " " + item_description + " " + item_estimate_time);
     project.tasks.push(newTask);
-    //funktioniert
-    for (let i = 0; i < project.backlogs.length; i++) {
-        if (project.backlogs[i].backlogId === newTask.inBacklog) {
-            project.backlogs[i].taskIds.push(newTask.taskId);
-        }
-    }
+
 
     PROJECTS[POSITION] = project;
 
@@ -737,9 +745,7 @@ function displayEditTask(i) {
     document.getElementById("edit_t_item_description").value = project.tasks[i].description;
     document.getElementById("edit_t_item_estimate_time").value = project.tasks[i].effort;
     document.getElementById("edit_t_item_id").value = project.tasks[i].taskId;
-    //document.getElementById("edit_t_item_assign_to_backlog").value = project.tasks[i].inBacklog;
     let selectedBacklog = project.tasks[i].inBacklog;
-    //document.getElementById("edit_t_item_assign_to_user").value = project.tasks[i].assignedTo;
     let selectedUser = project.tasks[i].assignedTo;
 
     let selectBacklog = document.getElementById("edit_t_item_assign_to_backlog");
@@ -816,7 +822,7 @@ function saveTask() {
                 project.tasks[i].inBacklog = "" + item_assign_to_backlog;
                 //luc hat probiert
                 //project.backlogs.find(x => x.backlogId === item_assign_to_backlog).taskIds.push(item_id);
-                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt"
+                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufpgen
             }
 
             if (item_assign_to_user === "") {
@@ -827,7 +833,7 @@ function saveTask() {
                 project.tasks[i].assignedTo = "" + item_assign_to_user;
                 //luc hat probiert
                // project.user.find(x => x.userId === item_assign_to_user).assignedTasks.push(item_id);
-                //TODO: Alte zweitreferenzen löschen
+                //TODO: Alte zweitreferenzen löschen vom "abgewählten Obekt" und neue zweit referenz hinzufügen
             }
             if (item_estimate_time === "") {
                 alert("Please Select Effort");
